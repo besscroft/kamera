@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@nuxtjs/tailwindcss',
     'nuxt-swiper',
+    '@nuxtjs/device',
   ],
 
   experimental: {

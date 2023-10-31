@@ -28,8 +28,8 @@ const router = useRouter()
         <li><a @click="router.push('/about')">关于</a></li>
       </ul>
     </div>
-    <div class="navbar-end">
-      <a class="btn">Contact</a>
+    <div class="navbar-end flex items-center">
+      <DarkToggle />
     </div>
   </div>
 </template>
