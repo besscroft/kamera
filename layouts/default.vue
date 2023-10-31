@@ -1,6 +1,6 @@
 <template>
   <main>
     <Header />
-    <slot />
+    <slot class="scrollbar-hide" />
   </main>
 </template>

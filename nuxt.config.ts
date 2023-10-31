@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@vite-pwa/nuxt',
     '@nuxtjs/tailwindcss',
+    'nuxt-swiper',
   ],
 
   experimental: {

@@ -1,9 +1,13 @@
 <script setup lang="ts">
-
+definePageMeta({
+  layout: 'default',
+})
 </script>
 
 <template>
-  集邮
+  <div class="p-2">
+    集邮
+  </div>
 </template>
 
 <style scoped>

@@ -14,6 +14,7 @@ const router = useRouter()
           <li><a @click="router.push('/cosplay')">Cosplay</a></li>
           <li><a @click="router.push('/tietie')">集邮</a></li>
           <li><a @click="router.push('/timeline')">时光相册</a></li>
+          <li><a @click="router.push('/about')">关于</a></li>
         </ul>
       </div>
       <a class="btn btn-ghost normal-case text-xl" @click="router.push('/')">云淑故事集</a>
@@ -24,6 +25,7 @@ const router = useRouter()
         <li><a @click="router.push('/cosplay')">Cosplay</a></li>
         <li><a @click="router.push('/tietie')">集邮</a></li>
         <li><a @click="router.push('/timeline')">时光相册</a></li>
+        <li><a @click="router.push('/about')">关于</a></li>
       </ul>
     </div>
     <div class="navbar-end">

@@ -9,6 +9,7 @@ useHead({
 <template>
   <VitePwaManifest />
   <NuxtLayout>
+    <NuxtLoadingIndicator />
     <NuxtPage />
   </NuxtLayout>
 </template>
@@ -23,5 +24,15 @@ html, body , #__nuxt{
 html.dark {
   background: #222;
   color: white;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
 }
 </style>

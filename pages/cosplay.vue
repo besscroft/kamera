@@ -1,9 +1,13 @@
 <script setup lang="ts">
-
+definePageMeta({
+  layout: 'default',
+})
 </script>
 
 <template>
-  Cosplay
+  <div class="p-2">
+    Cosplay
+  </div>
 </template>
 
 <style scoped>
