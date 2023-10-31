@@ -4,14 +4,14 @@ const dataList = ref<Array<Object>>([
   {
     id: 1,
     rating: 4,
-    url: 'https://blog.besscroft.com/photos/2022/IMG_20180412_202141_HHT.jpg',
+    url: 'https://blog.besscroft.com/photos/IMG_20180412_202141_HHT.jpg',
     device: 'MI6',
     detail: '夜晚的武汉东湖',
   },
   {
     id: 2,
     rating: 4,
-    url: 'https://blog.besscroft.com/photos/2022/IMG_20180623_194042_HDR.jpeg',
+    url: 'https://blog.besscroft.com/photos/IMG_20180623_194042_HDR.jpg',
     device: 'MI6',
     detail: '夏天的机甲大圣'
   },
@@ -25,7 +25,7 @@ const dataList = ref<Array<Object>>([
   {
     id: 4,
     rating: 4,
-    url: 'https://blog.besscroft.com/photos/2021/IMG_0974.jpeg',
+    url: 'https://blog.besscroft.com/photos/2021/IMG_0974.JPG',
     device: 'iPhone 12',
     detail: '夜晚的闲林埠'
   },
