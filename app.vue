@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { appName } from '~/constants'
+import { darkTheme, NConfigProvider } from 'naive-ui'
+
+const color = useColorMode()
 
 useHead({
   title: appName,
@@ -10,7 +13,12 @@ useHead({
   <VitePwaManifest />
   <NuxtLayout>
     <NuxtLoadingIndicator />
-    <NuxtPage />
+    <NConfigProvider
+      class="w-full h-full"
+      :theme="color.value === 'dark' ? darkTheme : undefined"
+    >
+      <NuxtPage />
+    </NConfigProvider>
   </NuxtLayout>
 </template>
 

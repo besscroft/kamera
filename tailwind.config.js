@@ -10,8 +10,6 @@ export default {
   theme: {
   },
   plugins: [
-    require('daisyui'),
-    require('tailwind-scrollbar-hide'),
   ],
 }
 

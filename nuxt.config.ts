@@ -1,5 +1,7 @@
 import { pwa } from './config/pwa'
 import { appDescription } from './constants/index'
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineNuxtConfig({
   modules: [
@@ -7,10 +9,36 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
     '@vite-pwa/nuxt',
-    '@nuxtjs/tailwindcss',
-    'nuxt-swiper',
+    '@unocss/nuxt',
     '@nuxtjs/device',
   ],
+
+  build: {
+    transpile:
+        process.env.NODE_ENV === 'production'
+            ? [
+              'naive-ui',
+              'vueuc',
+              '@css-render/vue3-ssr',
+              '@juggle/resize-observer'
+            ]
+            : ['@juggle/resize-observer']
+  },
+
+  vite: {
+    optimizeDeps: {
+      include:
+          process.env.NODE_ENV === 'development'
+              ? ['naive-ui', 'vueuc', 'date-fns-tz/formatInTimeZone']
+              : []
+    },
+    plugins: [
+      Components({
+        dts: true,
+        resolvers: [NaiveUiResolver()], // Automatically register all components in the `components` directory
+      }),
+    ]
+  },
 
   experimental: {
     // when using generate, payload js assets included in sw precache manifest
@@ -33,6 +61,7 @@ export default defineNuxtConfig({
   },
 
   css: [
+    '@unocss/reset/tailwind.css',
     '~/assets/css/main.css',
   ],
 
