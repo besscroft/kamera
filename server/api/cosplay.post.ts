@@ -1,4 +1,4 @@
-import timelineData from '~/assets/json/timeline.json'
+import timelineData from '~/assets/json/cosplay.json'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
             // 替换 url 属性的值
             return {
                 ...item,
-                url: appConfig.imgCdnUrl.timeline + item.url
+                url: appConfig.imgCdnUrl.cosplay + item.url
             }
         }),
     }

@@ -10,5 +10,6 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
     <Header />
     <slot />
     <n-back-top :right="smAndLarger ? 100 : 24" />
+    <Footer />
   </main>
 </template>

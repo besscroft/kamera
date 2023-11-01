@@ -77,7 +77,6 @@ definePageMeta({
       </div>
     </div>
 
-
     <Canvas :showModal="showModal" :dataList="dataList" :imgId="imgId" @modalUpdate="modalUpdate" />
     <div v-if="handleButton" flex justify-center items-center w-full h-24>
       <n-button :loading="loading" @click="dataHandle">

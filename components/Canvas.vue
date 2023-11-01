@@ -12,7 +12,6 @@ const props = defineProps({
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
-const color = useColorMode()
 const { isMobile } = useDevice()
 const show = ref(false)
 const emit = defineEmits(['modalUpdate'])
@@ -54,27 +53,27 @@ onUnmounted(() => {
         <n-image
           :theme-overrides="themeOverrides"
           show-toolbar-tooltip
-          :src="dataList[imgId-1]?.url"
+          :src="dataList.find((item: any) => item.id === imgId)?.url"
           :previewed-img-props="{ style: { border: '8px solid white' } }"
-          :alt="dataList[imgId-1]?.detail"
+          :alt="dataList.find((item: any) => item.id === imgId)?.detail"
         />
       </div>
       <div class="flex flex-col space-y-4 mt-8">
         <div class="flex flex-col card w-full h-16 p-2 bg-base-100 shadow-md shadow-slate-100 hover:bg-slate-400 justify-center items-center">
           <span>EXIF</span>
-          <span>略...</span>
+          <span>{{ dataList.find((item: any) => item.id === imgId)?.exif || 'N&A' }}</span>
         </div>
         <div class="flex flex-col card w-full h-16 p-2 bg-base-100 shadow-md shadow-slate-100 hover:bg-slate-400 justify-center items-center">
           <span>相机</span>
-          <span>{{ dataList[imgId-1]?.device }}</span>
+          <span>{{ dataList.find((item: any) => item.id === imgId)?.device }}</span>
         </div>
         <div class="flex flex-col card w-full h-16 p-2 bg-base-100 shadow-md shadow-slate-100 hover:bg-slate-400 justify-center items-center">
           <span>相片描述</span>
-          <span>{{ dataList[imgId-1]?.detail }}</span>
+          <span>{{ dataList.find((item: any) => item.id === imgId)?.detail }}</span>
         </div>
         <div class="flex flex-col card w-full h-16 p-2 bg-base-100 shadow-md shadow-slate-100 hover:bg-slate-400 justify-center items-center">
           <span>评分</span>
-          <n-rate readonly :default-value="dataList[imgId-1]?.rating" />
+          <n-rate readonly :default-value="dataList.find((item: any) => item.id === imgId)?.rating" />
         </div>
       </div>
     </div>
