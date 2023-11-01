@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { appName } from '~/constants'
-import { darkTheme, NConfigProvider } from 'naive-ui'
+import { darkTheme, NConfigProvider, zhCN, dateZhCN } from 'naive-ui'
 
 const color = useColorMode()
 
@@ -16,6 +16,8 @@ useHead({
     <NConfigProvider
       class="w-full h-full"
       :theme="color.value === 'dark' ? darkTheme : undefined"
+      :locale="zhCN"
+      :date-locale="dateZhCN"
     >
       <NuxtPage />
     </NConfigProvider>
