@@ -37,7 +37,7 @@ definePageMeta({
     <n-divider prose prose-slate mx-auto title-placement="left">
       Q&A
     </n-divider>
-    <n-collapse prose prose-slate mx-auto default-expanded-names="1" accordion>
+    <n-collapse prose prose-slate mx-auto accordion>
       <n-collapse-item title="怎么不是原图？" name="1">
         <div>
           <p>1、原图体积太大，加载很慢！</p>
