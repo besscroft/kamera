@@ -18,6 +18,7 @@ declare module 'vue' {
     NImage: typeof import('naive-ui')['NImage']
     NImageGroup: typeof import('naive-ui')['NImageGroup']
     NModal: typeof import('naive-ui')['NModal']
+    NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
     NRate: typeof import('naive-ui')['NRate']
     NSpace: typeof import('naive-ui')['NSpace']
     RouterLink: typeof import('vue-router')['RouterLink']

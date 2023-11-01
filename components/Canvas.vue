@@ -55,6 +55,8 @@ onUnmounted(() => {
           :theme-overrides="themeOverrides"
           show-toolbar-tooltip
           :src="dataList[imgId-1]?.url"
+          :previewed-img-props="{ style: { border: '8px solid white' } }"
+          :alt="dataList[imgId-1]?.detail"
         />
       </div>
       <div class="flex flex-col space-y-4 mt-8">

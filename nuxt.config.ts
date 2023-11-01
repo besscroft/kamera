@@ -100,6 +100,7 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       ],
       meta: [
+        { name: 'naive-ui-style' },
         { name: 'theme-color', content: '#38f8f8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: appDescription },
