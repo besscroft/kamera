@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@unocss/nuxt',
     '@nuxtjs/device',
+    '@formkit/auto-animate/nuxt',
   ],
 
   build: {

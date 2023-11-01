@@ -12,9 +12,9 @@ watch(() => route.path, () => {
 <template>
   <header class="bg-white dark:bg-gray-900">
     <nav class="relative bg-white dark:bg-gray-900">
-      <div class="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
-        <div class="flex items-center justify-between">
-          <a class="btn btn-ghost normal-case text-xl" @click="router.push('/')">云淑故事集</a>
+      <div class="flex container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
+        <div class="flex items-center justify-between w-full md:w-36 max-w-xs">
+          <a class="btn btn-ghost normal-case text-xl bg-rose-300 hover:bg-red-300" @click="router.push('/')">云淑故事集</a>
 
           <!-- Mobile menu button -->
           <div class="flex md:hidden">
@@ -42,7 +42,7 @@ watch(() => route.path, () => {
           </div>
         </div>
 
-<!--        <DarkToggle />-->
+        <DarkToggle pl-2 />
       </div>
     </nav>
   </header>

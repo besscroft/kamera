@@ -65,9 +65,15 @@ definePageMeta({
 
 <template>
   <div>
-    <div p-2 md:px-4 lg:px-8 xl:px-12 grid md:gap-2 lg:gap-4 xl:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4>
+    <div v-auto-animate p-1 md:px-4 lg:px-8 xl:px-12 grid md:gap-2 lg:gap-4 xl:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4>
       <div pt-2 v-for="item in dataList" :key="item.id">
-        <img class="cursor-pointer" :src="item.url" @click="clickImg(item.id)" />
+        <n-image
+          lazy shadow-xl border-4 hover:-translate-y-1 hover:scale-105 hover:transition duration-300
+          cursor-pointer
+          :src="item.url"
+          @click="clickImg(item.id)"
+          preview-disabled
+        />
       </div>
     </div>
 
