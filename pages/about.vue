@@ -8,8 +8,8 @@ definePageMeta({
 
 <template>
   <div flex justify-center p2>
-    <article class="prose prose-slate mx-auto lg:prose-lg">
-      <h2>关于页面</h2>
+    <article class="prose prose-slate mx-auto lg:prose-lg dark:text-white">
+      <h2 dark:text-white>关于页面</h2>
       <p class="lead">
         I'm Bess Croft , a full-time full-stack developer 👨‍💻
 
@@ -23,7 +23,7 @@ definePageMeta({
         <li>我的哔哩哔哩：https://space.bilibili.com/278038021</li>
         <li>鹤鸣工作室：https://heming.dev</li>
       </ol>
-      <h3>
+      <h3 dark:text-white>
         联系我
       </h3>
       <p>
