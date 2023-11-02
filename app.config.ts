@@ -1,5 +1,5 @@
 export default defineAppConfig({
-    imgCdnUrl: {
+    backBlazeCdnBaseUrl: {
         timeline: 'https://kamera-b2-s3-cdn.heming.dev/file/kamera-b2',
         cosplay: 'https://kamera-b2-s3-cdn.heming.dev/file/kamera-b2',
         tietie: 'https://kamera-b2-s3-cdn.heming.dev/file/kamera-b2',

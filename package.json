@@ -27,6 +27,7 @@
     "@unocss/nuxt": "^0.57.1",
     "@vite-pwa/nuxt": "^0.1.1",
     "@vueuse/nuxt": "^10.5.0",
+    "aplayer": "^1.10.1",
     "consola": "^3.2.3",
     "eslint": "^8.51.0",
     "naive-ui": "^2.35.0",

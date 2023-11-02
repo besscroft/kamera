@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
+const { isMobile } = useDevice()
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
 </script>
@@ -10,6 +11,9 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
     <Header />
     <slot />
     <n-back-top :right="smAndLarger ? 100 : 24" />
+    <ClientOnly v-if="!isMobile">
+      <Music />
+    </ClientOnly>
     <Footer />
   </main>
 </template>

@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
             // 替换 url 属性的值
             return {
                 ...item,
-                url: appConfig.imgCdnUrl.cosplay + item.url
+                url: appConfig.backBlazeCdnBaseUrl.cosplay + item.url
             }
         }),
     }
