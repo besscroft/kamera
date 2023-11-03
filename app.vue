@@ -45,4 +45,12 @@ html.dark {
   opacity: 0;
   filter: blur(1rem);
 }
+
+@font-face {
+  font-family: 'LXGWNeoXiHei';
+  src: url('public/fonts/LXGWNeoXiHei.ttf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 </style>
