@@ -65,7 +65,7 @@ definePageMeta({
 
 <template>
   <div>
-    <div v-auto-animate p-1 md:px-4 lg:px-8 xl:px-12 grid md:gap-2 lg:gap-4 xl:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4>
+    <div v-auto-animate p-1 md:px-4 lg:px-8 xl:px-12 columns-1 md:columns-2 lg:columns-3 xl:columns-4>
       <div pt-2 v-for="item in dataList" :key="item.id">
         <n-image
           lazy shadow-xl border-4 hover:-translate-y-1 hover:scale-105 hover:transition duration-300
