@@ -11,6 +11,9 @@ dependencies:
   naive-ui:
     specifier: ^2.35.0
     version: 2.35.0(vue@3.3.4)
+  wc-waterfall:
+    specifier: ^0.0.7
+    version: 0.0.7
 
 devDependencies:
   '@antfu/eslint-config':
@@ -10981,6 +10984,10 @@ packages:
       glob-to-regexp: 0.4.1
       graceful-fs: 4.2.11
     dev: true
+
+  /wc-waterfall@0.0.7:
+    resolution: {integrity: sha512-a/wmeWIpNxyKpC0jOoxztyjdTsZsEJjREnzsXVgfWA3mEU9A98U59j/ajwVSr/340UFxPfoKO0434fIsjXIm3A==}
+    dev: false
 
   /webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}

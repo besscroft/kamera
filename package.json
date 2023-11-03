@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
-    "naive-ui": "^2.35.0"
+    "naive-ui": "^2.35.0",
+    "wc-waterfall": "^0.0.7"
   }
 }
