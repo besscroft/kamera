@@ -49,8 +49,10 @@ onUnmounted(() => {
     :on-after-leave="() => xClick()"
   >
     <div :class="smAndLarger || !isMobile ? 'grid grid-cols-1 gap-2 md:grid-cols-3 lg:gap-4' : 'h-full flex flex-col pt-6 space-y-2'">
-      <div :class="smAndLarger || !isMobile ? 'md:col-span-2 max-h-full' : ''">
+      <div :class="smAndLarger || !isMobile ? 'md:col-span-2 max-h-full flex justify-center h-[90vh]' : ''">
         <n-image
+          :class="smAndLarger || !isMobile ? 'h-[85vh]' : ''"
+          object-contain
           :theme-overrides="themeOverrides"
           show-toolbar-tooltip
           :src="dataList.find((item: any) => item.id === imgId)?.url"
