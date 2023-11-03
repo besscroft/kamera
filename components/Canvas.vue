@@ -32,7 +32,7 @@ const themeOverrides: NonNullable<GlobalThemeOverrides['Image']> = {
   toolbarBorderRadius: borderRadius
 }
 
-watch(() => props.imgId, (val) => {
+watch(() => props.showModal, (val) => {
   show.value = props.showModal
 })
 
@@ -46,7 +46,7 @@ onUnmounted(() => {
     class="h-full w-full"
     preset="card"
     v-model:show="show"
-    @on-after-leave="xClick"
+    :on-after-leave="() => xClick()"
   >
     <div :class="smAndLarger || !isMobile ? 'grid grid-cols-1 gap-2 md:grid-cols-3 lg:gap-4' : 'h-full flex flex-col pt-6 space-y-2'">
       <div :class="smAndLarger || !isMobile ? 'md:col-span-2 max-h-full' : ''">
@@ -66,25 +66,37 @@ onUnmounted(() => {
         </div>
         <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
           <div class="p-4">
-            <h3 class="text-base text-center font-medium text-gray-900">EXIF</h3>
+            <h3 class="flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900">
+              <div i-carbon-image-search />
+              <p>EXIF</p>
+            </h3>
             <p class="mt-1 text-gray-500 text-center">{{ dataList.find((item: any) => item.id === imgId)?.exif || 'N&A' }}</p>
           </div>
         </div>
         <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
           <div class="p-4">
-            <h3 class="text-base text-center font-medium text-gray-900">相机</h3>
+            <h3 class="flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900">
+              <div i-carbon-camera />
+              <p>相机</p>
+            </h3>
             <p class="mt-1 text-gray-500 text-center">{{ dataList.find((item: any) => item.id === imgId)?.device || 'N&A' }}</p>
           </div>
         </div>
         <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
           <div class="p-4">
-            <h3 class="text-base text-center font-medium text-gray-900">相片描述</h3>
+            <h3 class="flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900">
+              <div i-carbon-txt />
+              <p>相片描述</p>
+            </h3>
             <p class="mt-1 text-gray-500 text-center">{{ dataList.find((item: any) => item.id === imgId)?.detail || 'N&A' }}</p>
           </div>
         </div>
         <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
           <div class="p-4">
-            <h3 class="text-base text-center font-medium text-gray-900">评分</h3>
+            <h3 class="flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900">
+              <div i-carbon-thumbs-up />
+              <p>评分</p>
+            </h3>
             <div flex justify-center>
               <n-rate readonly :default-value="dataList.find((item: any) => item.id === imgId)?.rating" />
             </div>

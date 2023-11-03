@@ -10,7 +10,7 @@ watch(() => route.path, () => {
 </script>
 
 <template>
-  <header class="bg-white dark:bg-gray-900">
+  <header class="sticky top-0 z-20 bg-white dark:bg-gray-900">
     <nav class="relative bg-white dark:bg-gray-900">
       <div class="flex container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
         <div class="flex items-center justify-between w-full md:w-36 max-w-xs">
