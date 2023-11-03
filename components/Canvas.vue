@@ -59,21 +59,36 @@ onUnmounted(() => {
         />
       </div>
       <div class="flex flex-col space-y-4 mt-8">
-        <div class="flex flex-col card w-full h-16 p-2 bg-base-100 shadow-md shadow-slate-100 hover:bg-slate-400 justify-center items-center">
-          <span>EXIF</span>
-          <span>{{ dataList.find((item: any) => item.id === imgId)?.exif || 'N&A' }}</span>
+        <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full">
+          <div class="p-4">
+            <p class="mt-1 text-gray-500 text-center">点击图片预览</p>
+          </div>
         </div>
-        <div class="flex flex-col card w-full h-16 p-2 bg-base-100 shadow-md shadow-slate-100 hover:bg-slate-400 justify-center items-center">
-          <span>相机</span>
-          <span>{{ dataList.find((item: any) => item.id === imgId)?.device }}</span>
+        <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
+          <div class="p-4">
+            <h3 class="text-base text-center font-medium text-gray-900">EXIF</h3>
+            <p class="mt-1 text-gray-500 text-center">{{ dataList.find((item: any) => item.id === imgId)?.exif || 'N&A' }}</p>
+          </div>
         </div>
-        <div class="flex flex-col card w-full h-16 p-2 bg-base-100 shadow-md shadow-slate-100 hover:bg-slate-400 justify-center items-center">
-          <span>相片描述</span>
-          <span>{{ dataList.find((item: any) => item.id === imgId)?.detail }}</span>
+        <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
+          <div class="p-4">
+            <h3 class="text-base text-center font-medium text-gray-900">相机</h3>
+            <p class="mt-1 text-gray-500 text-center">{{ dataList.find((item: any) => item.id === imgId)?.device || 'N&A' }}</p>
+          </div>
         </div>
-        <div class="flex flex-col card w-full h-16 p-2 bg-base-100 shadow-md shadow-slate-100 hover:bg-slate-400 justify-center items-center">
-          <span>评分</span>
-          <n-rate readonly :default-value="dataList.find((item: any) => item.id === imgId)?.rating" />
+        <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
+          <div class="p-4">
+            <h3 class="text-base text-center font-medium text-gray-900">相片描述</h3>
+            <p class="mt-1 text-gray-500 text-center">{{ dataList.find((item: any) => item.id === imgId)?.detail || 'N&A' }}</p>
+          </div>
+        </div>
+        <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
+          <div class="p-4">
+            <h3 class="text-base text-center font-medium text-gray-900">评分</h3>
+            <div flex justify-center>
+              <n-rate readonly :default-value="dataList.find((item: any) => item.id === imgId)?.rating" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
