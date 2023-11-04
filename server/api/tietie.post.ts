@@ -1,8 +1,8 @@
-import cosplayData from '~/assets/json/cosplay.json'
+import tietieData from '~/assets/json/tietie.json'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
-    let dataList = cosplayData
+    let dataList = tietieData
     const appConfig = useAppConfig()
     const returnData = dataList
         .sort((a, b) => b.id - a.id)

@@ -1,24 +1,13 @@
 <script setup lang="ts">
-const imgId = ref<number>(0)
 const dataList = ref<Array<Object>>([])
 const handleButton = ref<boolean>(true)
 const loading = ref<boolean>(false)
-const showModal = ref<boolean>(false)
 const pageInfo = reactive({
   total: 0,
   totalPage: 0,
   pageNum: 1,
   pageSize: 10,
 })
-
-const modalUpdate = () => {
-  showModal.value = false
-}
-
-const clickImg = (id: Number) => {
-  imgId.value = id
-  showModal.value = true
-}
 
 const dataHandle = async () => {
   loading.value = true
@@ -46,12 +35,7 @@ const dataHandle = async () => {
   }
 }
 
-onMounted(async () => {
-  await dataHandle()
-})
-
 onUnmounted(() => {
-  imgId.value = 0
   dataList.value = []
   pageInfo.total = 0
   pageInfo.totalPage = 0
@@ -64,24 +48,5 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    <div v-auto-animate p-1 md:px-4 lg:px-8 xl:px-12 columns-1 md:columns-2 lg:columns-3 xl:columns-4>
-      <div pt-2 v-for="item in dataList" :key="item.id">
-        <n-image
-            lazy shadow-xl border-4 hover:-translate-y-1 hover:scale-105 hover:transition duration-300
-            cursor-pointer
-            :src="item.url"
-            @click="clickImg(item.id)"
-            preview-disabled
-        />
-      </div>
-    </div>
-
-    <Canvas :showModal="showModal" :dataList="dataList" :imgId="imgId" @modalUpdate="modalUpdate" />
-    <div v-if="handleButton" flex justify-center items-center w-full h-24>
-      <n-button :loading="loading" @click="dataHandle">
-        加载更多
-      </n-button>
-    </div>
-  </div>
+  <Waterfall :dataList="dataList" :loading="loading" :handleButton="handleButton" @dataHandle="dataHandle" />
 </template>

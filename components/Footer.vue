@@ -11,8 +11,9 @@
       </div>
 
       <div class="mt-4 mr-2 flex justify-center gap-6 sm:mt-0 lg:justify-end">
-        <a i-carbon-logo-github href="https://github.com/besscroft" target="_blank" />
-        <a i-carbon-mail-all href="mailto:besscroft@foxmail.com" />
+        <a i-carbon-blog href="https://heming.dev" target="_blank" title="鹤鸣工作室" />
+        <a i-carbon-logo-github href="https://github.com/besscroft" target="_blank" title="GitHub" />
+        <a i-carbon-mail-all href="mailto:besscroft@foxmail.com" title="邮件" />
       </div>
     </div>
   </footer>
