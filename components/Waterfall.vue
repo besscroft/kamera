@@ -46,9 +46,16 @@ onUnmounted(() => {
         lazy shadow-xl border-4 hover:-translate-y-1 hover:scale-105 hover:transition duration-300
         cursor-pointer
         :src="item.url"
+        :fallbackSrc="item.url"
         @click="clickImg(item.id)"
         preview-disabled
-      />
+      >
+        <template #placeholder>
+          <n-image
+            src="/101504317_p0.avif"
+          />
+        </template>
+      </n-image>
     </wc-waterfall>
     <div v-else-if="dataList?.length <= 5 && dataList?.length !== 0" v-auto-animate p-1 md:px-4 lg:px-8 xl:px-12 columns-1 md:columns-2 lg:columns-3 xl:columns-4>
       <div pt-2 v-for="item in dataList" :key="item.id">
@@ -56,9 +63,16 @@ onUnmounted(() => {
           lazy shadow-xl border-4 hover:-translate-y-1 hover:scale-105 hover:transition duration-300
           cursor-pointer
           :src="item.url"
+          :fallbackSrc="item.url"
           @click="clickImg(item.id)"
           preview-disabled
-        />
+        >
+          <template #placeholder>
+            <n-image
+              src="/101504317_p0.avif"
+            />
+          </template>
+        </n-image>
       </div>
     </div>
     <n-empty v-else p2 description="暂时还没有内容哦！">

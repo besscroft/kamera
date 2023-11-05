@@ -16,7 +16,6 @@ const dataHandle = async () => {
       method: 'post',
       body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize },
     })
-    console.log(total, totalPage, pageNum, pageSize, data)
     if (pageInfo.pageNum <= totalPage) {
       if (pageInfo.pageNum === totalPage) {
         handleButton.value = false
