@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@nuxtjs/device',
     '@formkit/auto-animate/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
   ],
 
   build: {
