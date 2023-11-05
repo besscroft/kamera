@@ -10,8 +10,8 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
   <main>
     <Header />
     <slot />
-    <n-back-top :right="smAndLarger ? 100 : 24" />
     <ClientOnly v-if="!isMobile">
+      <n-back-top :right="smAndLarger ? 100 : 24" />
       <Music />
     </ClientOnly>
     <Footer />

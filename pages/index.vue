@@ -13,10 +13,10 @@ definePageMeta({
     <div flex justify-center>
       <n-carousel draggable aspect-video show-arrow autoplay dot-type="line" max-h-180 max-w-7xl shadow-2xl rounded-sm>
         <img
-            v-for="item in dataList"
-            :key="item.id"
-            lazy
-            :src="item.url"
+          v-for="item in dataList"
+          :key="item.id"
+          lazy
+          :src="item.url"
         >
       </n-carousel>
     </div>
