@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import carouselList from '~/assets/json/carousel.json'
+import carouselList from 'assets/server/json/carousel.json'
 
 const dataList = ref<Array<Object>>(carouselList)
 

@@ -1,4 +1,4 @@
-import cosplayData from '~/assets/json/cosplay.json'
+import cosplayData from 'assets/server/json/cosplay.json'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)

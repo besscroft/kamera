@@ -1,4 +1,4 @@
-import timelineData from '~/assets/json/timeline.json'
+import timelineData from 'assets/server/json/timeline.json'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)

@@ -1,4 +1,4 @@
-import tietieData from '~/assets/json/tietie.json'
+import tietieData from 'assets/server/json/tietie.json'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)

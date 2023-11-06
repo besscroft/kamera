@@ -1,4 +1,4 @@
-import timelineData from '~/assets/json/music.json'
+import timelineData from 'assets/server/json/music.json'
 
 export default defineEventHandler(async (event) => {
     return {
