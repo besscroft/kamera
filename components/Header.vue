@@ -42,7 +42,9 @@ watch(() => route.path, () => {
           </div>
         </div>
 
-        <DarkToggle pl-2 />
+        <ClientOnly>
+          <DarkToggle pl-2 />
+        </ClientOnly>
       </div>
     </nav>
   </header>

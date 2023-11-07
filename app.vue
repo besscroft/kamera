@@ -2,7 +2,24 @@
 import { appName } from '~/constants'
 import { darkTheme, NConfigProvider, zhCN, dateZhCN } from 'naive-ui'
 
-const color = useColorMode()
+const isDark = useDark()
+
+/**
+ * @type import('naive-ui').GlobalThemeOverrides
+ */
+const lightThemeOverrides = {
+  common: {
+    primaryColor: '#000000'
+  }
+  // ...
+}
+
+const darkThemeOverrides = {
+  common: {
+    primaryColor: '#FFFFFF'
+  }
+  // ...
+}
 
 useHead({
   title: appName,
@@ -15,7 +32,8 @@ useHead({
     <NuxtLoadingIndicator />
     <NConfigProvider
       class="w-full h-full"
-      :theme="color.value === 'dark' ? darkTheme : undefined"
+      :theme="isDark ? darkTheme : undefined"
+      :theme-overrides="isDark ? lightThemeOverrides : darkThemeOverrides"
       :locale="zhCN"
       :date-locale="dateZhCN"
     >
@@ -32,8 +50,40 @@ html, body , #__nuxt{
 }
 
 html.dark {
-  background: #222;
+  color-scheme: dark;
+  background: #121212;
   color: white;
+
+}
+html.dark .shiki-light {
+  display: none;
+}
+html:not(.dark) .shiki-dark {
+  display: none;
+}
+html.dark ::-moz-selection  {
+  background: #444;
+}
+html.dark ::selection {
+  background: #444;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2147483646;
+}
+.dark::view-transition-old(root) {
+  z-index: 2147483646;
+}
+.dark::view-transition-new(root) {
+  z-index: 1;
 }
 
 .page-enter-active,
