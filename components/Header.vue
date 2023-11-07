@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { appName } from '~/constants'
+
 const router = useRouter()
 const route = useRoute()
 
@@ -14,7 +16,7 @@ watch(() => route.path, () => {
     <nav class="relative bg-white dark:bg-gray-900">
       <div class="flex container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
         <div class="flex items-center justify-between w-full md:w-36 max-w-xs">
-          <a class="btn btn-ghost normal-case text-xl bg-rose-300 hover:bg-red-300 z-20" @click="router.push('/')">云淑故事集</a>
+          <a class="btn btn-ghost normal-case text-xl bg-rose-300 hover:bg-red-300 z-20" @click="router.push('/')">{{ appName }}</a>
 
           <!-- Mobile menu button -->
           <div class="flex md:hidden z-50">
