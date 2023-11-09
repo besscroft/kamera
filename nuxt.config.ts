@@ -94,8 +94,6 @@ export default defineNuxtConfig({
         '/cosplay',
         '/tietie',
         '/timeline',
-        '/robots.txt',
-        '/manifest.webmanifest',
       ],
     },
     preset: 'vercel'
