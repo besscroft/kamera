@@ -1,16 +1,36 @@
 <script setup lang="ts">
-const router = useRouter()
+import type { NuxtError } from '#app'
 
-definePageMeta({
-  layout: 'default',
-  pageTransition: false,
-})
+// prevent reactive update when clearing error
+const { error } = defineProps<{
+  error: Partial<NuxtError>
+}>()
+
+// add more custom status codes messages here
+const errorCodes: Record<number, string> = {
+  404: 'Page not found',
+}
+
+if (process.dev)
+  console.error(error)
+
+const defaultMessage = 'Something went wrong'
+
+const message = error.message ?? errorCodes[error.statusCode!] ?? defaultMessage
+
+const state = ref<'error' | 'reloading'>('error')
+async function reload() {
+  state.value = 'reloading'
+  try {
+    clearError({ redirect: '/' })
+  } catch (err) {
+    console.error(err)
+    state.value = 'error'
+  }
+}
 </script>
 
 <template>
-  <!--
-    Graphic from https://www.opendoodles.com/
--->
   <div class="grid h-screen px-4 bg-white place-content-center">
     <div class="text-center">
       <svg
@@ -48,11 +68,11 @@ definePageMeta({
         Uh-oh!
       </h1>
 
-      <p class="mt-4 text-gray-500">抱歉，我们找不到页面！</p>
+      <p class="mt-4 text-gray-500">{{ message }}</p>
 
       <div>
-        <button text-sm btn m="3 t8" @click="router.back()">
-          返回
+        <button text-sm btn m="3 t8" @click="reload">
+          返回首页
         </button>
       </div>
     </div>

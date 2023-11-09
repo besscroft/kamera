@@ -13,7 +13,15 @@ export default defineNuxtConfig({
     '@nuxtjs/device',
     '@formkit/auto-animate/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
+    '@nuxtjs/supabase',
   ],
+
+  supabase: {
+    // Options
+    url: process.env.SUPABASE_URL,
+    key: process.env.SUPABASE_KEY,
+    redirect: false,
+  },
 
   build: {
     transpile:
@@ -49,6 +57,7 @@ export default defineNuxtConfig({
     inlineSSRStyles: false,
     renderJsonPayloads: true,
     typedPages: true,
+    emitRouteChunkError: false,
   },
 
   pinia: {

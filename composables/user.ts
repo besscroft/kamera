@@ -1,33 +1,48 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
+import type { UserStore } from '~/types/userStore'
 
-export const useUserStore = defineStore('user', () => {
-  /**
-   * Current named of the user.
-   */
-  const savedName = ref('')
-  const previousNames = ref(new Set<string>())
-
-  const usedNames = computed(() => Array.from(previousNames.value))
-  const otherNames = computed(() => usedNames.value.filter(name => name !== savedName.value))
-
-  /**
-   * Changes the current name of the user and saves the one that was used
-   * before.
-   *
-   * @param name - new name to set
-   */
-  function setNewName(name: string) {
-    if (savedName.value)
-      previousNames.value.add(savedName.value)
-
-    savedName.value = name
-  }
-
-  return {
-    setNewName,
-    otherNames,
-    savedName,
-  }
+export const useUserStore = defineStore('user', {
+  state: (): UserStore => ({
+    // token
+    token: '',
+    // token 前缀
+    tokenName: '',
+    // 用户名称
+    userName: '',
+    // 头像
+    avatar: '',
+    // 角色 Code
+    roleCode: '',
+    // 邮箱
+    email: '',
+  }),
+  actions: {
+    /** 设置用户名称 */
+    setUserName(name: string) {
+      this.userName = name
+    },
+    /** 设置 token */
+    setToken(token: string) {
+      this.token = token
+    },
+    /** 设置 token 前缀 */
+    setTokenName(tokenName: string) {
+      this.tokenName = tokenName
+    },
+    /** 设置头像 */
+    setAvatar(avatar: string) {
+      this.avatar = avatar
+    },
+    /** 设置角色 Code */
+    setRoleCode(roleCode: string) {
+      this.roleCode = roleCode
+    },
+    /** 设置邮箱 */
+    setEmail(email: string) {
+      this.email = email
+    }
+  },
+  persist: true,
 })
 
 if (import.meta.hot)
