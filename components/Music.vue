@@ -33,7 +33,8 @@ onMounted(async () => {
   const data = await $fetch('/api/music', {
     method: 'post',
   })
-  initPlayer(data.data ,'https://kamera-b2-s3-cdn.heming.dev/file/kamera-b2/music/%E5%8E%9F%E7%A5%9E-%E7%9A%8E%E6%9C%88%E4%BA%91%E9%97%B4%E4%B9%8B%E6%A2%A6+Jade+Moon+Upon+a+Sea+of+Clouds/Cover.jpg')
+  console.log(data.data)
+  initPlayer(data.data ,'https://kamera-b2-s3-cdn.heming.dev/file/kamera-b2/music/Cover.avif')
 })
 
 onUnmounted(() => {
