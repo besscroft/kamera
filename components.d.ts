@@ -7,23 +7,17 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    NAvatar: typeof import('naive-ui')['NAvatar']
     NBackTop: typeof import('naive-ui')['NBackTop']
     NButton: typeof import('naive-ui')['NButton']
-    NCard: typeof import('naive-ui')['NCard']
     NCarousel: typeof import('naive-ui')['NCarousel']
     NCollapse: typeof import('naive-ui')['NCollapse']
     NCollapseItem: typeof import('naive-ui')['NCollapseItem']
-    NDialog: typeof import('naive-ui')['NDialog']
     NDivider: typeof import('naive-ui')['NDivider']
     NEmpty: typeof import('naive-ui')['NEmpty']
     NIcon: typeof import('naive-ui')['NIcon']
     NImage: typeof import('naive-ui')['NImage']
-    NImageGroup: typeof import('naive-ui')['NImageGroup']
     NModal: typeof import('naive-ui')['NModal']
-    NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
     NRate: typeof import('naive-ui')['NRate']
-    NSpace: typeof import('naive-ui')['NSpace']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
