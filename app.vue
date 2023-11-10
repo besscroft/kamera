@@ -9,16 +9,17 @@ const isDark = useDark()
  */
 const lightThemeOverrides = {
   common: {
-    primaryColor: '#000000'
+    primaryColor: '#FFFFFF'
   }
-  // ...
 }
 
 const darkThemeOverrides = {
   common: {
-    primaryColor: '#FFFFFF'
+    primaryColor: '#000000'
+  },
+  upload: {
+    primaryColor: '#000000'
   }
-  // ...
 }
 
 useHead({
@@ -33,7 +34,7 @@ useHead({
     <NConfigProvider
       class="w-full h-full"
       :theme="isDark ? darkTheme : undefined"
-      :theme-overrides="isDark ? lightThemeOverrides : darkThemeOverrides"
+      :theme-overrides="isDark ? darkThemeOverrides : lightThemeOverrides"
       :locale="zhCN"
       :date-locale="dateZhCN"
     >

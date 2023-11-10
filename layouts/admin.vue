@@ -29,12 +29,16 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div h-full>
+  <div>
+    <Header />
     <slot />
     <ClientOnly v-if="!isMobile">
       <n-back-top :right="smAndLarger ? 100 : 24" />
       <Music />
     </ClientOnly>
+    <div class="fixed bottom-20px z-50 left-1/2 transform -translate-x-1/2 h-8 w-20 flex items-center justify-center">
+      菜单
+    </div>
   </div>
 </template>
 

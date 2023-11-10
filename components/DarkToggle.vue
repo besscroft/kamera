@@ -3,6 +3,7 @@ import { useUserStore } from '~/composables/user'
 
 const isDark = useDark()
 const router = useRouter()
+const route = useRoute()
 const user = useUserStore()
 
 // @ts-expect-error: Transition API
@@ -61,6 +62,6 @@ function toggleDark(event?: MouseEvent) {
       <span class="dark:i-carbon-moon i-carbon-sun block" aria-hidden="true" />
     </button>
     <span v-if="!user.token" class="i-carbon-user block cursor-pointer" aria-hidden="true" @click="router.push('/login')" title="登录" />
-    <span v-else class="i-carbon-screen-map block cursor-pointer" aria-hidden="true" @click="router.push('/admin')" title="后台" />
+    <span v-else-if="!route.path.startsWith('/admin')" class="i-carbon-screen-map block cursor-pointer" aria-hidden="true" @click="router.push('/admin')" title="后台" />
   </div>
 </template>
