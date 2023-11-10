@@ -94,6 +94,8 @@ export default defineNuxtConfig({
         '/cosplay',
         '/tietie',
         '/timeline',
+        '/login',
+        '/admin',
       ],
     },
     preset: 'vercel'
