@@ -33,7 +33,6 @@ onMounted(async () => {
   const data = await $fetch('/api/music', {
     method: 'post',
   })
-  console.log(data.data)
   initPlayer(data.data ,'https://kamera-b2-s3-cdn.heming.dev/file/kamera-b2/music/Cover.avif')
 })
 

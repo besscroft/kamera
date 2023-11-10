@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { useUserStore } from '~/composables/user'
+
 const isDark = useDark()
+const router = useRouter()
+const user = useUserStore()
 
 // @ts-expect-error: Transition API
 const isAppearanceTransition = document.startViewTransition
@@ -48,11 +52,15 @@ function toggleDark(event?: MouseEvent) {
 </script>
 
 <template>
-  <button
+  <div flex flex-row justify-center items-center space-x-2>
+    <button
       class="!outline-none"
       :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
       @click="toggleDark"
-  >
-    <span class="dark:i-carbon-moon i-carbon-sun block" aria-hidden="true" />
-  </button>
+    >
+      <span class="dark:i-carbon-moon i-carbon-sun block" aria-hidden="true" />
+    </button>
+    <span v-if="!user.token" class="i-carbon-user block cursor-pointer" aria-hidden="true" @click="router.push('/login')" title="登录" />
+    <span v-else class="i-carbon-screen-map block cursor-pointer" aria-hidden="true" @click="router.push('/admin')" title="后台" />
+  </div>
 </template>
