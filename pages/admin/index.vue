@@ -117,7 +117,9 @@ definePageMeta({
             点击或者拖动图片到该区域来上传，关闭图片可重置
           </n-text>
           <n-p depth="3">
-            同名文件会被替换，仅支持大多数图片类型，入 jpg、jpeg、png、tiff、heic、heif、webp 等。
+            同名文件会被替换，仅支持大多数图片类型，入 jpg、jpeg、png、tiff、heic、heif、webp 等。<br />
+            受限于部署平台限制，如 Vercel，可能只允许免费用户传递 6M 内文件......<br />
+            所以，如果你的平台受限，你要么换平台，要么压缩文件......
           </n-p>
         </n-upload-dragger>
       </n-upload>

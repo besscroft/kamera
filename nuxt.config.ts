@@ -96,6 +96,8 @@ export default defineNuxtConfig({
         '/timeline',
         '/login',
         '/admin',
+        '/admin/list',
+        '/admin/system',
       ],
     },
     preset: 'vercel'
