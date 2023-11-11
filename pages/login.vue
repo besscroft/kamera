@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useUserStore } from '~/composables/user'
+import { useMessage } from 'naive-ui'
 
 interface ModelType {
   username: string | null
   password: string | null
 }
 
+const message = useMessage()
 const router = useRouter()
 const user = useUserStore()
 const loading = ref<boolean>(false)
@@ -28,8 +30,14 @@ const handleSubmitClick = async () => {
     user.setEmail(email)
     user.setUserName(name)
     router.push('/admin')
+    if (token) {
+      message.success('登录成功！')
+    } else {
+      message.error('登录失败！')
+    }
   } catch (e) {
     loading.value = false
+    message.error('登录失败！')
   }
   loading.value = false
 }

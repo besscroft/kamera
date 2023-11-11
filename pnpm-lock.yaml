@@ -17,6 +17,9 @@ dependencies:
   bcryptjs:
     specifier: ^2.4.3
     version: 2.4.3
+  exifreader:
+    specifier: ^4.16.0
+    version: 4.16.0
   jsonwebtoken:
     specifier: ^9.0.2
     version: 9.0.2
@@ -4406,6 +4409,13 @@ packages:
       '@xtuc/long': 4.2.2
     dev: true
 
+  /@xmldom/xmldom@0.8.10:
+    resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
+    engines: {node: '>=10.0.0'}
+    requiresBuild: true
+    dev: false
+    optional: true
+
   /@xtuc/ieee754@1.2.0:
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
     dev: true
@@ -6424,6 +6434,13 @@ packages:
       signal-exit: 4.1.0
       strip-final-newline: 3.0.0
     dev: true
+
+  /exifreader@4.16.0:
+    resolution: {integrity: sha512-Ivd4lr/EZ2lPHBrAFsO4C90OUKihQWJfsUjGAn7pAuRcXs/RqdENFQLIRQDVLn+KFE5GuSN8q5AdRIDPT94QUQ==}
+    requiresBuild: true
+    optionalDependencies:
+      '@xmldom/xmldom': 0.8.10
+    dev: false
 
   /exponential-backoff@3.1.1:
     resolution: {integrity: sha512-dX7e/LHVJ6W3DE1MHWi9S1EYzDESENfLrYohG2G++ovZrYOkm4Knwa0mc1cn84xJOR4KEU0WSchhLbd0UklbHw==}

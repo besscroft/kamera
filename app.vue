@@ -38,7 +38,9 @@ useHead({
       :locale="zhCN"
       :date-locale="dateZhCN"
     >
-      <NuxtPage />
+      <NMessageProvider>
+        <NuxtPage />
+      </NMessageProvider>
     </NConfigProvider>
   </NuxtLayout>
 </template>

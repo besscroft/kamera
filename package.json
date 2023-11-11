@@ -43,6 +43,7 @@
     "@vercel/analytics": "^1.1.1",
     "aws-sdk": "^2.1493.0",
     "bcryptjs": "^2.4.3",
+    "exifreader": "^4.16.0",
     "jsonwebtoken": "^9.0.2",
     "wc-waterfall": "^0.0.7"
   }
