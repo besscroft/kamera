@@ -20,7 +20,6 @@
     "@iconify-json/twemoji": "^1.1.12",
     "@nuxtjs/color-mode": "^3.3.0",
     "@nuxtjs/device": "^3.1.1",
-    "@nuxtjs/supabase": "^1.1.3",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@pinia/nuxt": "^0.5.1",
     "@unocss/eslint-config": "^0.57.2",
@@ -45,6 +44,7 @@
     "bcryptjs": "^2.4.3",
     "exifreader": "^4.16.0",
     "jsonwebtoken": "^9.0.2",
+    "postgres": "^3.4.3",
     "wc-waterfall": "^0.0.7"
   }
 }

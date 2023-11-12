@@ -88,7 +88,7 @@ definePageMeta({
   <div class="w-full h-full md:max-w-7xl flex flex-col items-center justify-center mx-auto px-2">
     <div class="my-16 mx-auto w-full md:max-w-3xl rounded-md bg-white dark:bg-gray-800 shadow p-2">
       <div flex items-center justify-center pb-2 space-x-2>
-        <n-select v-model:value="imgData.type" :options="options" />
+        <n-select v-model:value="imgData.type" :options="options" placeholder="请选择图片类别" />
         <n-button v-if="fileUrl" :loading="loading" @click="submit">上传</n-button>
       </div>
       <n-upload

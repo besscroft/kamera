@@ -1,6 +1,4 @@
 import jwt from 'jsonwebtoken'
-import { Database } from '~/types/database.types'
-import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
     const token = event.headers.get('authorization').replace("Bearer ", "")
@@ -14,11 +12,11 @@ export default defineEventHandler(async (event) => {
     let detail = body.detail
     let rating = body.rating || 0
 
-    const client = await serverSupabaseClient<Database>(event)
-    const { error } = await client
-        .from('kamera_image')
-        .insert({ type: type, url: url, exif: JSON.stringify(exif), detail: detail, rating: rating })
-
+    // const client = await serverSupabaseClient<Database>(event)
+    // const { error } = await client
+    //     .from('kamera_image')
+    //     .insert({ type: type, url: url, exif: JSON.stringify(exif), detail: detail, rating: rating })
+    let error;
     if (error) {
         console.log(error)
         return {
