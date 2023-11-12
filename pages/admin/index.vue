@@ -2,6 +2,7 @@
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import * as ExifReader from 'exifreader'
 import { useUserStore } from '~/composables/user'
+import { ElMessage } from 'element-plus'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
@@ -58,7 +59,7 @@ const submit = async () => {
   loading.value = true
   try {
     if (imgData.type === '') {
-      // message.error('请选择类型！')
+      ElMessage.error('请选择类型！')
       loading.value = false
       return
     }
@@ -71,9 +72,9 @@ const submit = async () => {
       body: imgData,
     })
     if (data === 0) {
-      // message.success('上传成功！')
+      ElMessage.success('上传成功！')
     } else {
-      // message.error('上传失败！')
+      ElMessage.error('上传失败！')
     }
   } catch (e) {
     loading.value = false
@@ -87,7 +88,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="w-full h-full md:max-w-7xl flex flex-col items-center justify-center mx-auto px-2">
+  <div class="w-full h-full md:max-w-7xl flex flex-col items-center justify-center mx-auto p2 md:p8 pb-20">
     <div class="my-16 mx-auto w-full md:max-w-3xl rounded-md bg-white dark:bg-gray-800 shadow p-2">
       <div flex items-center justify-center pb-2 space-x-2>
         <el-select v-model="imgData.type" class="m-2" placeholder="请选择图片类别">

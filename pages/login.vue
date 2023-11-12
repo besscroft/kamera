@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useUserStore } from '~/composables/user'
+import { ElMessage } from 'element-plus'
 
 interface ModelType {
   username: string | null
@@ -29,13 +30,13 @@ const handleSubmitClick = async () => {
     user.setUserName(name)
     router.push('/admin')
     if (token) {
-      // message.success('登录成功！')
+      ElMessage.success('登录成功！')
     } else {
-      // message.error('登录失败！')
+      ElMessage.error('登录失败！')
     }
   } catch (e) {
     loading.value = false
-    // message.error('登录失败！')
+    ElMessage.error('登录失败！')
   }
   loading.value = false
 }
