@@ -5,7 +5,6 @@ const isDark = useDark()
 const router = useRouter()
 const route = useRoute()
 const user = useUserStore()
-const color = useColorMode()
 
 // @ts-expect-error: Transition API
 const isAppearanceTransition = document.startViewTransition
@@ -15,7 +14,6 @@ const isAppearanceTransition = document.startViewTransition
  * @see https://github.com/vuejs/vitepress/pull/2347
  */
 function toggleDark(event?: MouseEvent) {
-  color.preference = color.value === 'dark' ? 'light' : 'dark'
   if (!isAppearanceTransition || !event) {
     isDark.value = !isDark.value
     return

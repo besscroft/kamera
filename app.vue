@@ -2,7 +2,11 @@
 import { appName } from '~/constants'
 import { lightTheme, darkTheme, NConfigProvider, zhCN, dateZhCN } from 'naive-ui'
 
-const color = useColorMode()
+const isDark = useDark()
+
+const theme = computed(() => {
+  return isDark.value ? darkTheme : lightTheme;
+});
 
 useHead({
   title: appName,
@@ -15,7 +19,7 @@ useHead({
     <NuxtLoadingIndicator />
     <NConfigProvider
       class="w-full h-full"
-      :theme="color.preference !== 'dark' ? darkTheme : lightTheme"
+      :theme="theme"
       :locale="zhCN"
       :date-locale="dateZhCN"
     >
