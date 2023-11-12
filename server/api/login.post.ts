@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import sql from '~/config/db'
 
 const hashPassword = async (password) => {
     const salt = await bcrypt.genSalt(10);
@@ -16,25 +17,23 @@ export default defineEventHandler(async (event) => {
     let username = body.username
     let password = body.password
 
-    // const client = await serverSupabaseClient<Database>(event)
+    const data = await sql`
+        SELECT * FROM public.kamera_user
+        WHERE username = ${ username }
+        LIMIT 1
+    `
 
-    // const { data, error } = await client.from('kamera_user')
-    //     .select()
-    //     .eq('username', username)
-    //     .limit(1)
-    //     .single()
-    let data;
-    if (await comparePasswords(password, data.password)) {
-        const payload = { id: data.id, username: data.username };
+    if (await comparePasswords(password, data[0].password)) {
+        const payload = { id: data[0].id, username: data[0].username };
         const secretKey = process.env.JWT_KEY;
         const token = jwt.sign(payload, secretKey, { expiresIn: '24h' });
         return {
             token: token,
             tokenName: 'Bearer',
-            name: data.name,
-            avatar: data.avatar,
-            roleCode: data.role,
-            email: data.email
+            name: data[0].name,
+            avatar: data[0].avatar,
+            roleCode: data[0].role,
+            email: data[0].email
         }
     }
 })

@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import sql from '~/config/db'
 
 export default defineEventHandler(async (event) => {
     const token = event.headers.get('authorization').replace("Bearer ", "")
@@ -12,19 +13,18 @@ export default defineEventHandler(async (event) => {
     let detail = body.detail
     let rating = body.rating || 0
 
-    // const client = await serverSupabaseClient<Database>(event)
-    // const { error } = await client
-    //     .from('kamera_image')
-    //     .insert({ type: type, url: url, exif: JSON.stringify(exif), detail: detail, rating: rating })
-    let error;
-    if (error) {
-        console.log(error)
+    const data = await sql`
+    INSERT INTO public.kamera_image (type, url, exif, detail, rating)
+    VALUES (${ type }, ${ url }, ${ JSON.stringify(exif) }, ${ detail }, ${ rating })
+    `
+
+    if (!data.length) {
         return {
-            data: 1,
+            data: 0,
         }
     } else {
         return {
-            data: 0,
+            data: 1,
         }
     }
 })
