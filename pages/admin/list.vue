@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { useUserStore } from '~/composables/user'
 import { ElMessage } from 'element-plus'
 
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const smAndLarger = breakpoints.greaterOrEqual('md')
 const user = useUserStore()
 const dataList = ref<Array<Object>>([])
 const loading = ref<boolean>(false)
+const rowInfo = ref()
+const rating = ref(0)
+const showModal = ref<boolean>(false)
 const pageInfo = reactive({
   total: 0,
   totalPage: 0,
@@ -12,8 +18,16 @@ const pageInfo = reactive({
   pageSize: 10,
 })
 
-const play = (row: any) => {
-  ElMessage.success(`Play ${row.id}`)
+const detail = (row: any) => {
+  rowInfo.value = row
+  rating.value = row.rating
+  showModal.value = true
+}
+
+const xClick = () => {
+  rowInfo.value = {}
+  rating.value = 0
+  showModal.value = false
 }
 
 const dataHandle = async () => {
@@ -35,6 +49,23 @@ const dataHandle = async () => {
   }
 }
 
+const deleteHandle = async (id: number) => {
+  const { data } = await $fetch('/api/deleteImg', {
+    timeout: 60000,
+    method: 'delete',
+    headers: {
+      Authorization: `${user.tokenName} ${user.token}`
+    },
+    body: { id: id },
+  })
+  if (data === 0) {
+    ElMessage.success('删除成功！')
+    await dataHandle()
+  } else {
+    ElMessage.error('删除失败！')
+  }
+}
+
 onBeforeMount(async () => {
   await dataHandle()
 })
@@ -45,32 +76,116 @@ definePageMeta({
 </script>
 
 <template>
-  <div p2 md:p8 pb-20>
-    <el-table :data="dataList" v-loading="loading" style="width: 100%">
-      <el-table-column label="id" prop="id" />
-      <el-table-column label="类型" prop="type" />
-      <el-table-column label="评分" prop="rating" />
-      <el-table-column label="描述" prop="detail" />
-      <el-table-column align="right" fixed="right">
-        <template #default="scope">
-          <el-button size="small" @click="play(scope.row)">查看</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <div flex items-center space-x-1 text-sm mt1>
-      <p>共 {{ pageInfo.total }} 条</p>
-      <el-pagination
-        background
-        layout="sizes, prev, pager, next"
-        :page-sizes="[10, 20, 50, 100]"
-        :total="pageInfo.total"
-        v-model:page-size="pageInfo.pageSize"
-        v-model:current-page="pageInfo.pageNum"
-        :page-count="pageInfo.totalPage"
-        @size-change="(val: number) => { pageInfo.pageSize = val; dataHandle() }"
-        @current-change="(val: number) => { pageInfo.pageNum = val; dataHandle() }"
-      />
+  <div>
+    <div p2 md:p8 pb-20>
+      <el-table :data="dataList" v-loading="loading" style="width: 100%">
+        <el-table-column label="id" prop="id" />
+        <el-table-column label="类型" prop="type" />
+        <el-table-column label="评分" prop="rating" />
+        <el-table-column label="描述" prop="detail" />
+        <el-table-column align="right" fixed="right">
+          <template #default="scope">
+            <el-button size="small" @click="detail(scope.row)">查看</el-button>
+            <el-popconfirm title="确定删除？" @confirm="deleteHandle(scope.row.id)">
+              <template #reference>
+                <el-button size="small">删除</el-button>
+              </template>
+            </el-popconfirm>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div flex items-center space-x-1 text-sm mt1>
+        <p v-if="pageInfo.total > 0">共 {{ pageInfo.total }} 条</p>
+        <el-pagination
+          background
+          layout="sizes, prev, pager, next"
+          :page-sizes="[10, 20, 50, 100]"
+          :total="pageInfo.total"
+          v-model:page-size="pageInfo.pageSize"
+          v-model:current-page="pageInfo.pageNum"
+          :page-count="pageInfo.totalPage"
+          @size-change="(val: number) => { pageInfo.pageSize = val; dataHandle() }"
+          @current-change="(val: number) => { pageInfo.pageNum = val; dataHandle() }"
+        />
+      </div>
     </div>
+    <el-drawer
+      v-model="showModal"
+      title="详情"
+      :direction="smAndLarger ? 'ltr' : 'btt'"
+      @close="() => xClick()"
+      size="50%"
+    >
+      <el-image
+        lazy shadow-xl border-4 hover:-translate-y-1 hover:scale-105 hover:transition duration-300 cursor-pointer
+        :src="rowInfo.url"
+        :zoom-rate="1.2"
+        :max-scale="7"
+        :min-scale="0.2"
+        fit="cover"
+      >
+        <template #placeholder>
+          <el-image src="/101504317_p0.avif"  />
+        </template>
+      </el-image>
+      <div flex flex-row space-x-2>
+        <p break-words>图片描述：{{ rowInfo.detail }}</p>
+      </div>
+      <div flex flex-row space-x-2>
+        <p>评分：</p>
+        <el-rate
+          v-model="rating"
+          disabled
+          show-score
+          text-color="#ff9900"
+          score-template="{value} 分"
+        />
+      </div>
+      <el-descriptions
+        v-if="rowInfo.exif && Object.keys(rowInfo.exif).length > 0"
+        :title="Object.keys(rowInfo.exif).length === 0 ? 'EXIF 信息为空！' : 'EXIF'"
+        direction="vertical"
+        :column="smAndLarger ? 4 : 2"
+        border
+      >
+        <el-descriptions-item v-if="rowInfo.exif?.Make?.description" label="相机品牌">
+          {{ rowInfo.exif?.Make?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.Model?.description" label="相机型号">
+          {{ rowInfo.exif?.Model?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.[`Bits Per Sample`]?.description" label="bit 位数">
+          {{ rowInfo.exif?.["Bits Per Sample"]?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.DateTime?.description" label="拍摄时间">
+          {{ rowInfo.exif?.DateTime?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.ExposureTime?.description" label="快门时间">
+          {{ rowInfo.exif?.ExposureTime?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.FNumber?.description" label="光圈">
+          {{ rowInfo.exif?.FNumber?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.ExposureProgram?.description" label="曝光模式">
+          {{ rowInfo.exif?.ExposureProgram?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.ISOSpeedRatings?.description" label="ISO">
+          {{ rowInfo.exif?.ISOSpeedRatings?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.FocalLength?.description" label="焦距">
+          {{ rowInfo.exif?.FocalLength?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.LensSpecification?.description" label="镜头规格">
+          {{ rowInfo.exif?.LensSpecification?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.LensModel?.description" label="镜头型号">
+          {{ rowInfo.exif?.LensModel?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.ExposureMode?.description" label="曝光模式">
+          {{ rowInfo.exif?.ExposureMode?.description }}
+        </el-descriptions-item>
+      </el-descriptions>
+    </el-drawer>
   </div>
 </template>
 

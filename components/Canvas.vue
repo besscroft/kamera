@@ -13,6 +13,7 @@ const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
 const { isMobile } = useDevice()
 const show = ref(false)
+const rating = ref(0)
 const emit = defineEmits(['modalUpdate'])
 
 const xClick = () => {
@@ -24,6 +25,11 @@ const xClick = () => {
 
 watch(() => props.showModal, (val) => {
   show.value = props.showModal
+  rating.value = props.dataList?.find((item: any) => item.id === props.imgId)?.rating
+})
+
+onMounted(() => {
+  rating.value = props.dataList?.find((item: any) => item.id === props.imgId)?.rating
 })
 
 onUnmounted(() => {
@@ -94,13 +100,13 @@ onUnmounted(() => {
               <p>评分</p>
             </h3>
             <div flex justify-center>
-<!--              <el-rate-->
-<!--                v-model="dataList.find((item: any) => item.id === imgId)?.rating"-->
-<!--                disabled-->
-<!--                show-score-->
-<!--                text-color="#ff9900"-->
-<!--                score-template="{value} points"-->
-<!--              />-->
+              <el-rate
+                v-model="rating"
+                disabled
+                show-score
+                text-color="#ff9900"
+                score-template="{value} 分"
+              />
             </div>
           </div>
         </div>
