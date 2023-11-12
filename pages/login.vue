@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { useUserStore } from '~/composables/user'
-import { useMessage } from 'naive-ui'
 
 interface ModelType {
   username: string | null
   password: string | null
 }
 
-const message = useMessage()
 const router = useRouter()
 const user = useUserStore()
 const loading = ref<boolean>(false)
@@ -31,13 +29,13 @@ const handleSubmitClick = async () => {
     user.setUserName(name)
     router.push('/admin')
     if (token) {
-      message.success('登录成功！')
+      // message.success('登录成功！')
     } else {
-      message.error('登录失败！')
+      // message.error('登录失败！')
     }
   } catch (e) {
     loading.value = false
-    message.error('登录失败！')
+    // message.error('登录失败！')
   }
   loading.value = false
 }
@@ -99,13 +97,12 @@ definePageMeta({
             </div>
 
             <div class="mt-6">
-              <n-button
-                  :loading="loading"
-                  @click="handleSubmitClick"
-                  class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-              >
-                登录
-              </n-button>
+              <el-button
+                :loading="loading"
+                @click="handleSubmitClick"
+                w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50
+                type="primary"
+              >登录</el-button>
             </div>
           </div>
         </div>

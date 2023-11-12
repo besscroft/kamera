@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { appName } from '~/constants'
-import { lightTheme, darkTheme, NConfigProvider, zhCN, dateZhCN } from 'naive-ui'
-
-const isDark = useDark()
-
-const theme = computed(() => {
-  return isDark.value ? darkTheme : lightTheme;
-});
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import { ElConfigProvider } from 'element-plus'
 
 useHead({
   title: appName,
@@ -17,16 +12,11 @@ useHead({
   <VitePwaManifest />
   <NuxtLayout>
     <NuxtLoadingIndicator />
-    <NConfigProvider
-      class="w-full h-full"
-      :theme="theme"
-      :locale="zhCN"
-      :date-locale="dateZhCN"
-    >
+    <el-config-provider :locale="zhCn">
       <NMessageProvider>
         <NuxtPage />
       </NMessageProvider>
-    </NConfigProvider>
+    </el-config-provider>
   </NuxtLayout>
 </template>
 

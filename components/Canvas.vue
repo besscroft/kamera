@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-import { GlobalThemeOverrides, useThemeVars } from 'naive-ui'
 
 const props = defineProps({
   showModal: Boolean,
@@ -23,15 +22,6 @@ const xClick = () => {
   emit('modalUpdate', false)
 }
 
-const { popoverColor, boxShadow2, textColor2, borderRadius } =
-    useThemeVars().value
-const themeOverrides: NonNullable<GlobalThemeOverrides['Image']> = {
-  toolbarColor: popoverColor,
-  toolbarBoxShadow: boxShadow2,
-  toolbarIconColor: textColor2,
-  toolbarBorderRadius: borderRadius
-}
-
 watch(() => props.showModal, (val) => {
   show.value = props.showModal
 })
@@ -42,23 +32,27 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <n-modal
-    class="h-full w-full"
-    preset="card"
-    v-model:show="show"
-    :on-after-leave="() => xClick()"
+  <el-dialog
+    h-full w-full
+    v-model="show"
+    align-center
+    @close="() => xClick()"
   >
     <div :class="smAndLarger || !isMobile ? 'grid grid-cols-1 gap-2 md:grid-cols-3 lg:gap-4' : 'h-full flex flex-col pt-6 space-y-2'">
       <div :class="smAndLarger || !isMobile ? 'md:col-span-2 max-h-full flex justify-center h-[90vh]' : ''">
-        <n-image
-          :class="smAndLarger || !isMobile ? 'h-[85vh]' : ''"
-          object-contain
-          :theme-overrides="themeOverrides"
-          show-toolbar-tooltip
-          :src="dataList.find((item: any) => item.id === imgId)?.url"
-          :previewed-img-props="{ style: { border: '8px solid white' } }"
-          :alt="dataList.find((item: any) => item.id === imgId)?.detail"
-        />
+        <ClientOnly>
+          <el-image
+            :class="smAndLarger || !isMobile ? 'h-[85vh]' : ''"
+            :src="dataList.find((item: any) => item.id === imgId)?.url"
+            :alt="dataList.find((item: any) => item.id === imgId)?.detail"
+            :zoom-rate="1.2"
+            :max-scale="7"
+            :min-scale="0.2"
+            :preview-src-list="dataList?.filter((item: any) => item.id === imgId)?.map((item: any) => item.url)"
+            :initial-index="1"
+            fit="contain"
+          />
+        </ClientOnly>
       </div>
       <div class="flex flex-col space-y-4 mt-8">
         <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full">
@@ -100,13 +94,19 @@ onUnmounted(() => {
               <p>评分</p>
             </h3>
             <div flex justify-center>
-              <n-rate readonly :default-value="dataList.find((item: any) => item.id === imgId)?.rating" />
+<!--              <el-rate-->
+<!--                v-model="dataList.find((item: any) => item.id === imgId)?.rating"-->
+<!--                disabled-->
+<!--                show-score-->
+<!--                text-color="#ff9900"-->
+<!--                score-template="{value} points"-->
+<!--              />-->
             </div>
           </div>
         </div>
       </div>
     </div>
-  </n-modal>
+  </el-dialog>
 </template>
 
 <style scoped>

@@ -9,7 +9,7 @@ const initPlayer = (dataList: Array<Object> | any, cover: string) => {
     container: document.getElementById('player'),
     mini: true,
     fixed: true,
-    autoplay: true,
+    autoplay: false,
     theme: '#FADFA3',
     preload: 'auto',
     volume: 0.7,

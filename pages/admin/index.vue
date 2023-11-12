@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import * as ExifReader from 'exifreader'
 import { useUserStore } from '~/composables/user'
-import { useMessage } from 'naive-ui'
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const smAndLarger = breakpoints.greaterOrEqual('md')
 
 const user = useUserStore()
 const fileUrl = ref('')
 const loading = ref<boolean>(false)
-const message = useMessage()
 
 const imgData = reactive({
   type: '',
@@ -33,7 +35,7 @@ const options = ref([
 
 /** 自定义上传请求 */
 const onRequestUpload = async (option: any) => {
-  const file = option.file.file
+  const file = option.file
   let formData = new FormData();
   formData.append('file', file);
   const { data, url } = await $fetch('/api/uploadFile', {
@@ -56,7 +58,7 @@ const submit = async () => {
   loading.value = true
   try {
     if (imgData.type === '') {
-      message.error('请选择类型！')
+      // message.error('请选择类型！')
       loading.value = false
       return
     }
@@ -69,9 +71,9 @@ const submit = async () => {
       body: imgData,
     })
     if (data === 0) {
-      message.success('上传成功！')
+      // message.success('上传成功！')
     } else {
-      message.error('上传失败！')
+      // message.error('上传失败！')
     }
   } catch (e) {
     loading.value = false
@@ -88,16 +90,22 @@ definePageMeta({
   <div class="w-full h-full md:max-w-7xl flex flex-col items-center justify-center mx-auto px-2">
     <div class="my-16 mx-auto w-full md:max-w-3xl rounded-md bg-white dark:bg-gray-800 shadow p-2">
       <div flex items-center justify-center pb-2 space-x-2>
-        <n-select v-model:value="imgData.type" :options="options" placeholder="请选择图片类别" />
-        <n-button v-if="fileUrl" :loading="loading" @click="submit">上传</n-button>
+        <el-select v-model="imgData.type" class="m-2" placeholder="请选择图片类别">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+        <el-button round v-if="fileUrl" :loading="loading" @click="submit">上传</el-button>
       </div>
-      <n-upload
-        multiple
-        directory-dnd
-        :custom-request="onRequestUpload"
-        :max="1"
-        show-remove-button
-        :on-remove="() => {
+      <el-upload
+        class="upload-demo"
+        drag
+        :limit="1"
+        :http-request="onRequestUpload"
+        :before-remove="() => {
           fileUrl = '';
           imgData.url = '';
           imgData.rating = 0;
@@ -107,75 +115,73 @@ definePageMeta({
         }"
         accept="image/jpg, image/jpeg, image/png, image/tiff, image/heic, image/heif, image/webp, image/avif"
       >
-        <n-upload-dragger md:h-100 flex flex-col items-center justify-center>
-          <div style="margin-bottom: 8px">
-            <n-icon size="48" :depth="3">
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"><path d="M11 18l1.41 1.41L15 16.83V29h2V16.83l2.59 2.58L21 18l-5-5l-5 5z" fill="currentColor"></path><path d="M23.5 22H23v-2h.5a4.5 4.5 0 0 0 .36-9H23l-.1-.82a7 7 0 0 0-13.88 0L9 11h-.86a4.5 4.5 0 0 0 .36 9H9v2h-.5A6.5 6.5 0 0 1 7.2 9.14a9 9 0 0 1 17.6 0A6.5 6.5 0 0 1 23.5 22z" fill="currentColor"></path></svg>
-            </n-icon>
-          </div>
-          <n-text style="font-size: 16px">
-            点击或者拖动图片到该区域来上传，关闭图片可重置
-          </n-text>
-          <n-p depth="3">
+        <div class="el-upload__text">
+          点击或者拖动图片到该区域来上传，关闭图片可重置
+        </div>
+        <template #tip>
+          <div class="el-upload__tip">
             同名文件会被替换，仅支持大多数图片类型，入 jpg、jpeg、png、tiff、heic、heif、webp 等。<br />
             受限于部署平台限制，如 Vercel，可能只允许免费用户传递 6M 内文件......<br />
             所以，如果你的平台受限，你要么换平台，要么压缩文件......
-          </n-p>
-        </n-upload-dragger>
-      </n-upload>
+          </div>
+        </template>
+      </el-upload>
       <div v-if="fileUrl" space-y-2>
-        <p>图片地址：</p>
-        <n-tag :bordered="false">
-          {{ fileUrl }}
-        </n-tag>
+        <p break-words text-green-400>图片地址：{{ fileUrl }}</p>
         <p>图片描述：</p>
-        <n-input
-          v-model:value="imgData.detail"
+        <el-input
+          v-model="imgData.detail"
+          :rows="2"
           type="textarea"
           placeholder="请输入图片描述！"
         />
         <div flex flex-row space-x-2>
           <p>评分：</p>
-          <n-rate v-model:value="imgData.rating" />
+          <el-rate v-model="imgData.rating" />
         </div>
-        <n-descriptions bordered label-placement="top" :title="Object.keys(imgData.exif).length === 0 ? 'EXIF 信息为空！' : 'EXIF'">
-          <n-descriptions-item v-if="imgData.exif?.Make?.description" label="相机品牌">
+        <el-descriptions
+          :title="Object.keys(imgData.exif).length === 0 ? 'EXIF 信息为空！' : 'EXIF'"
+          direction="vertical"
+          :column="smAndLarger ? 4 : 2"
+          border
+        >
+          <el-descriptions-item v-if="imgData.exif?.Make?.description" label="相机品牌">
             {{ imgData.exif?.Make?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.Model?.description" label="相机型号">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.Model?.description" label="相机型号">
             {{ imgData.exif?.Model?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.[`Bits Per Sample`]?.description" label="bit 位数">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.[`Bits Per Sample`]?.description" label="bit 位数">
             {{ imgData.exif?.["Bits Per Sample"]?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.DateTime?.description" label="拍摄时间">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.DateTime?.description" label="拍摄时间">
             {{ imgData.exif?.DateTime?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.ExposureTime?.description" label="快门时间">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.ExposureTime?.description" label="快门时间">
             {{ imgData.exif?.ExposureTime?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.FNumber?.description" label="光圈">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.FNumber?.description" label="光圈">
             {{ imgData.exif?.FNumber?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.ExposureProgram?.description" label="曝光模式">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.ExposureProgram?.description" label="曝光模式">
             {{ imgData.exif?.ExposureProgram?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.ISOSpeedRatings?.description" label="ISO">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.ISOSpeedRatings?.description" label="ISO">
             {{ imgData.exif?.ISOSpeedRatings?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.FocalLength?.description" label="焦距">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.FocalLength?.description" label="焦距">
             {{ imgData.exif?.FocalLength?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.LensSpecification?.description" label="镜头规格">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.LensSpecification?.description" label="镜头规格">
             {{ imgData.exif?.LensSpecification?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.LensModel?.description" label="镜头型号">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.LensModel?.description" label="镜头型号">
             {{ imgData.exif?.LensModel?.description }}
-          </n-descriptions-item>
-          <n-descriptions-item v-if="imgData.exif?.ExposureMode?.description" label="曝光模式">
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.ExposureMode?.description" label="曝光模式">
             {{ imgData.exif?.ExposureMode?.description }}
-          </n-descriptions-item>
-        </n-descriptions>
+          </el-descriptions-item>
+        </el-descriptions>
       </div>
     </div>
   </div>

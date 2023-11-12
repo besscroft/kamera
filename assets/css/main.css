@@ -30,3 +30,11 @@
 .aplayer-title {
     color: #212121 !important;
 }
+
+.el-carousel__container {
+    height: 100% !important;
+}
+
+.el-dialog {
+    width: 98% !important;
+}
