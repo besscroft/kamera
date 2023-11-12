@@ -5,6 +5,7 @@ const isDark = useDark()
 const router = useRouter()
 const route = useRoute()
 const user = useUserStore()
+const color = useColorMode()
 
 // @ts-expect-error: Transition API
 const isAppearanceTransition = document.startViewTransition
@@ -14,6 +15,7 @@ const isAppearanceTransition = document.startViewTransition
  * @see https://github.com/vuejs/vitepress/pull/2347
  */
 function toggleDark(event?: MouseEvent) {
+  color.preference = color.value === 'dark' ? 'light' : 'dark'
   if (!isAppearanceTransition || !event) {
     isDark.value = !isDark.value
     return
@@ -56,7 +58,7 @@ function toggleDark(event?: MouseEvent) {
   <div flex flex-row justify-center items-center space-x-2>
     <button
       class="!outline-none"
-      :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+      :title="isDark ? '切换至⌈白夜⌋' : '切换至⌈常夜⌋'"
       @click="toggleDark"
     >
       <span class="dark:i-carbon-moon i-carbon-sun block" aria-hidden="true" />
