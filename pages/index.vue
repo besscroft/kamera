@@ -11,7 +11,7 @@ definePageMeta({
 <template>
   <div h-full p2>
     <div flex justify-center>
-      <el-carousel aspect-video max-h-180 h-180 max-w-7xl shadow-2xl rounded-sm>
+      <el-carousel aspect-video max-h-180 w-full md:h-180 max-w-7xl shadow-2xl rounded-sm>
         <el-carousel-item v-for="item in dataList" :key="item" h-full>
           <img lazy :src="item.url" />
         </el-carousel-item>
