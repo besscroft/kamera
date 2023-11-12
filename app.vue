@@ -4,24 +4,6 @@ import { darkTheme, NConfigProvider, zhCN, dateZhCN } from 'naive-ui'
 
 const isDark = useDark()
 
-/**
- * @type import('naive-ui').GlobalThemeOverrides
- */
-const lightThemeOverrides = {
-  common: {
-    primaryColor: '#FFFFFF'
-  }
-}
-
-const darkThemeOverrides = {
-  common: {
-    primaryColor: '#000000'
-  },
-  upload: {
-    primaryColor: '#000000'
-  }
-}
-
 useHead({
   title: appName,
 })
@@ -34,7 +16,6 @@ useHead({
     <NConfigProvider
       class="w-full h-full"
       :theme="isDark ? darkTheme : undefined"
-      :theme-overrides="isDark ? darkThemeOverrides : lightThemeOverrides"
       :locale="zhCN"
       :date-locale="dateZhCN"
     >

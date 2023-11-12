@@ -11,7 +11,7 @@ const pageInfo = reactive({
   total: 0,
   totalPage: 0,
   pageNum: 1,
-  pageSize: 3,
+  pageSize: 10,
 })
 
 const play = (row: any) => {
@@ -86,7 +86,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div p2>
+  <div p2 md:p8>
     <n-data-table
       :columns="tableColumns"
       :data="dataList"
@@ -94,12 +94,12 @@ definePageMeta({
       :loading="loading"
     />
     <n-pagination
-        v-if="pageInfo.totalPage > 0"
-        v-model:page="pageInfo.pageNum"
-        v-model:page-size="pageInfo.pageSize"
-        :page-count="pageInfo.totalPage"
-        mt0.5
-        @update:page="(current) => { pageInfo.pageNum = current; dataHandle() }"
+      v-if="pageInfo.totalPage > 0"
+      v-model:page="pageInfo.pageNum"
+      v-model:page-size="pageInfo.pageSize"
+      :page-count="pageInfo.totalPage"
+      mt1
+      @update:page="(current) => { pageInfo.pageNum = current; dataHandle() }"
     />
   </div>
 </template>
