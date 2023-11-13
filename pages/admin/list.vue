@@ -5,17 +5,26 @@ import { ElMessage } from 'element-plus'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
+const { isMobile } = useDevice()
 const user = useUserStore()
 const dataList = ref<Array<Object>>([])
 const loading = ref<boolean>(false)
 const rowInfo = ref()
 const rating = ref(0)
 const showModal = ref<boolean>(false)
+const showUpdateModal = ref<boolean>(false)
 const pageInfo = reactive({
   total: 0,
   totalPage: 0,
   pageNum: 1,
   pageSize: 10,
+})
+const objInfo = reactive({
+  id: 0,
+  type: '',
+  rating: 0,
+  detail: '',
+  url: '',
 })
 
 const detail = (row: any) => {
@@ -24,10 +33,28 @@ const detail = (row: any) => {
   showModal.value = true
 }
 
+const update = (row: any) => {
+  objInfo.id = row.id
+  objInfo.type = row.type
+  objInfo.rating = row.rating
+  objInfo.detail = row.detail
+  objInfo.url = row.url
+  showUpdateModal.value = true
+}
+
 const xClick = () => {
   rowInfo.value = {}
   rating.value = 0
   showModal.value = false
+}
+
+const uClick = () => {
+  objInfo.id = 0
+  objInfo.type = ''
+  objInfo.rating = 0
+  objInfo.detail = ''
+  objInfo.url = ''
+  showUpdateModal.value = false
 }
 
 const dataHandle = async () => {
@@ -49,19 +76,47 @@ const dataHandle = async () => {
   }
 }
 
+const updateHandle = async () => {
+  try {
+    const { data } = await $fetch('/api/updateImgInfo', {
+      timeout: 60000,
+      method: 'put',
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`
+      },
+      body: { id: objInfo.id, type: objInfo.type, rating: objInfo.rating, detail: objInfo.detail, url: objInfo.url },
+    })
+    if (data === 0) {
+      ElMessage.success('更新成功！')
+      await uClick()
+      await dataHandle()
+    } else {
+      ElMessage.error('更新失败！')
+    }
+  } catch (e) {
+    console.log(e)
+    ElMessage.error('更新失败！')
+  }
+}
+
 const deleteHandle = async (id: number) => {
-  const { data } = await $fetch('/api/deleteImg', {
-    timeout: 60000,
-    method: 'delete',
-    headers: {
-      Authorization: `${user.tokenName} ${user.token}`
-    },
-    body: { id: id },
-  })
-  if (data === 0) {
-    ElMessage.success('删除成功！')
-    await dataHandle()
-  } else {
+  try {
+    const { data } = await $fetch('/api/deleteImg', {
+      timeout: 60000,
+      method: 'delete',
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`
+      },
+      body: { id: id },
+    })
+    if (data === 0) {
+      ElMessage.success('删除成功！')
+      await dataHandle()
+    } else {
+      ElMessage.error('删除失败！')
+    }
+  } catch (e) {
+    console.log(e)
     ElMessage.error('删除失败！')
   }
 }
@@ -86,6 +141,7 @@ definePageMeta({
         <el-table-column align="right" fixed="right">
           <template #default="scope">
             <el-button size="small" @click="detail(scope.row)">查看</el-button>
+            <el-button size="small" @click="update(scope.row)">维护</el-button>
             <el-popconfirm title="确定删除？" @confirm="deleteHandle(scope.row.id)">
               <template #reference>
                 <el-button size="small">删除</el-button>
@@ -110,14 +166,47 @@ definePageMeta({
       </div>
     </div>
     <el-drawer
+      v-model="showUpdateModal"
+      title="维护"
+      :direction="!isMobile || smAndLarger ? 'ltr' : 'btt'"
+      @close="() => uClick()"
+      size="50%"
+    >
+      <div space-y-2>
+        <p>图片地址：</p>
+        <el-input
+          v-model="objInfo.url"
+          :rows="2"
+          type="textarea"
+          placeholder="请输入图片地址！"
+        />
+        <p>图片描述：</p>
+        <el-input
+          v-model="objInfo.detail"
+          :rows="2"
+          type="textarea"
+          placeholder="请输入图片描述！"
+        />
+        <div flex flex-row space-x-2>
+          <p>评分：</p>
+          <el-rate v-model="objInfo.rating" />
+        </div>
+        <el-popconfirm title="确定更新？" @confirm="updateHandle()">
+          <template #reference>
+            <el-button size="small">保存</el-button>
+          </template>
+        </el-popconfirm>
+      </div>
+    </el-drawer>
+    <el-drawer
       v-model="showModal"
       title="详情"
-      :direction="smAndLarger ? 'ltr' : 'btt'"
+      :direction="!isMobile || smAndLarger ? 'ltr' : 'btt'"
       @close="() => xClick()"
       size="50%"
     >
       <el-image
-        lazy shadow-xl border-4 hover:-translate-y-1 hover:scale-105 hover:transition duration-300 cursor-pointer
+        lazy shadow-xl border-4
         :src="rowInfo.url"
         :zoom-rate="1.2"
         :max-scale="7"
