@@ -39,7 +39,7 @@ onUnmounted(() => {
 
 <template>
   <el-dialog
-    h-full w-full
+    min-h-full w-full
     v-model="show"
     align-center
     @close="() => xClick()"
