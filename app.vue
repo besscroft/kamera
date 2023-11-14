@@ -13,9 +13,7 @@ useHead({
   <NuxtLayout>
     <NuxtLoadingIndicator />
     <el-config-provider :locale="zhCn">
-      <NMessageProvider>
-        <NuxtPage />
-      </NMessageProvider>
+      <NuxtPage />
     </el-config-provider>
   </NuxtLayout>
 </template>

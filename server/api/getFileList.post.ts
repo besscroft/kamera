@@ -62,7 +62,6 @@ export default defineEventHandler(async (event) => {
         pageNum: body.pageNum,
         pageSize: body.pageSize,
         data: !data.length ? [] : data.map(item => {
-            // 替换 url 属性的值
             return {
                 ...item,
                 exif: JSON.parse(item.exif)

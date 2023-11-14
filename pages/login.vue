@@ -18,16 +18,12 @@ const loginForm = reactive<ModelType>({
 const handleSubmitClick = async () => {
   loading.value = true
   try {
-    const { token, tokenName, name, avatar, roleCode, email } = await $fetch('/api/login', {
+    const { token, tokenName } = await $fetch('/api/login', {
       method: 'post',
       body: { username: loginForm.username, password: loginForm.password },
     })
     user.setToken(token)
     user.setTokenName(tokenName)
-    user.setAvatar(avatar)
-    user.setRoleCode(roleCode)
-    user.setEmail(email)
-    user.setUserName(name)
     router.push('/admin')
     if (token) {
       ElMessage.success('登录成功！')

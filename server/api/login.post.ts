@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import sql from '~/config/db'
 
 const hashPassword = async (password) => {
     const salt = await bcrypt.genSalt(10);
@@ -14,26 +13,17 @@ const comparePasswords = async (password, hashedPassword) => {
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
-    let username = body.username
-    let password = body.password
 
-    const data = await sql`
-        SELECT * FROM public.kamera_user
-        WHERE username = ${ username }
-        LIMIT 1
-    `
+    let username = process.env.KAMERA_USERNAME || ''
+    let password = process.env.KAMERA_PASSWORD || ''
 
-    if (await comparePasswords(password, data[0].password)) {
-        const payload = { id: data[0].id, username: data[0].username };
+    if (password && password !== '' && username === body.username && await comparePasswords(body.password, password)) {
+        const payload = { username: username };
         const secretKey = process.env.JWT_KEY;
         const token = jwt.sign(payload, secretKey, { expiresIn: '24h' });
         return {
             token: token,
-            tokenName: 'Bearer',
-            name: data[0].name,
-            avatar: data[0].avatar,
-            roleCode: data[0].role,
-            email: data[0].email
+            tokenName: 'Bearer'
         }
     }
 })

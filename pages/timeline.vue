@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useUserStore } from '~/composables/user'
+
+const user = useUserStore()
 const dataList = ref<Array<Object>>([])
 const loading = ref<boolean>(false)
 const handleButton = ref<boolean>(true)
@@ -12,9 +15,12 @@ const pageInfo = reactive({
 const dataHandle = async () => {
   loading.value = true
   try {
-    const { total, totalPage, pageNum, pageSize, data } = await $fetch('/api/timeline', {
+    const { total, totalPage, pageNum, pageSize, data } = await $fetch('/api/getImageList', {
       method: 'post',
-      body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize },
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`
+      },
+      body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize, type: 'timeline' },
     })
     if (pageInfo.pageNum <= totalPage) {
       if (pageInfo.pageNum === totalPage) {
