@@ -6,26 +6,6 @@ const { isMobile } = useDevice()
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
-
-onBeforeMount(async () => {
-  const user = useUserStore()
-  if (!user.token) {
-    router.push('/login')
-  } else {
-    const { data } = await $fetch('/api/verify', {
-      method: 'get',
-      headers: {
-        Authorization: `${user.tokenName} ${user.token}`
-      }
-    }).catch((error) => {
-      console.log(error)
-      router.push('/login')
-    })
-    if (data === !0) {
-      router.push('/login')
-    }
-  }
-})
 </script>
 
 <template>
