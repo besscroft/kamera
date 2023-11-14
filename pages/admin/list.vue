@@ -223,7 +223,7 @@ definePageMeta({
         fit="cover"
       >
         <template #placeholder>
-          <el-image src="/101504317_p0.avif"  />
+          <el-image src="/101504317_p0.jpg"  />
         </template>
       </el-image>
       <div flex flex-row space-x-2>
