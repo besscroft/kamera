@@ -21,6 +21,14 @@ const imgData = reactive({
 
 const options = ref([
   {
+    label: '首页轮播图',
+    value: 'carousel',
+  },
+  {
+    label: '首页精选',
+    value: 'index',
+  },
+  {
     label: 'Cosplay',
     value: 'cosplay',
   },
@@ -51,6 +59,13 @@ const onRequestUpload = async (option: any) => {
     fileUrl.value = url
     const tags = await ExifReader.load(file)
     imgData.exif = tags
+    if (tags?.Images) {
+      imgData.exif.Images = tags?.Images?.map(({ base64, image, ...item }) => {
+        return {
+          ...item,
+        }
+      })
+    }
     imgData.url = url
   }
 }

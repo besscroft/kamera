@@ -51,7 +51,8 @@ nitro: {
 | Region           | 阿里 OSS / AWS S3 Region 地域，如：oss-cn-hongkong                                                                                                                                  |
 | Endpoint         | 阿里 OSS / AWS S3 Endpoint 地域节点，如：oss-cn-hongkong.aliyuncs.com                                                                                                                 |
 | Bucket           | 阿里 OSS / AWS S3 Bucket 存储桶名称，如：kamera                                                                                                                                        |
-| CDN_URL          | CDN 域名，请严格按照 example.com 格式，不需要添加 https:// 会自动补充，如：cdn.heming.dev                                                                                                            |
+| STORAGE_FOLDER           | 存储文件夹，严格格式，如：kamera 或 kamera/images ，填 / 或者不填表示根路径                                                                                                                           |
+| CDN_URL          | CDN 域名，请严格按照 example.com 格式，不需要添加 https:// 会自动补充，如：kamera-s3-cdn.heming.dev                                                                                                            |
 | STORAGE_MODEL    | 存储模式：本地维护填 local / 对象存储填 s3。选本地的话，就会从 assets/server 下加载 json 文件，你需要手动维护；选对象存储，通过后台功能进行维护。默认值：s3                                                                              |
 | KAMERA_USERNAME  | 系统用户账号，默认值：admin                                                                                                                                                             |
 | KAMERA_PASSWORD  | 系统用户密码，默认值(666666)：`$2a$10$rFMi/voRBYMZCAWH6tGfY./TJZH5d43RODCKu3SwmfGXns3H8kB9.` 注意密码使用 [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)，并且 Salt 设置为 10，如果需要更改密码，可自行生成后替换。 |

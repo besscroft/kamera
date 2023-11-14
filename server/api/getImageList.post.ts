@@ -1,8 +1,10 @@
 import jwt from 'jsonwebtoken'
 import sql from '~/config/db'
-import timelineData from 'assets/server/json/timeline.json'
-import tietieData from 'assets/server/json/tietie.json'
-import cosplayData from 'assets/server/json/cosplay.json'
+import timelineData from '~/assets/server/json/timeline.json'
+import tietieData from '~/assets/server/json/tietie.json'
+import cosplayData from '~/assets/server/json/cosplay.json'
+import carouselData from '~/assets/server/json/carousel.json'
+import indexData from '~/assets/server/json/index.json'
 
 export default defineEventHandler(async (event) => {
     const token = event.headers.get('authorization').replace("Bearer ", "")
@@ -66,7 +68,6 @@ export default defineEventHandler(async (event) => {
             pageNum: body.pageNum,
             pageSize: body.pageSize,
             data: !data.length ? [] : data.map(item => {
-                // 替换 url 属性的值
                 return {
                     ...item,
                     exif: JSON.parse(item.exif)
@@ -81,6 +82,10 @@ export default defineEventHandler(async (event) => {
             dataList = tietieData
         } else if (body.type === 'cosplay') {
             dataList = cosplayData
+        } else if (body.type === 'carousel') {
+            dataList = carouselData
+        } else if (body.type === 'index') {
+            dataList = indexData
         }
         const returnData = dataList
             .sort((a, b) => b.id - a.id)

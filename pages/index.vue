@@ -1,7 +1,42 @@
 <script setup lang="ts">
-import carouselList from 'assets/server/json/carousel.json'
+import { useUserStore } from '~/composables/user'
 
-const dataList = ref<Array<Object>>(carouselList)
+const user = useUserStore()
+const dataList = ref<Array<Object>>([])
+const loading = ref<boolean>(false)
+const pageInfo = reactive({
+  total: 0,
+  totalPage: 0,
+  pageNum: 1,
+  pageSize: 4,
+})
+
+const dataHandle = async () => {
+  loading.value = true
+  try {
+    const { total, totalPage, pageNum, pageSize, data } = await $fetch('/api/getImageList', {
+      method: 'post',
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`
+      },
+      body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize, type: 'carousel' },
+    })
+    dataList.value = data
+  } finally {
+    loading.value = false
+  }
+}
+
+onUnmounted(() => {
+  dataList.value = []
+  pageInfo.total = 0
+  pageInfo.totalPage = 0
+  pageInfo.pageNum = 1
+})
+
+onBeforeMount(async () => {
+  await dataHandle()
+})
 
 definePageMeta({
   layout: 'default',
@@ -12,7 +47,7 @@ definePageMeta({
   <div h-full p2>
     <div flex justify-center>
       <el-carousel aspect-video max-h-180 w-full md:h-180 max-w-7xl shadow-2xl rounded-sm>
-        <el-carousel-item v-for="item in dataList" :key="item" h-full>
+        <el-carousel-item v-for="item in dataList" :key="item.id" h-full>
           <img lazy :src="item.url" />
         </el-carousel-item>
       </el-carousel>

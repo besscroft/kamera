@@ -135,7 +135,16 @@ definePageMeta({
     <div p2 md:p8 pb-20>
       <el-table :data="dataList" v-loading="loading" style="width: 100%">
         <el-table-column label="id" prop="id" />
-        <el-table-column label="类型" prop="type" />
+        <el-table-column label="类型" prop="type">
+          <template #default="scope">
+            <el-tag v-if="scope.row.type === 'carousel'">首页轮播图</el-tag>
+            <el-tag v-else-if="scope.row.type === 'index'">首页精选</el-tag>
+            <el-tag v-else-if="scope.row.type === 'cosplay'">Cosplay</el-tag>
+            <el-tag v-else-if="scope.row.type === 'tietie'">集邮</el-tag>
+            <el-tag v-else-if="scope.row.type === 'timeline'">时光相册</el-tag>
+            <el-tag v-else type="danger">错误类型</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column label="评分" prop="rating" />
         <el-table-column label="描述" prop="detail" />
         <el-table-column align="right" fixed="right">
