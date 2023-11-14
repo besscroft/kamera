@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken'
 import sql from '~/config/db'
 import timelineData from '~/assets/server/json/timeline.json'
 import tietieData from '~/assets/server/json/tietie.json'
@@ -7,10 +6,6 @@ import carouselData from '~/assets/server/json/carousel.json'
 import indexData from '~/assets/server/json/index.json'
 
 export default defineEventHandler(async (event) => {
-    const token = event.headers.get('authorization').replace("Bearer ", "")
-    const secretKey = process.env.JWT_KEY
-    const { err } = jwt.verify(token, secretKey)
-
     const body = await readBody(event)
 
     let length;
