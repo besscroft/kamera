@@ -11,7 +11,7 @@ import { copyright } from '~/constants'
       </div>
 
       <div class="mt-4 mr-2 flex justify-center gap-6 sm:mt-0 lg:justify-end">
-        <a i-carbon-logo-github href="https://github.com/besscroft" target="_blank" title="GitHub" />
+        <a i-carbon-logo-github href="https://github.com/besscroft/kamera" target="_blank" title="GitHub" />
         <a i-carbon-mail-all href="mailto:besscroft@foxmail.com" title="邮件" />
       </div>
     </div>
