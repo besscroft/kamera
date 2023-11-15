@@ -5,6 +5,7 @@ export default defineAppConfig({
         '/tietie',
         '/cosplay',
         '/timeline',
+        '/about',
         '/error',
     ],
     loginPageWhiteList: [
