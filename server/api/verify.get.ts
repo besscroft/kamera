@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 
 export default defineEventHandler(async (req) => {
     const token = req.headers.get('authorization').replace("Bearer ", "")
-    const secretKey = process.env.JWT_KEY;
+    const secretKey = process.env.AUTH_KEY;
     try {
         const { err } = jwt.verify(token, secretKey);
     } catch (e) {

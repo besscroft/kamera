@@ -6,7 +6,7 @@ export default defineEventHandler((event) => {
         return
     }
     const token = event.headers.get('authorization')?.replace("Bearer ", "")
-    const secretKey = process.env.JWT_KEY
+    const secretKey = process.env.AUTH_KEY
     try {
         const { err } = jwt.verify(token, secretKey);
     } catch (e) {
