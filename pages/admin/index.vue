@@ -103,10 +103,10 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="w-full max-h-full md:max-w-7xl flex flex-col items-center justify-center mx-auto p2 md:p8 pb-20">
-    <div class="my-16 mx-auto w-full md:max-w-4xl rounded-md bg-white dark:bg-gray-800 shadow p-2">
+  <div w-full max-h-full md:max-w-7xl flex flex-col items-center justify-center mx-auto p2 md:p8 pb-20>
+    <div my-16 mx-auto w-full md:max-w-4xl rounded-md bg-white dark:bg-gray-800 shadow p-2>
       <div flex items-center justify-center pb-2 space-x-2>
-        <el-select v-model="imgData.type" class="m-2" placeholder="请选择图片类别">
+        <el-select v-model="imgData.type" m-2 placeholder="请选择图片类别">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -155,6 +155,7 @@ definePageMeta({
           <p>评分：</p>
           <el-rate v-model="imgData.rating" />
         </div>
+        <p text-sm>想要展示更多 EXIF 信息？可以反馈给开发者哦！</p>
         <el-descriptions
           :title="Object.keys(imgData.exif).length === 0 ? 'EXIF 信息为空！' : 'EXIF'"
           direction="vertical"
