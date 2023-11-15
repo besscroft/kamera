@@ -1,11 +1,6 @@
-import jwt from 'jsonwebtoken'
 import sql from '~/config/db'
 
 export default defineEventHandler(async (event) => {
-    const token = event.headers.get('authorization').replace("Bearer ", "")
-    const secretKey = process.env.JWT_KEY
-    const { err } = jwt.verify(token, secretKey)
-
     const body = await readBody(event)
 
     let length;

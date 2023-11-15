@@ -59,6 +59,41 @@ nitro: {
 
 > 理论上存储兼容 AWS S3 API，除了阿里云 OSS 外，其它兼容 S3 API 的存储都可以使用。
 
+#### 白名单配置
+
+我们提供了客户端路由中间件和服务端接口中间件，默认情况下你不需要管，但如果你想自定义白名单，这里提供了配置方案。
+在 `app.config.ts` 文件中，可以看到如下默认配置：
+
+```ts
+export default defineAppConfig({
+    noLoginPageWhiteList: [
+        '/',
+        '/login',
+        '/tietie',
+        '/cosplay',
+        '/timeline',
+        '/error',
+    ],
+    loginPageWhiteList: [
+        '/admin',
+        '/admin/list',
+        '/admin/system',
+    ],
+    apiWhiteList: [
+        '/api/login',
+        '/api/verify',
+        '/api/music',
+        '/api/getImageList',
+    ]
+})
+```
+
+> `noLoginPageWhiteList` 对于客户端路由中间件和服务端接口中间件来说，不需要登录就能访问的页面。
+> 
+> `loginPageWhiteList` 对于客户端路由中间件来说，需要 token 才能访问；对于服务端接口中间件来说，必须要填写才能访问的页面。
+> 
+> `apiWhiteList` 不需要 token 就能访问的接口。
+
 ### 在线开发
 
 你可以使用 Gitpod 进行在线开发：

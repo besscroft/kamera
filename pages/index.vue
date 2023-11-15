@@ -3,7 +3,9 @@ import { useUserStore } from '~/composables/user'
 
 const user = useUserStore()
 const dataList = ref<Array<Object>>([])
+const indexDataList = ref<Array<Object>>([])
 const loading = ref<boolean>(false)
+const indexLoading = ref<boolean>(false)
 const pageInfo = reactive({
   total: 0,
   totalPage: 0,
@@ -14,7 +16,7 @@ const pageInfo = reactive({
 const dataHandle = async () => {
   loading.value = true
   try {
-    const { total, totalPage, pageNum, pageSize, data } = await $fetch('/api/getImageList', {
+    const { data } = await $fetch('/api/getImageList', {
       method: 'post',
       headers: {
         Authorization: `${user.tokenName} ${user.token}`
@@ -27,8 +29,25 @@ const dataHandle = async () => {
   }
 }
 
+const indexDataHandle = async () => {
+  indexLoading.value = true
+  try {
+    const { data } = await $fetch('/api/getImageList', {
+      method: 'post',
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`
+      },
+      body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize, type: 'index' },
+    })
+    indexDataList.value = data
+  } finally {
+    indexLoading.value = false
+  }
+}
+
 onUnmounted(() => {
   dataList.value = []
+  indexDataList.value = []
   pageInfo.total = 0
   pageInfo.totalPage = 0
   pageInfo.pageNum = 1
@@ -36,6 +55,7 @@ onUnmounted(() => {
 
 onBeforeMount(async () => {
   await dataHandle()
+  await indexDataHandle()
 })
 
 definePageMeta({

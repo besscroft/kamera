@@ -1,22 +1,21 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
     if (process.client) {
         const user = useUserStore()
+        const { noLoginPageWhiteList, loginPageWhiteList } = useAppConfig()
 
-        if (to.path === '/login' || to.path === '/' || to.path === '/tietie' || to.path === '/cosplay' || to.path === '/timeline')
+        if (noLoginPageWhiteList.includes(to.path))
             return
-        if (to.path.startsWith('/admin') && !user.token) {
+        if (loginPageWhiteList.includes(to.path) && !user.token) {
             return navigateTo('/login')
         }
-        const { data } = await $fetch('/api/verify', {
-            method: 'get',
-            headers: {
-                Authorization: `${user.tokenName} ${user.token}`
-            }
-        }).catch((error) => {
-            console.log(error)
-            return navigateTo('/login')
-        })
-        if (data === !0) {
+        try {
+            const { data } = await $fetch('/api/verify', {
+                method: 'get',
+                headers: {
+                    Authorization: `${user.tokenName} ${user.token}`
+                }
+            })
+        } catch (e) {
             return navigateTo('/login')
         }
     }

@@ -42,13 +42,13 @@ const update = (row: any) => {
   showUpdateModal.value = true
 }
 
-const xClick = () => {
+const xClick = async () => {
   rowInfo.value = {}
   rating.value = 0
   showModal.value = false
 }
 
-const uClick = () => {
+const uClick = async () => {
   objInfo.id = 0
   objInfo.type = ''
   objInfo.rating = 0
