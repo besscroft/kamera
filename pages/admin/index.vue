@@ -87,14 +87,27 @@ const submit = async () => {
       body: imgData,
     })
     if (data === 0) {
-      ElMessage.success('上传成功！')
+      ElMessage.success('保存成功！')
     } else {
-      ElMessage.error('上传失败！')
+      ElMessage.error('保存失败！')
     }
   } catch (e) {
     loading.value = false
   }
   loading.value = false
+}
+
+const removeFile = () => {
+  fileUrl.value = '';
+  imgData.url = '';
+  imgData.rating = 0;
+  imgData.detail = '';
+  imgData.exif = {};
+  imgData.type = '';
+}
+
+const exceed = () => {
+  ElMessage.warning('只能同时上传一张图片！')
 }
 
 definePageMeta({
@@ -114,21 +127,18 @@ definePageMeta({
             :value="item.value"
           />
         </el-select>
-        <el-button round v-if="fileUrl" :loading="loading" @click="submit">上传</el-button>
+        <el-button round v-if="fileUrl" :loading="loading" @click="submit">保存</el-button>
       </div>
       <el-upload
         class="upload-demo"
         drag
         :limit="1"
         :http-request="onRequestUpload"
-        :before-remove="() => {
-          fileUrl = '';
-          imgData.url = '';
-          imgData.rating = 0;
-          imgData.detail = '';
-          imgData.exif = {};
-          imgData.type = '';
-        }"
+        :before-upload="() => { ElMessage.info('正在上传文件！') }"
+        :on-success="() => { ElMessage.success('文件上传成功！请编辑后保存！') }"
+        :before-remove="removeFile"
+        :on-exceed="exceed"
+        list-type="picture"
         accept="image/jpg, image/jpeg, image/png, image/tiff, image/heic, image/heif, image/webp, image/avif"
       >
         <div class="el-upload__text">
