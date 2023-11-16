@@ -179,7 +179,7 @@ definePageMeta({
       title="维护"
       :direction="!isMobile || smAndLarger ? 'ltr' : 'btt'"
       @close="() => uClick()"
-      size="50%"
+      :size="!isMobile || smAndLarger ? '50%' : '80%'"
     >
       <div space-y-2>
         <p>图片地址：</p>
@@ -212,7 +212,7 @@ definePageMeta({
       title="详情"
       :direction="!isMobile || smAndLarger ? 'ltr' : 'btt'"
       @close="() => xClick()"
-      size="50%"
+      :size="!isMobile || smAndLarger ? '50%' : '80%'"
     >
       <el-image
         lazy shadow-xl border-4

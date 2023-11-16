@@ -117,7 +117,7 @@ definePageMeta({
 
 <template>
   <div w-full max-h-full md:max-w-7xl flex flex-col items-center justify-center mx-auto p2 md:p8 pb-20>
-    <div my-16 mx-auto w-full md:max-w-4xl rounded-md bg-white dark:bg-gray-800 shadow p-2>
+    <div my-6 md:my-16 mx-auto w-full md:max-w-4xl rounded-md bg-white dark:bg-gray-800 shadow p-2>
       <div flex items-center justify-center pb-2 space-x-2>
         <el-select v-model="imgData.type" m-2 placeholder="请选择图片类别">
           <el-option
