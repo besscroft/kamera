@@ -23,7 +23,7 @@ const initPlayer = (dataList: Array<Object> | any) => {
         cover: item.cover,
         url: item.url,
         name: item.fileName,
-        artist: '陈致逸,HOYO-MiX'
+        artist: item.author,
       }
     }),
   })
