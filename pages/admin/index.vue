@@ -107,7 +107,7 @@ const removeFile = () => {
 }
 
 const exceed = () => {
-  toast.add({ title: '只能同时上传一张图片！', timeout: 2000 })
+  toast.add({ title: '只能同时上传一张图片！', timeout: 2000, color: 'red' })
 }
 
 definePageMeta({
