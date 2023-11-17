@@ -1,6 +1,10 @@
 {
   "files.associations": {
-    "*.css": "postcss"
+    "*.css": "tailwindcss"
+  },
+
+  "editor.quickSuggestions": {
+    "strings": true
   },
 
   // Enable the ESlint flat config support

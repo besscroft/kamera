@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { useUserStore } from '~/composables/user'
-import { ElMessage } from 'element-plus'
 
+const toast = useToast()
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
 const { isMobile } = useDevice()
@@ -89,15 +89,15 @@ const updateHandle = async () => {
       body: { id: objInfo.id, type: objInfo.type, rating: objInfo.rating, detail: objInfo.detail, url: objInfo.url, sort: objInfo.sort },
     })
     if (data === 0) {
-      ElMessage.success('更新成功！')
+      toast.add({ title: '更新成功！', timeout: 2000 })
       await uClick()
       await dataHandle()
     } else {
-      ElMessage.error('更新失败！')
+      toast.add({ title: '更新失败！', timeout: 2000, color: 'red' })
     }
   } catch (e) {
     console.log(e)
-    ElMessage.error('更新失败！')
+    toast.add({ title: '更新失败！', timeout: 2000, color: 'red' })
   }
 }
 
@@ -112,14 +112,14 @@ const deleteHandle = async (id: number) => {
       body: { id: id },
     })
     if (data === 0) {
-      ElMessage.success('删除成功！')
+      toast.add({ title: '删除成功！', timeout: 2000 })
       await dataHandle()
     } else {
-      ElMessage.error('删除失败！')
+      toast.add({ title: '删除失败！', timeout: 2000, color: 'red' })
     }
   } catch (e) {
     console.log(e)
-    ElMessage.error('删除失败！')
+    toast.add({ title: '删除失败！', timeout: 2000, color: 'red' })
   }
 }
 
@@ -135,17 +135,17 @@ const updateShowHandle = async (val: number, id: number) => {
       body: { id: id, show: val },
     })
     if (data === 0) {
-      ElMessage.success('更新成功！')
+      toast.add({ title: '更新成功！', timeout: 2000 })
       showBtnLoading.value = false
       await dataHandle()
     } else {
-      ElMessage.error('更新失败！')
+      toast.add({ title: '更新失败！', timeout: 2000, color: 'red' })
     }
     showBtnLoading.value = false
   } catch (e) {
     console.log(e)
     showBtnLoading.value = false
-    ElMessage.error('更新失败！')
+    toast.add({ title: '更新失败！', timeout: 2000, color: 'red' })
   }
 }
 

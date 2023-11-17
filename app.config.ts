@@ -18,5 +18,10 @@ export default defineAppConfig({
         '/api/verify',
         '/api/music',
         '/api/getImageList',
-    ]
+    ],
+    ui: {
+        notifications: {
+            position: 'top-0 bottom-auto',
+        }
+    }
 })

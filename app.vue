@@ -12,6 +12,7 @@ useHead({
   <VitePwaManifest />
   <NuxtLayout>
     <NuxtLoadingIndicator />
+    <UNotifications :ui="{ width: 'w-full md:w-80' }" />
     <el-config-provider :locale="zhCn">
       <NuxtPage />
     </el-config-provider>

@@ -2,7 +2,6 @@
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import * as ExifReader from 'exifreader'
 import { useUserStore } from '~/composables/user'
-import { ElMessage } from 'element-plus'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
@@ -10,6 +9,7 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
 const user = useUserStore()
 const fileUrl = ref('')
 const loading = ref<boolean>(false)
+const toast = useToast()
 
 const imgData = reactive({
   type: '',
@@ -74,7 +74,7 @@ const submit = async () => {
   loading.value = true
   try {
     if (imgData.type === '') {
-      ElMessage.error('请选择类型！')
+      toast.add({ title: '请选择类型！', timeout: 2000, color: 'red' })
       loading.value = false
       return
     }
@@ -87,9 +87,9 @@ const submit = async () => {
       body: imgData,
     })
     if (data === 0) {
-      ElMessage.success('保存成功！')
+      toast.add({ title: '保存成功！', timeout: 2000 })
     } else {
-      ElMessage.error('保存失败！')
+      toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
     }
   } catch (e) {
     loading.value = false
@@ -107,7 +107,7 @@ const removeFile = () => {
 }
 
 const exceed = () => {
-  ElMessage.warning('只能同时上传一张图片！')
+  toast.add({ title: '只能同时上传一张图片！', timeout: 2000 })
 }
 
 definePageMeta({
@@ -134,8 +134,8 @@ definePageMeta({
         drag
         :limit="1"
         :http-request="onRequestUpload"
-        :before-upload="() => { ElMessage.info('正在上传文件！') }"
-        :on-success="() => { ElMessage.success('文件上传成功！请编辑后保存！') }"
+        :before-upload="() => { toast.add({ title: '正在上传文件！', timeout: 2000 }) }"
+        :on-success="() => { toast.add({ title: '文件上传成功！请编辑后保存！', timeout: 2000 }) }"
         :before-remove="removeFile"
         :on-exceed="exceed"
         list-type="picture"
@@ -165,7 +165,6 @@ definePageMeta({
           <p>评分：</p>
           <el-rate v-model="imgData.rating" />
         </div>
-        <p text-sm>想要展示更多 EXIF 信息？可以反馈给开发者哦！</p>
         <el-descriptions
           :title="Object.keys(imgData.exif).length === 0 ? 'EXIF 信息为空！' : 'EXIF'"
           direction="vertical"
@@ -209,6 +208,12 @@ definePageMeta({
             {{ imgData.exif?.ExposureMode?.description }}
           </el-descriptions-item>
         </el-descriptions>
+        <UAlert
+          v-if="Object.keys(imgData.exif).length !== 0"
+          description="想要展示更多 EXIF 信息？可以反馈给开发者哦！"
+          :avatar="{ src: '/112962239_p0.jpg' }"
+          title="噔噔！"
+        />
       </div>
     </div>
   </div>

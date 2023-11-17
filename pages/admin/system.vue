@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useUserStore } from '~/composables/user'
-import { ElMessage } from 'element-plus'
 
+const toast = useToast()
 const passwordStr = ref<string>('')
 const hashPassword = ref<string>('')
 const user = useUserStore()
@@ -17,7 +17,7 @@ const pwdHandle = async () => {
     })
     hashPassword.value = data
   } catch (e) {
-    ElMessage.error('生成失败！')
+    toast.add({ title: '生成失败！', timeout: 2000, color: 'red' })
   }
 }
 
@@ -35,7 +35,11 @@ definePageMeta({
         </div>
       </template>
       <div space-y-2>
-        <el-alert title="想要更多功能？可以反馈给开发者哦！" type="success" effect="dark" />
+        <UAlert
+          description="想要更多功能？可以反馈给开发者哦！"
+          :avatar="{ src: '/112962239_p0.jpg' }"
+          title="噔噔！"
+        />
         <p text-sm>生成密码后，您可以替换环境变量，并重新部署后生效！</p>
         <el-input
           v-model="passwordStr"

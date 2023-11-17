@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useUserStore } from '~/composables/user'
-import { ElMessage } from 'element-plus'
 
 interface ModelType {
   username: string | null
   password: string | null
 }
 
+const toast = useToast()
 const router = useRouter()
 const user = useUserStore()
 const loading = ref<boolean>(false)
@@ -26,13 +26,13 @@ const handleSubmitClick = async () => {
     user.setTokenName(tokenName)
     router.push('/admin')
     if (token) {
-      ElMessage.success('登录成功！')
+      toast.add({ title: '登录成功！', timeout: 2000 })
     } else {
-      ElMessage.error('登录失败！')
+      toast.add({ title: '登录失败！', timeout: 2000, color: 'red' })
     }
   } catch (e) {
     loading.value = false
-    ElMessage.error('登录失败！')
+    toast.add({ title: '登录失败！', timeout: 2000, color: 'red' })
   }
   loading.value = false
 }
