@@ -1,6 +1,7 @@
-<p align="center">
+<h1 align="center">
 Kamera
-</p>
+</h1>
+
 <p align="center">
   <img src="https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6-%E5%BC%80%E5%8F%91%E4%B8%AD-brightgreen?style=flat-square" alt="开发进度">
   <a href="https://github.com/besscroft/kamera/blob/master/LICENSE"><img src="https://img.shields.io/github/license/besscroft/kamera?style=flat-square" alt="许可证"></a>
@@ -30,6 +31,7 @@ nitro: {
 
 数据库请选择兼容 PostgreSQL 的数据库，我推荐 [SupaBase](https://supabase.com/)，它的每月免费额度足够个人使用了！
 创建数据库后，将 `doc/sql/schema.sql` 导入到数据库执行。在 `Dashboard` 的 `Settings` 找到 `Database` 部分，你就能查看连接信息了。
+当然，只要是兼容 pg 的数据库都是可以选择的，不必局限与某个平台。
 
 > 请确保您的数据库用户配置了正确的 Row Level Security（行级别安全性）权限，否则将无法正常访问。
 
@@ -139,6 +141,8 @@ pnpm run dev
 
 Kamera 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。
 
+> 有需求和建议都可以提，有空的话我会处理，但受限于 Nuxt3 / SSR 的⌈局限性⌋，很多功能的设计上可能会有取舍。
+
 ### 感谢
 
 本项目使用 JetBrains 的开源许可证，基于 IntelliJ IDEA 开发，感谢！
@@ -146,4 +150,8 @@ Kamera 欢迎各种贡献，包括但不限于改进，新功能，文档和代�
 ![JetBrains 徽标（主要） logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)
 
 ![IntelliJ IDEA logo](https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg)
+
+### License
+
+Kamera is open source software licensed as [MIT](https://github.com/besscroft/kamera/blob/main/LICENSE).
 
