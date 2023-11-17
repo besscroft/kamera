@@ -19,6 +19,8 @@ export default defineEventHandler(async (event) => {
                     public.kamera_image
                 WHERE
                     del = 0
+                AND
+                    show = 0
             `
 
             data = await sql`
@@ -28,7 +30,9 @@ export default defineEventHandler(async (event) => {
                     public.kamera_image
                 WHERE
                     del = 0
-                ORDER BY create_time DESC, update_time DESC
+                AND
+                    show = 0
+                ORDER BY sort DESC, create_time DESC, update_time DESC
                 LIMIT ${body.pageSize} OFFSET ${((body.pageNum > 1 ? body.pageNum : 1) - 1) * body.pageSize}
             `
         } else {
@@ -39,6 +43,8 @@ export default defineEventHandler(async (event) => {
                     public.kamera_image
                 WHERE
                     del = 0
+                AND
+                    show = 0
                 AND 
                     type = ${ body.type }
             `
@@ -51,8 +57,10 @@ export default defineEventHandler(async (event) => {
                 WHERE
                     del = 0
                 AND
+                    show = 0
+                AND
                     type = ${ body.type }
-                ORDER BY create_time DESC, update_time DESC
+                ORDER BY sort DESC, create_time DESC, update_time DESC
                 LIMIT ${body.pageSize} OFFSET ${((body.pageNum > 1 ? body.pageNum : 1) - 1) * body.pageSize}
             `
         }

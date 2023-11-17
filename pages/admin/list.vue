@@ -9,6 +9,7 @@ const { isMobile } = useDevice()
 const user = useUserStore()
 const dataList = ref<Array<Object>>([])
 const loading = ref<boolean>(false)
+const showBtnLoading = ref<boolean>(false)
 const rowInfo = ref()
 const rating = ref(0)
 const showModal = ref<boolean>(false)
@@ -25,6 +26,7 @@ const objInfo = reactive({
   rating: 0,
   detail: '',
   url: '',
+  sort: 0,
 })
 
 const detail = (row: any) => {
@@ -84,7 +86,7 @@ const updateHandle = async () => {
       headers: {
         Authorization: `${user.tokenName} ${user.token}`
       },
-      body: { id: objInfo.id, type: objInfo.type, rating: objInfo.rating, detail: objInfo.detail, url: objInfo.url },
+      body: { id: objInfo.id, type: objInfo.type, rating: objInfo.rating, detail: objInfo.detail, url: objInfo.url, sort: objInfo.sort },
     })
     if (data === 0) {
       ElMessage.success('更新成功！')
@@ -121,6 +123,32 @@ const deleteHandle = async (id: number) => {
   }
 }
 
+const updateShowHandle = async (val: number, id: number) => {
+  showBtnLoading.value = true
+  try {
+    const { data } = await $fetch('/api/updateShow', {
+      timeout: 60000,
+      method: 'put',
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`
+      },
+      body: { id: id, show: val },
+    })
+    if (data === 0) {
+      ElMessage.success('更新成功！')
+      showBtnLoading.value = false
+      await dataHandle()
+    } else {
+      ElMessage.error('更新失败！')
+    }
+    showBtnLoading.value = false
+  } catch (e) {
+    console.log(e)
+    showBtnLoading.value = false
+    ElMessage.error('更新失败！')
+  }
+}
+
 onBeforeMount(async () => {
   await dataHandle()
 })
@@ -146,11 +174,26 @@ definePageMeta({
           </template>
         </el-table-column>
         <el-table-column label="评分" prop="rating" />
+        <el-table-column label="是否显示" prop="type">
+          <template #default="scope">
+            <el-switch
+              v-model="scope.row.show"
+              inline-prompt
+              active-text="是"
+              inactive-text="否"
+              :active-value="0"
+              :inactive-value="1"
+              :loading="showBtnLoading"
+              @change="(val) => { updateShowHandle(val, scope.row.id) }"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column label="排序" prop="sort" />
         <el-table-column label="描述" prop="detail" />
         <el-table-column align="right" fixed="right">
           <template #default="scope">
             <el-button size="small" @click="detail(scope.row)">查看</el-button>
-            <el-button size="small" @click="update(scope.row)">维护</el-button>
+            <el-button size="small" @click="() => { objInfo.sort = scope.row.sort ;update(scope.row) }">维护</el-button>
             <el-popconfirm title="确定删除？" @confirm="deleteHandle(scope.row.id)">
               <template #reference>
                 <el-button size="small">删除</el-button>
@@ -200,6 +243,10 @@ definePageMeta({
           <p>评分：</p>
           <el-rate v-model="objInfo.rating" />
         </div>
+        <div flex flex-row space-x-2>
+          <p>排序：</p>
+          <el-input-number v-model="objInfo.sort" :min="0" :max="32767" />
+        </div>
         <el-popconfirm title="确定更新？" @confirm="updateHandle()">
           <template #reference>
             <el-button size="small">保存</el-button>
@@ -238,6 +285,10 @@ definePageMeta({
           text-color="#ff9900"
           score-template="{value} 分"
         />
+      </div>
+      <div flex flex-row space-x-2>
+        <p>排序：</p>
+        <el-tag class="ml-2" type="success">{{ objInfo.sort || 0 }}</el-tag>
       </div>
       <el-descriptions
         v-if="rowInfo.exif && Object.keys(rowInfo.exif).length > 0"
