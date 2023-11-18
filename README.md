@@ -1,4 +1,5 @@
 <h1 align="center">
+<img width="28" src="./public/maskable-icon.png">
 Kamera
 </h1>
 
