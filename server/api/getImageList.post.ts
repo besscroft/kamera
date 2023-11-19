@@ -8,6 +8,10 @@ import indexData from '~/assets/server/json/index.json'
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
 
+    if (body.pageSize > 20 || body.pageSize < 1) {
+        body.pageSize = 10
+    }
+
     let length;
     let data;
     if (process.env.STORAGE_MODEL === 's3') {

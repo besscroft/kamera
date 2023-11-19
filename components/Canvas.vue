@@ -40,11 +40,12 @@ onUnmounted(() => {
 <template>
   <el-dialog
     min-h-full w-full
+    title="点击图片预览"
     v-model="show"
     align-center
     @close="() => xClick()"
   >
-    <div :class="smAndLarger || !isMobile ? 'grid grid-cols-1 gap-2 md:grid-cols-3 lg:gap-4' : 'h-full flex flex-col pt-6 space-y-2'">
+    <div :class="smAndLarger || !isMobile ? 'grid grid-cols-1 gap-2 md:grid-cols-3 lg:gap-4' : 'h-full flex flex-col space-y-2'">
       <div :class="smAndLarger || !isMobile ? 'md:col-span-2 max-h-full flex justify-center h-[90vh]' : ''">
         <ClientOnly>
           <el-image
@@ -60,15 +61,45 @@ onUnmounted(() => {
           />
         </ClientOnly>
       </div>
-      <div class="flex flex-col space-y-4 mt-8">
-        <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full">
-          <div class="p-4">
-            <p class="mt-1 text-gray-500 text-center">点击图片预览</p>
+      <div flex flex-col space-y-4 mt-8>
+        <div mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
+          <div p-4>
+            <h3 flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900>
+              <div i-carbon-camera />
+              <p>相机</p>
+            </h3>
+            <p mt-1 text-gray-500 text-center>{{ dataList.find((item: any) => item.id === imgId)?.exif?.Model?.description || 'N&A' }}</p>
           </div>
         </div>
-        <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full">
-          <div class="p-4">
-            <h3 class="flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900">
+        <div mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
+          <div p-4>
+            <h3 flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900>
+              <div i-carbon-txt />
+              <p>相片描述</p>
+            </h3>
+            <p mt-1 text-gray-500 text-center>{{ dataList.find((item: any) => item.id === imgId)?.detail || 'N&A' }}</p>
+          </div>
+        </div>
+        <div mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
+          <div p-4>
+            <h3 flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900>
+              <div i-carbon-thumbs-up />
+              <p>评分</p>
+            </h3>
+            <div flex justify-center>
+              <el-rate
+                v-model="rating"
+                disabled
+                show-score
+                text-color="#ff9900"
+                score-template="{value} 分"
+              />
+            </div>
+          </div>
+        </div>
+        <div mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full>
+          <div p-4>
+            <h3 flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900>
               <div i-carbon-image-search />
               <p>EXIF</p>
             </h3>
@@ -119,41 +150,6 @@ onUnmounted(() => {
                 </el-descriptions>
               </el-collapse-item>
             </el-collapse>
-          </div>
-        </div>
-        <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
-          <div class="p-4">
-            <h3 class="flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900">
-              <div i-carbon-camera />
-              <p>相机</p>
-            </h3>
-            <p class="mt-1 text-gray-500 text-center">{{ dataList.find((item: any) => item.id === imgId)?.exif?.Model?.description || 'N&A' }}</p>
-          </div>
-        </div>
-        <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
-          <div class="p-4">
-            <h3 class="flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900">
-              <div i-carbon-txt />
-              <p>相片描述</p>
-            </h3>
-            <p class="mt-1 text-gray-500 text-center">{{ dataList.find((item: any) => item.id === imgId)?.detail || 'N&A' }}</p>
-          </div>
-        </div>
-        <div class="mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300">
-          <div class="p-4">
-            <h3 class="flex justify-center items-center space-x-1 text-base text-center font-medium text-gray-900">
-              <div i-carbon-thumbs-up />
-              <p>评分</p>
-            </h3>
-            <div flex justify-center>
-              <el-rate
-                v-model="rating"
-                disabled
-                show-score
-                text-color="#ff9900"
-                score-template="{value} 分"
-              />
-            </div>
           </div>
         </div>
       </div>

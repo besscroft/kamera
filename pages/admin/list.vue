@@ -161,7 +161,12 @@ definePageMeta({
 <template>
   <div>
     <div p2 md:p8 pb-20>
-      <el-table :data="dataList" v-loading="loading" style="width: 100%">
+      <el-table
+        :data="dataList"
+        v-loading="loading"
+        stripe
+        style="width: 100%"
+      >
         <el-table-column label="id" prop="id" />
         <el-table-column label="类型" prop="type">
           <template #default="scope">
@@ -196,7 +201,7 @@ definePageMeta({
             <el-button size="small" @click="() => { objInfo.sort = scope.row.sort ;update(scope.row) }">维护</el-button>
             <el-popconfirm title="确定删除？" @confirm="deleteHandle(scope.row.id)">
               <template #reference>
-                <el-button size="small">删除</el-button>
+                <el-button size="small" type="danger">删除</el-button>
               </template>
             </el-popconfirm>
           </template>

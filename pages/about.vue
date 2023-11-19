@@ -8,12 +8,12 @@ definePageMeta({
 
 <template>
   <div flex flex-col justify-center items-center p2>
-    <article class="prose prose-slate mx-auto lg:prose-lg dark:text-white">
+    <article class="prose prose-slate" mx-auto md:prose-md dark:text-white>
       <h2 dark:text-white>关于页面</h2>
-      <p class="lead">
+      <p>
         I'm Bess Croft , a full-time full-stack developer 👨‍💻
       </p>
-      <p class="lead">
+      <p>
         我是云淑，在湖北武汉工作，是一名全栈开发工程师。
       </p>
       <p>
@@ -22,7 +22,7 @@ definePageMeta({
       <!-- ... -->
     </article>
     <el-divider content-position="left" prose prose-slate mx-auto>Q&A</el-divider>
-    <el-collapse v-model="active" accordion prose prose-slate mx-auto w-full>
+    <el-collapse v-model="active" prose prose-slate mx-auto w-full>
       <el-collapse-item title="怎么不是原图？" name="1">
         <div>
           <p>1、原图体积太大，加载很慢！</p>

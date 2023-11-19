@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { appName } from '~/constants'
 import { useUserStore } from '~/composables/user'
 
 interface ModelType {
@@ -57,12 +58,12 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="bg-white dark:bg-gray-900 w-full">
-    <div class="flex justify-center h-screen">
-      <div class="hidden bg-cover lg:block lg:w-2/3" style="background-image: url('/fufu.jpg')">
-        <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+  <div bg-white dark:bg-gray-900 w-full>
+    <div flex justify-center h-screen>
+      <div hidden bg-cover lg:block class="lg:w-2/3" style="background-image: url('/fufu.jpg')">
+        <div flex items-center h-full px-20 bg-gray-900 bg-opacity-40>
           <div>
-            <h2 class="text-4xl text-white">旅行足迹</h2>
+            <h2 text-4xl text-white>旅行足迹</h2>
 
             <p text-sm text-gray-300 mt-4>
               鹤鸣工作室出品，一款基于 Nuxt3 构建的⌈相片集⌋。
@@ -71,29 +72,29 @@ definePageMeta({
         </div>
       </div>
 
-      <div class="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
-        <div class="flex-1">
-          <div class="text-center">
-            <h2 class="text-4xl text-center text-gray-700 dark:text-white">旅行足迹</h2>
+      <div flex items-center w-full max-w-md px-6 mx-auto class="lg:w-2/6">
+        <div flex-1>
+          <div text-center>
+            <h2 text-4xl text-center text-gray-700 dark:text-white>{{ appName || '旅行足迹' }}</h2>
 
-            <p class="mt-3 text-gray-500 dark:text-gray-300">登录你的帐号</p>
+            <p mt-3 text-gray-500 dark:text-gray-300>登录你的帐号</p>
           </div>
 
-          <div class="mt-8">
+          <div mt-8>
             <div>
-              <label for="account" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">帐号</label>
-              <input type="account" v-model="loginForm.username" name="account" id="account" class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+              <label for="account" block mb-2 text-sm text-gray-600 dark:text-gray-200>帐号</label>
+              <input type="account" v-model="loginForm.username" name="account" id="account" block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 />
             </div>
 
-            <div class="mt-6">
-              <div class="flex justify-between mb-2">
-                <label for="password" class="font-ark text-sm text-gray-600 dark:text-gray-200">密码</label>
+            <div mt-6>
+              <div flex justify-between mb-2>
+                <label for="password" font-ark text-sm text-gray-600 dark:text-gray-200>密码</label>
               </div>
 
-              <input type="password" v-model="loginForm.password" name="password" id="password" class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+              <input type="password" v-model="loginForm.password" name="password" id="password" block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 />
             </div>
 
-            <div class="mt-6">
+            <div mt-6>
               <el-button
                 :loading="loading"
                 @click="handleSubmitClick"

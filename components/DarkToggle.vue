@@ -59,9 +59,9 @@ function toggleDark(event?: MouseEvent) {
       :title="isDark ? '切换至⌈白夜⌋' : '切换至⌈常夜⌋'"
       @click="toggleDark"
     >
-      <span class="dark:i-carbon-moon i-carbon-sun block" aria-hidden="true" />
+      <span dark:i-carbon-moon i-carbon-sun block aria-hidden="true" />
     </button>
-    <span v-if="!user.token" class="i-carbon-user block cursor-pointer" aria-hidden="true" @click="router.push('/login')" title="登录" />
-    <span v-else-if="!route.path.startsWith('/admin')" class="i-carbon-screen-map block cursor-pointer" aria-hidden="true" @click="router.push('/admin')" title="后台" />
+    <span v-if="!user.token" i-carbon-user block cursor-pointer aria-hidden="true" @click="router.push('/login')" title="登录" />
+    <span v-else-if="!route.path.startsWith('/admin')" i-carbon-screen-map block cursor-pointer aria-hidden="true" @click="router.push('/admin')" title="后台" />
   </div>
 </template>
