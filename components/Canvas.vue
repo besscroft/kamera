@@ -13,23 +13,24 @@ const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
 const { isMobile } = useDevice()
 const show = ref(false)
-const rating = ref(0)
+const obj = ref({})
 const emit = defineEmits(['modalUpdate'])
 
 const xClick = () => {
   props.imgId = 0
   props.dataList = []
+  obj.value = {}
   show.value = false
   emit('modalUpdate', false)
 }
 
 watch(() => props.showModal, (val) => {
   show.value = props.showModal
-  rating.value = props.dataList?.find((item: any) => item.id === props.imgId)?.rating
+  obj.value = props.dataList?.find((item: any) => item.id === props.imgId)
 })
 
 onMounted(() => {
-  rating.value = props.dataList?.find((item: any) => item.id === props.imgId)?.rating
+  obj.value = props.dataList?.find((item: any) => item.id === props.imgId)
 })
 
 onUnmounted(() => {
@@ -50,12 +51,12 @@ onUnmounted(() => {
         <ClientOnly>
           <el-image
             :class="smAndLarger || !isMobile ? 'h-[85vh]' : ''"
-            :src="dataList.find((item: any) => item.id === imgId)?.url"
-            :alt="dataList.find((item: any) => item.id === imgId)?.detail"
+            :src="obj?.url"
+            :alt="obj?.detail"
             :zoom-rate="1.2"
             :max-scale="7"
             :min-scale="0.2"
-            :preview-src-list="dataList?.filter((item: any) => item.id === imgId)?.map((item: any) => item.url)"
+            :preview-src-list="[obj?.url]"
             :initial-index="1"
             fit="contain"
           />
@@ -68,7 +69,7 @@ onUnmounted(() => {
               <div i-carbon-camera />
               <p>相机</p>
             </h3>
-            <p mt-1 text-gray-500 text-center>{{ dataList.find((item: any) => item.id === imgId)?.exif?.Model?.description || 'N&A' }}</p>
+            <p mt-1 text-gray-500 text-center>{{ obj?.exif?.Model?.description || 'N&A' }}</p>
           </div>
         </div>
         <div mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
@@ -77,7 +78,7 @@ onUnmounted(() => {
               <div i-carbon-txt />
               <p>相片描述</p>
             </h3>
-            <p mt-1 text-gray-500 text-center>{{ dataList.find((item: any) => item.id === imgId)?.detail || 'N&A' }}</p>
+            <p mt-1 text-gray-500 text-center>{{ obj?.detail || 'N&A' }}</p>
           </div>
         </div>
         <div mx-auto max-w-md rounded-lg bg-white dark:bg-gray-300 shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
@@ -88,7 +89,7 @@ onUnmounted(() => {
             </h3>
             <div flex justify-center>
               <el-rate
-                v-model="rating"
+                v-model="obj.rating"
                 disabled
                 show-score
                 text-color="#ff9900"
@@ -106,46 +107,46 @@ onUnmounted(() => {
             <el-collapse>
               <el-collapse-item title="点击查看 EXIF 信息" name="1">
                 <el-descriptions
-                  :title="Object.keys(dataList.find((item: any) => item.id === imgId)?.exif).length === 0 ? 'EXIF 信息为空！' : ''"
+                  :title="Object.keys(obj?.exif).length === 0 ? 'EXIF 信息为空！' : ''"
                   direction="vertical"
                   :column="smAndLarger ? 2 : 1"
                   border
                 >
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.Make?.description" label="相机品牌">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.Make?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.Make?.description" label="相机品牌">
+                    {{ obj?.exif?.Make?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.Model?.description" label="相机型号">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.Model?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.Model?.description" label="相机型号">
+                    {{ obj?.exif?.Model?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.[`Bits Per Sample`]?.description" label="bit 位数">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.["Bits Per Sample"]?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.[`Bits Per Sample`]?.description" label="bit 位数">
+                    {{ obj?.exif?.["Bits Per Sample"]?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.DateTime?.description" label="拍摄时间">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.DateTime?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.DateTime?.description" label="拍摄时间">
+                    {{ obj?.exif?.DateTime?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.ExposureTime?.description" label="快门时间">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.ExposureTime?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.ExposureTime?.description" label="快门时间">
+                    {{ obj?.exif?.ExposureTime?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.FNumber?.description" label="光圈">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.FNumber?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.FNumber?.description" label="光圈">
+                    {{ obj?.exif?.FNumber?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.ExposureProgram?.description" label="曝光模式">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.ExposureProgram?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.ExposureProgram?.description" label="曝光模式">
+                    {{ obj?.exif?.ExposureProgram?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.ISOSpeedRatings?.description" label="ISO">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.ISOSpeedRatings?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.ISOSpeedRatings?.description" label="ISO">
+                    {{ obj?.exif?.ISOSpeedRatings?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.FocalLength?.description" label="焦距">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.FocalLength?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.FocalLength?.description" label="焦距">
+                    {{ obj?.exif?.FocalLength?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.LensSpecification?.description" label="镜头规格">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.LensSpecification?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.LensSpecification?.description" label="镜头规格">
+                    {{ obj?.exif?.LensSpecification?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.LensModel?.description" label="镜头型号">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.LensModel?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.LensModel?.description" label="镜头型号">
+                    {{ obj?.exif?.LensModel?.description }}
                   </el-descriptions-item>
-                  <el-descriptions-item v-if="dataList.find((item: any) => item.id === imgId)?.exif?.ExposureMode?.description" label="曝光模式">
-                    {{ dataList.find((item: any) => item.id === imgId)?.exif?.ExposureMode?.description }}
+                  <el-descriptions-item v-if="obj?.exif?.ExposureMode?.description" label="曝光模式">
+                    {{ obj?.exif?.ExposureMode?.description }}
                   </el-descriptions-item>
                 </el-descriptions>
               </el-collapse-item>
