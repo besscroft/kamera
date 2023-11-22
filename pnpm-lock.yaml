@@ -58,6 +58,15 @@ devDependencies:
   '@pinia/nuxt':
     specifier: ^0.5.1
     version: 0.5.1(rollup@2.79.1)(typescript@5.2.2)(vue@3.3.8)
+  '@sentry/node':
+    specifier: ^7.81.1
+    version: 7.81.1
+  '@sentry/profiling-node':
+    specifier: ^1.2.6
+    version: 1.2.6
+  '@sentry/vue':
+    specifier: ^7.81.1
+    version: 7.81.1(vue@3.3.8)
   '@unocss/eslint-config':
     specifier: ^0.57.4
     version: 0.57.4(eslint@8.53.0)(typescript@5.2.2)
@@ -3336,6 +3345,109 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 3.29.4
+    dev: true
+
+  /@sentry-internal/tracing@7.81.1:
+    resolution: {integrity: sha512-E5xm27xrLXL10knH2EWDQsQYh5nb4SxxZzJ3sJwDGG9XGKzBdlp20UUhKqx00wixooVX9uCj3e4Jg8SvNB1hKg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.81.1
+      '@sentry/types': 7.81.1
+      '@sentry/utils': 7.81.1
+    dev: true
+
+  /@sentry/browser@7.81.1:
+    resolution: {integrity: sha512-DNtS7bZEnFPKVoGazKs5wHoWC0FwsOFOOMNeDvEfouUqKKbjO7+RDHbr7H6Bo83zX4qmZWRBf8V+3n3YPIiJFw==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry-internal/tracing': 7.81.1
+      '@sentry/core': 7.81.1
+      '@sentry/replay': 7.81.1
+      '@sentry/types': 7.81.1
+      '@sentry/utils': 7.81.1
+    dev: true
+
+  /@sentry/core@7.81.1:
+    resolution: {integrity: sha512-tU37yAmckOGCw/moWKSwekSCWWJP15O6luIq+u7wal22hE88F3Vc5Avo8SeF3upnPR+4ejaOFH+BJTr6bgrs6Q==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.81.1
+      '@sentry/utils': 7.81.1
+    dev: true
+
+  /@sentry/hub@7.81.1:
+    resolution: {integrity: sha512-25cvsI3HKiRLJBZGFC8ntuy7/yB8M1w8YLTjr3tIqydYmjFUX7f18w0iuWEtd204d8OQSPBJDapbGMdfkE5x6w==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.81.1
+      '@sentry/types': 7.81.1
+      '@sentry/utils': 7.81.1
+    dev: true
+
+  /@sentry/node@7.81.1:
+    resolution: {integrity: sha512-bKS3Mb95bar8AUEZSLKQ/RTSfFXo5sCSPNiBr5dDFuVljDFdkLq6NE3svG5bisrbENqfi0bqWsB4GZ7NHRTPbA==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry-internal/tracing': 7.81.1
+      '@sentry/core': 7.81.1
+      '@sentry/types': 7.81.1
+      '@sentry/utils': 7.81.1
+      https-proxy-agent: 5.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@sentry/profiling-node@1.2.6:
+    resolution: {integrity: sha512-WsXO7VmLze5wPWHpvoRZFTtN+wHw9lYWKZs4T2FwPmvfNVaScGJey/+Wp51aM47Yy12Gj9n/BpqFYDsUXRLMvw==}
+    engines: {node: '>=8.0.0'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@sentry/core': 7.81.1
+      '@sentry/hub': 7.81.1
+      '@sentry/node': 7.81.1
+      '@sentry/types': 7.81.1
+      '@sentry/utils': 7.81.1
+      detect-libc: 2.0.2
+      node-abi: 3.51.0
+      node-gyp: 9.4.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@sentry/replay@7.81.1:
+    resolution: {integrity: sha512-4ueT0C4bYjngN/9p0fEYH10dTMLovHyk9HxJ6zSTgePvGVexhg+cSEHXisoBDwHeRZVnbIvsVM0NA7rmEDXJJw==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@sentry-internal/tracing': 7.81.1
+      '@sentry/core': 7.81.1
+      '@sentry/types': 7.81.1
+      '@sentry/utils': 7.81.1
+    dev: true
+
+  /@sentry/types@7.81.1:
+    resolution: {integrity: sha512-dvJvGyctiaPMIQqa46k56Re5IODWMDxiHJ1UjBs/WYDLrmWFPGrEbyJ8w8CYLhYA+7qqrCyIZmHbWSTRIxstHw==}
+    engines: {node: '>=8'}
+    dev: true
+
+  /@sentry/utils@7.81.1:
+    resolution: {integrity: sha512-gq+MDXIirHKxNZ+c9/lVvCXd6y2zaZANujwlFggRH2u9SRiPaIXVilLpvMm4uJqmqBMEcY81ArujExtHvkbCqg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.81.1
+    dev: true
+
+  /@sentry/vue@7.81.1(vue@3.3.8):
+    resolution: {integrity: sha512-5vl6wDi2MGJK8WaL59DqA7KQKPHpVbLsicnBb8waNdnGbm3FarQxrOUhXOIeri9dD0/tM+1yeMgSM9oOfMn9Mg==}
+    engines: {node: '>=8'}
+    peerDependencies:
+      vue: 2.x || 3.x
+    dependencies:
+      '@sentry/browser': 7.81.1
+      '@sentry/core': 7.81.1
+      '@sentry/types': 7.81.1
+      '@sentry/utils': 7.81.1
+      vue: 3.3.8(typescript@5.2.2)
     dev: true
 
   /@sigstore/bundle@2.0.0:
@@ -8510,6 +8622,13 @@ packages:
       - encoding
       - idb-keyval
       - supports-color
+    dev: true
+
+  /node-abi@3.51.0:
+    resolution: {integrity: sha512-SQkEP4hmNWjlniS5zdnfIXTk1x7Ome85RDzHlTbBtzE97Gfwz/Ipw4v/Ryk20DWIy3yCNVLVlGKApCnmvYoJbA==}
+    engines: {node: '>=10'}
+    dependencies:
+      semver: 7.5.4
     dev: true
 
   /node-addon-api@7.0.0:
