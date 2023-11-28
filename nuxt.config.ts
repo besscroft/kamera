@@ -57,14 +57,29 @@ export default defineNuxtConfig({
       routes: [
         '/',
         '/about',
-        '/cosplay',
-        '/tietie',
-        '/timeline',
         '/login',
         '/admin',
         '/admin/list',
         '/admin/system',
       ],
+    },
+    hooks: {
+      async 'prerender:routes'(routes) {
+        const preRoutes = []
+        const config = useAppConfig()
+        if (config.photos) {
+          const genericRoutes = config.photos.map((item: any) => {
+            return item.url
+          })
+          preRoutes.push(...genericRoutes)
+        }
+
+        if (preRoutes.length) {
+          for (const route of preRoutes) {
+            routes.add(route)
+          }
+        }
+      },
     },
     preset: 'vercel'
   },

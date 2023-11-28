@@ -5,9 +5,10 @@ export default defineEventHandler(async (event) => {
 
     const uploadParams = { Bucket: process.env.Bucket, Key: '', Body: '' }
     const file = body[0].data
+    const type = body[1].data
     const fileName = process.env.STORAGE_FOLDER && process.env.STORAGE_FOLDER !== '/'
-        ? process.env.STORAGE_FOLDER + '/' + body[0].filename
-        : body[0].filename
+        ? process.env.STORAGE_FOLDER + '/' + type + '/' + body[0].filename
+        : type + '/' + body[0].filename
     uploadParams.Body = file
     uploadParams.Key = fileName
 

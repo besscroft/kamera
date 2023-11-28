@@ -7,6 +7,7 @@ const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
 
 const user = useUserStore()
+const config = useAppConfig()
 const fileUrl = ref('')
 const loading = ref<boolean>(false)
 const toast = useToast()
@@ -28,18 +29,6 @@ const options = ref([
     label: '首页精选',
     value: 'index',
   },
-  {
-    label: 'Cosplay',
-    value: 'cosplay',
-  },
-  {
-    label: '集邮',
-    value: 'tietie',
-  },
-  {
-    label: '时光相册',
-    value: 'timeline'
-  },
 ])
 
 /** 自定义上传请求 */
@@ -47,6 +36,7 @@ const onRequestUpload = async (option: any) => {
   const file = option.file
   let formData = new FormData();
   formData.append('file', file);
+  formData.append('type', imgData.type || '');
   const { data, url } = await $fetch('/api/uploadFile', {
     timeout: 60000,
     method: 'post',
@@ -106,9 +96,29 @@ const removeFile = () => {
   imgData.type = '';
 }
 
+const onBeforeUpload = (file: any) => {
+  if (!imgData.type || imgData.type === '') {
+    toast.add({ title: '请先选择图片类别！', timeout: 2000, color: 'red' })
+    file.abort()
+  } else {
+    toast.add({ title: '正在上传文件！', timeout: 1000 })
+  }
+}
+
 const exceed = () => {
   toast.add({ title: '只能同时上传一张图片！', timeout: 2000, color: 'red' })
 }
+
+onBeforeMount(() => {
+  if (config.photos) {
+    config.photos.forEach((photo: any) => {
+      options.value.push({
+        label: photo.title,
+        value: photo.url.replace('/', ''),
+      });
+    });
+  }
+})
 
 definePageMeta({
   layout: 'admin',
@@ -134,7 +144,7 @@ definePageMeta({
         drag
         :limit="1"
         :http-request="onRequestUpload"
-        :before-upload="() => { toast.add({ title: '正在上传文件！', timeout: 2000 }) }"
+        :before-upload="(file) => { onBeforeUpload(file) }"
         :on-success="() => { toast.add({ title: '文件上传成功！请编辑后保存！', timeout: 2000 }) }"
         :before-remove="removeFile"
         :on-exceed="exceed"

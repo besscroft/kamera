@@ -2,9 +2,10 @@
 import { useUserStore } from '~/composables/user'
 
 const user = useUserStore()
+const route = useRoute()
 const dataList = ref<Array<Object>>([])
-const handleButton = ref<boolean>(true)
 const loading = ref<boolean>(false)
+const handleButton = ref<boolean>(true)
 const pageInfo = reactive({
   total: 0,
   totalPage: 0,
@@ -20,7 +21,7 @@ const dataHandle = async () => {
       headers: {
         Authorization: `${user.tokenName} ${user.token}`
       },
-      body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize, type: 'cosplay' },
+      body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize, type: route.path.replace('/', '') },
     })
     if (pageInfo.pageNum <= totalPage) {
       if (pageInfo.pageNum === totalPage) {
@@ -49,6 +50,18 @@ onUnmounted(() => {
 
 definePageMeta({
   layout: 'default',
+  validate: async (route) => {
+    const config = useAppConfig()
+    try {
+      if (config.photos.some(i => i.url === route.path)) {
+        return true
+      }
+      return false
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  }
 })
 </script>
 
