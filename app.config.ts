@@ -1,18 +1,4 @@
 export default defineAppConfig({
-    photos: [
-        {
-            title: 'Cosplay',
-            url: '/cosplay',
-        },
-        {
-            title: '集邮',
-            url: '/tietie',
-        },
-        {
-            title: '时光相册',
-            url: '/timeline',
-        },
-    ],
     noLoginPageWhiteList: [
         '/',
         '/login',

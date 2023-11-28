@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import photosList from '~/constants/photos.json'
+
 const router = useRouter()
 const route = useRoute()
 
@@ -36,8 +38,8 @@ watch(() => route.path, () => {
           <div flex flex-col md:flex-row md:mx-6>
             <a :class="route.path === '/' ? 'text-blue-500 dark:text-blue-400' : 'text-gray-700 dark:text-gray-200'" class="font-xihei my-2 transition-colors duration-300 transform hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0 cursor-pointer" @click="router.push('/')">首页</a>
             <a
-              v-if="config.photos"
-              v-for="item in config.photos"
+              v-if="photosList"
+              v-for="item in photosList"
               :key="item.title"
               :class="route.path === item.url ? 'text-blue-500 dark:text-blue-400' : 'text-gray-700 dark:text-gray-200'"
               class="font-xihei my-2 transition-colors duration-300 transform hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0 cursor-pointer"

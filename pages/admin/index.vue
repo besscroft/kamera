@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import photosList from '~/constants/photos.json'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import * as ExifReader from 'exifreader'
 import { useUserStore } from '~/composables/user'
@@ -7,7 +8,6 @@ const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
 
 const user = useUserStore()
-const config = useAppConfig()
 const fileUrl = ref('')
 const loading = ref<boolean>(false)
 const toast = useToast()
@@ -110,8 +110,8 @@ const exceed = () => {
 }
 
 onBeforeMount(() => {
-  if (config.photos) {
-    config.photos.forEach((photo: any) => {
+  if (photosList) {
+    photosList?.forEach((photo: any) => {
       options.value.push({
         label: photo.title,
         value: photo.url.replace('/', ''),

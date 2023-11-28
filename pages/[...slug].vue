@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import photosList from '~/constants/photos.json'
 import { useUserStore } from '~/composables/user'
 
 const user = useUserStore()
@@ -51,9 +52,8 @@ onUnmounted(() => {
 definePageMeta({
   layout: 'default',
   validate: async (route) => {
-    const config = useAppConfig()
     try {
-      if (config.photos.some(i => i.url === route.path)) {
+      if (photosList.some(i => i.url === route.path)) {
         return true
       }
       return false

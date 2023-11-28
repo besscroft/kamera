@@ -1,5 +1,6 @@
 import { pwa } from './config/pwa'
 import { appDescription } from './constants/index'
+import photosList from './constants/photos.json'
 
 export default defineNuxtConfig({
   modules: [
@@ -66,9 +67,8 @@ export default defineNuxtConfig({
     hooks: {
       async 'prerender:routes'(routes) {
         const preRoutes = []
-        const config = useAppConfig()
-        if (config.photos) {
-          const genericRoutes = config.photos.map((item: any) => {
+        if (photosList) {
+          const genericRoutes = photosList?.map((item: any) => {
             return item.url
           })
           preRoutes.push(...genericRoutes)

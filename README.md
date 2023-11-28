@@ -74,25 +74,23 @@ nitro: {
 #### 页面配置
 
 我们支持自定义相册页面的标题和链接，当然也是支持多个相册页面的。
-你需要在 `app.config.ts` 文件中，进行如下配置：
+你需要在 `constants\photos.json` 文件中，进行如下配置：
 
-```ts
-export default defineAppConfig({
-    photos: [
-        {
-            title: 'Cosplay',
-            url: '/cosplay',
-        },
-        {
-            title: '集邮',
-            url: '/tietie',
-        },
-        {
-            title: '时光相册',
-            url: '/timeline',
-        },
-    ]
-})
+```json
+[
+  {
+    "title": "Cosplay",
+    "url": "/cosplay"
+  },
+  {
+    "title": "集邮",
+    "url": "/tietie"
+  },
+  {
+    "title": "时光相册",
+    "url": "/timeline"
+  }
+]
 ```
 
 顾名思义，`title` 和 `uel` 对应的就是页面标题和页面地址，如果您想正常使用的话，还请照葫芦画瓢，而不是乱填。
