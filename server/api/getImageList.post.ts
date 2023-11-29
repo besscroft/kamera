@@ -2,7 +2,6 @@ import sql from '~/config/db'
 import timelineData from '~/assets/server/json/timeline.json'
 import tietieData from '~/assets/server/json/tietie.json'
 import cosplayData from '~/assets/server/json/cosplay.json'
-import carouselData from '~/assets/server/json/carousel.json'
 import indexData from '~/assets/server/json/index.json'
 
 export default defineEventHandler(async (event) => {
@@ -89,8 +88,6 @@ export default defineEventHandler(async (event) => {
             dataList = tietieData
         } else if (body.type === 'cosplay') {
             dataList = cosplayData
-        } else if (body.type === 'carousel') {
-            dataList = carouselData
         } else if (body.type === 'index') {
             dataList = indexData
         }

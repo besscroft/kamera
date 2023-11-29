@@ -170,8 +170,7 @@ definePageMeta({
         <el-table-column label="id" prop="id" />
         <el-table-column label="类型" prop="type">
           <template #default="scope">
-            <el-tag v-if="scope.row.type === 'carousel'">首页轮播图</el-tag>
-            <el-tag v-else-if="scope.row.type === 'index'">首页精选</el-tag>
+            <el-tag v-if="scope.row.type === 'index'">首页精选</el-tag>
             <el-tag v-else-if="scope.row.type === 'cosplay'">Cosplay</el-tag>
             <el-tag v-else-if="scope.row.type === 'tietie'">集邮</el-tag>
             <el-tag v-else-if="scope.row.type === 'timeline'">时光相册</el-tag>

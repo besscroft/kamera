@@ -2,9 +2,7 @@
 import { useUserStore } from '~/composables/user'
 
 const user = useUserStore()
-const dataList = ref<Array<Object>>([])
 const indexDataList = ref<Array<Object>>([])
-const loading = ref<boolean>(false)
 const indexLoading = ref<boolean>(false)
 const imgId = ref<number>(0)
 const showModal = ref<boolean>(false)
@@ -15,22 +13,6 @@ const pageInfo = reactive({
   pageNum: 1,
   pageSize: 10,
 })
-
-const dataHandle = async () => {
-  loading.value = true
-  try {
-    const { data } = await $fetch('/api/getImageList', {
-      method: 'post',
-      headers: {
-        Authorization: `${user.tokenName} ${user.token}`
-      },
-      body: { pageNum: 1, pageSize: 4, type: 'carousel' },
-    })
-    dataList.value = data
-  } finally {
-    loading.value = false
-  }
-}
 
 const indexDataHandle = async () => {
   indexLoading.value = true
@@ -71,7 +53,6 @@ const clickImg = (id: number) => {
 
 onUnmounted(() => {
   imgId.value = 0
-  dataList.value = []
   indexDataList.value = []
   pageInfo.total = 0
   pageInfo.totalPage = 0
@@ -79,7 +60,6 @@ onUnmounted(() => {
 })
 
 onBeforeMount(async () => {
-  await dataHandle()
   await indexDataHandle()
 })
 
@@ -90,14 +70,6 @@ definePageMeta({
 
 <template>
   <div h-full p2>
-    <div flex justify-center>
-      <el-carousel v-if="dataList" aspect-video max-h-180 w-full md:h-180 max-w-7xl shadow-2xl rounded-sm>
-        <el-carousel-item v-for="item in dataList" :key="item.id" h-full>
-          <img lazy :src="item.url" :alt="item.detail" />
-        </el-carousel-item>
-      </el-carousel>
-      <el-empty v-else-if="!loading" description="暂时没有图片可以用于轮播图，请在后台添加图片哦！" />
-    </div>
     <div flex flex-col justify-center items-center mt4>
       <div
         v-if="indexDataList"
@@ -122,15 +94,11 @@ definePageMeta({
 
     <Canvas :showModal="showModal" :dataList="indexDataList" :imgId="imgId" @modalUpdate="modalUpdate" />
     <div v-if="handleButton && indexDataList?.length !== 0" flex justify-center items-center w-full h-24>
-      <el-button :loading="loading" @click="indexDataHandle">加载更多</el-button>
+      <el-button :loading="indexLoading" @click="indexDataHandle">加载更多</el-button>
     </div>
   </div>
 </template>
 
 <style scoped>
-.carousel-img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-}
+
 </style>

@@ -22,10 +22,6 @@ const imgData = reactive({
 
 const options = ref([
   {
-    label: '首页轮播图',
-    value: 'carousel',
-  },
-  {
     label: '首页精选',
     value: 'index',
   },
