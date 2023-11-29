@@ -36,7 +36,6 @@
     "nuxt": "^3.8.2",
     "pinia": "^2.1.7",
     "typescript": "^5.3.2",
-    "unplugin-vue-components": "^0.25.2",
     "vue-tsc": "^1.8.22"
   },
   "dependencies": {
@@ -48,6 +47,6 @@
     "exifreader": "^4.17.0",
     "jsonwebtoken": "^9.0.2",
     "postgres": "^3.4.3",
-    "wc-waterfall": "^0.0.7"
+    "vue-waterfall-plugin-next": "^2.2.10"
   }
 }

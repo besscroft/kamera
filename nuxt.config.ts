@@ -41,6 +41,7 @@ export default defineNuxtConfig({
     '@unocss/reset/tailwind.css',
     '~/assets/css/main.css',
     'element-plus/theme-chalk/dark/css-vars.css',
+    'vue-waterfall-plugin-next/dist/style.css',
   ],
 
   colorMode: {

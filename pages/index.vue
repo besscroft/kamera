@@ -89,7 +89,7 @@ definePageMeta({
           />
         </div>
       </div>
-      <el-empty v-else-if="!indexLoading" description="啊咧咧！照片太少了，挑不出精选图片...你可以随便看看，目前网站还在迭代中，图片也较少..." />
+      <el-empty v-else-if="!indexLoading" description="暂时没有精选图片，请登录后进入后台管理！" />
     </div>
 
     <Canvas :showModal="showModal" :dataList="indexDataList" :imgId="imgId" @modalUpdate="modalUpdate" />
