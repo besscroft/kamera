@@ -11,7 +11,6 @@ const props = defineProps({
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
-const { isMobile } = useDevice()
 const show = ref(false)
 const obj = ref({})
 const emit = defineEmits(['modalUpdate'])
@@ -46,11 +45,11 @@ onUnmounted(() => {
     align-center
     @close="() => xClick()"
   >
-    <div :class="smAndLarger || !isMobile ? 'grid grid-cols-1 gap-2 md:grid-cols-3 lg:gap-4' : 'h-full flex flex-col space-y-2'">
-      <div :class="smAndLarger || !isMobile ? 'md:col-span-2 max-h-full flex justify-center h-[90vh]' : ''">
+    <div h-full flex flex-col space-y-2 md:grid md:grid-cols-1 md:gap-2 md:grid-cols-3 lg:gap-4>
+      <div md:col-span-2 md:max-h-full md:flex md:justify-center class="md:h-[90vh]">
         <ClientOnly>
           <el-image
-            :class="smAndLarger || !isMobile ? 'h-[85vh]' : ''"
+            class="md:h-[85vh]"
             :src="obj?.url"
             :alt="obj?.detail"
             :zoom-rate="1.2"
