@@ -50,7 +50,7 @@ onUnmounted(() => {
           @click="clickImg(item.id)"
         >
           <template #placeholder>
-            <el-image src="/101504317_p0.jpg"  />
+            <div class="image-slot">加载中<span class="dot">...</span></div>
           </template>
         </el-image>
       </div>
@@ -67,7 +67,7 @@ onUnmounted(() => {
           @click="clickImg(item.id)"
         >
           <template #placeholder>
-            <el-image src="/101504317_p0.jpg"  />
+            <div class="image-slot">加载中<span class="dot">...</span></div>
           </template>
         </el-image>
       </div>

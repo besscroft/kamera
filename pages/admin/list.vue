@@ -275,7 +275,7 @@ definePageMeta({
         fit="cover"
       >
         <template #placeholder>
-          <el-image src="/101504317_p0.jpg"  />
+          <div class="image-slot">加载中<span class="dot">...</span></div>
         </template>
       </el-image>
       <div flex flex-row space-x-2>
