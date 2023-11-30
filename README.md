@@ -183,6 +183,23 @@ Kamera 欢迎各种贡献，包括但不限于改进，新功能，文档和代�
 
 如您有更多疑问，可以提交 [Issue](https://github.com/besscroft/kamera/issues/new)。
 
+### 浏览器支持
+
+- Last 2 versions of Chrome, Firefox, Safari and Edge
+- Firefox ESR
+
+> 事实上不是过于老旧的浏览器，一般都是能用的。
+
+### 技术栈
+
+- Web框架：
+  - [Vue 3](https://github.com/vuejs/core)
+  - [Nuxt 3](https://github.com/nuxt/nuxt)
+- UI 框架：
+  - [Element Plus](https://github.com/element-plus/element-plus)
+  - [Nuxt UI](https://github.com/nuxt/ui)
+- 更多组件参见 package.json
+
 ### 感谢
 
 本项目使用 JetBrains 的开源许可证，基于 IntelliJ IDEA 开发，感谢！
