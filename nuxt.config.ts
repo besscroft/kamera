@@ -82,7 +82,7 @@ export default defineNuxtConfig({
         }
       },
     },
-    preset: 'vercel'
+    // preset: 'vercel'
   },
 
   app: {
