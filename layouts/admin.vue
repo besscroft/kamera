@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+import {isDark} from "~/composables/dark";
 
 const router = useRouter()
 const { isMobile } = useDevice()
@@ -17,17 +18,11 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
       <Music v-if="!isMobile" />
     </ClientOnly>
     <div class="fixed bottom-20px z-50 left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-      <div class="inline-flex -space-x-0 divide-x divide-gray-300 overflow-hidden rounded-lg border shadow-sm">
-        <button type="button" @click="router.push('/admin')" class="inline-flex items-center bg-white dark:bg-slate-700 px-4 py-2.5 text-center text-sm font-medium text-secondary-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-400">
-          上传
-        </button>
-        <button type="button" @click="router.push('/admin/list')" class="inline-flex items-center bg-white dark:bg-slate-700 px-4 py-2.5 text-center text-sm font-medium text-secondary-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-400">
-          维护
-        </button>
-        <button type="button" @click="router.push('/admin/system')" class="inline-flex items-center bg-white dark:bg-slate-700 px-4 py-2.5 text-center text-sm font-medium text-secondary-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-400">
-          系统
-        </button>
-      </div>
+      <el-space size="small" spacer="|">
+        <el-button :type="isDark ? 'info' : ''" @click="router.push('/admin')"> 上传 </el-button>
+        <el-button :type="isDark ? 'info' : ''" @click="router.push('/admin/list')"> 维护 </el-button>
+        <el-button :type="isDark ? 'info' : ''" @click="router.push('/admin/system')"> 系统 </el-button>
+      </el-space>
     </div>
   </div>
 </template>

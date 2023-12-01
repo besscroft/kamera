@@ -5,7 +5,6 @@ const router = useRouter()
 const route = useRoute()
 
 const isOpen = ref(false)
-const config = useAppConfig()
 
 watch(() => route.path, () => {
   isOpen.value = false
@@ -13,11 +12,13 @@ watch(() => route.path, () => {
 </script>
 
 <template>
-  <header sticky top-0 z-20 bg-white dark:bg-gray-900>
-    <nav relative bg-white dark:bg-gray-900>
+  <header sticky top-0 z-20 bg-white dark:bg-custom-black>
+    <nav relative bg-white dark:bg-custom-black>
       <div flex container px-6 py-4 mx-auto md:flex md:justify-between md:items-center>
         <div flex items-center justify-between w-full md:w-36 max-w-xs>
-          <img class="h-8 w-auto" src="/maskable-icon.png" cursor-pointer @click="router.push('/')" alt="logo">
+          <ClientOnly>
+            <img class="h-8 w-auto" :src="isDark ? '/maskable-icon-dark.png' : '/maskable-icon.png'" cursor-pointer @click="router.push('/')" alt="logo">
+          </ClientOnly>
 
           <!-- Mobile menu button -->
           <div v-if="!route.path.startsWith('/admin')" flex md:hidden z-50>

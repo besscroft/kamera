@@ -45,6 +45,7 @@ onUnmounted(() => {
         :gutter="12"
         :hasAroundGutter="true"
         :crossOrigin="false"
+        :backgroundColor="isDark ? '#121212' : '#FFFFFF'"
         :breakpoints="{
           9999:{rowPerView:4},
           1024:{rowPerView:2},
