@@ -319,7 +319,7 @@ definePageMeta({
         <el-descriptions-item v-if="rowInfo.exif?.FNumber?.description" label="光圈">
           {{ rowInfo.exif?.FNumber?.description }}
         </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.ExposureProgram?.description" label="曝光模式">
+        <el-descriptions-item v-if="rowInfo.exif?.ExposureProgram?.description" label="曝光程序">
           {{ rowInfo.exif?.ExposureProgram?.description }}
         </el-descriptions-item>
         <el-descriptions-item v-if="rowInfo.exif?.ISOSpeedRatings?.description" label="ISO">
@@ -336,6 +336,15 @@ definePageMeta({
         </el-descriptions-item>
         <el-descriptions-item v-if="rowInfo.exif?.ExposureMode?.description" label="曝光模式">
           {{ rowInfo.exif?.ExposureMode?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.CFAPattern?.description" label="CFA 模式">
+          {{ rowInfo.exif?.CFAPattern?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.ColorSpace?.description" label="色彩空间">
+          {{ rowInfo.exif?.ColorSpace?.description }}
+        </el-descriptions-item>
+        <el-descriptions-item v-if="rowInfo.exif?.WhiteBalance?.description" label="白平衡">
+          {{ rowInfo.exif?.WhiteBalance?.description }}
         </el-descriptions-item>
       </el-descriptions>
     </el-drawer>

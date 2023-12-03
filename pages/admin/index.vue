@@ -44,6 +44,12 @@ const onRequestUpload = async (option: any) => {
   if (data === 0) {
     fileUrl.value = url
     const tags = await ExifReader.load(file)
+    if (tags?.Thumbnail && tags?.Thumbnail?.base64) {
+      tags.Thumbnail.base64 = undefined
+    }
+    if (tags?.Thumbnail && tags?.Thumbnail?.image) {
+      tags.Thumbnail.image = undefined
+    }
     imgData.exif = tags
     if (tags?.Images) {
       imgData.exif.Images = tags?.Images?.map(({ base64, image, ...item }) => {
@@ -200,7 +206,7 @@ definePageMeta({
           <el-descriptions-item v-if="imgData.exif?.FNumber?.description" label="光圈">
             {{ imgData.exif?.FNumber?.description }}
           </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.ExposureProgram?.description" label="曝光模式">
+          <el-descriptions-item v-if="imgData.exif?.ExposureProgram?.description" label="曝光程序">
             {{ imgData.exif?.ExposureProgram?.description }}
           </el-descriptions-item>
           <el-descriptions-item v-if="imgData.exif?.ISOSpeedRatings?.description" label="ISO">
@@ -218,13 +224,16 @@ definePageMeta({
           <el-descriptions-item v-if="imgData.exif?.ExposureMode?.description" label="曝光模式">
             {{ imgData.exif?.ExposureMode?.description }}
           </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.CFAPattern?.description" label="CFA 模式">
+            {{ imgData.exif?.CFAPattern?.description }}
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.ColorSpace?.description" label="色彩空间">
+            {{ imgData.exif?.ColorSpace?.description }}
+          </el-descriptions-item>
+          <el-descriptions-item v-if="imgData.exif?.WhiteBalance?.description" label="白平衡">
+            {{ imgData.exif?.WhiteBalance?.description }}
+          </el-descriptions-item>
         </el-descriptions>
-        <UAlert
-          v-if="Object.keys(imgData.exif).length !== 0"
-          description="想要展示更多 EXIF 信息？可以反馈给开发者哦！"
-          :avatar="{ src: '/112962239_p0.jpg' }"
-          title="噔噔！"
-        />
       </div>
     </div>
   </div>

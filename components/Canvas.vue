@@ -141,7 +141,7 @@ onUnmounted(() => {
               <el-descriptions-item v-if="obj?.exif?.FNumber?.description" label="光圈">
                 {{ obj?.exif?.FNumber?.description }}
               </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.ExposureProgram?.description" label="曝光模式">
+              <el-descriptions-item v-if="obj?.exif?.ExposureProgram?.description" label="曝光程序">
                 {{ obj?.exif?.ExposureProgram?.description }}
               </el-descriptions-item>
               <el-descriptions-item v-if="obj?.exif?.ISOSpeedRatings?.description" label="ISO">
@@ -158,6 +158,15 @@ onUnmounted(() => {
               </el-descriptions-item>
               <el-descriptions-item v-if="obj?.exif?.ExposureMode?.description" label="曝光模式">
                 {{ obj?.exif?.ExposureMode?.description }}
+              </el-descriptions-item>
+              <el-descriptions-item v-if="obj.exif?.CFAPattern?.description" label="CFA 模式">
+                {{ obj.exif?.CFAPattern?.description }}
+              </el-descriptions-item>
+              <el-descriptions-item v-if="obj.exif?.ColorSpace?.description" label="色彩空间">
+                {{ obj.exif?.ColorSpace?.description }}
+              </el-descriptions-item>
+              <el-descriptions-item v-if="obj.exif?.WhiteBalance?.description" label="白平衡">
+                {{ obj.exif?.WhiteBalance?.description }}
               </el-descriptions-item>
             </el-descriptions>
           </el-card>
