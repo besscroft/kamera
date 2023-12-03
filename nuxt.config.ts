@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@element-plus/nuxt',
     '@nuxt/ui',
+    '@nuxt/image',
   ],
 
   experimental: {

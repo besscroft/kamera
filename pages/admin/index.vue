@@ -156,7 +156,7 @@ definePageMeta({
         <template #tip>
           <div mt-4>
             <UAlert
-              description="同名文件会被覆盖，支持大多数图片类型。受限于部署平台限制，如 Vercel，可能只允许免费用户传递 6M 内文件..."
+              description="同类别同名文件会被覆盖，支持大多数图片类型。受限于部署平台限制，如 Vercel，可能只允许免费用户传递 6M 内文件..."
               :avatar="{ src: '/112962239_p0.jpg' }"
               title="噔噔！"
             />

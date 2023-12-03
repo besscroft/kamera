@@ -79,13 +79,16 @@ definePageMeta({
           class="w-11/12 md:w-10/12"
           v-for="item in indexDataList"
           :key="item.id"
-          shadow-xl border-4 bg-white
+          shadow-xl border-4 bg-white cursor-pointer
         >
-          <img
-            lazy cursor-pointer
+          <NuxtImg
+            loading="lazy"
             :src="item.url"
             :alt="item.detail"
+            format="webp"
+            quality="80"
             @click="clickImg(item.id)"
+            densities="x1 x2"
           />
         </div>
       </div>
