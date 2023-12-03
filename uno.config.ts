@@ -17,6 +17,7 @@ export default defineConfig({
   theme: {
     colors: {
       'custom-black': '#121212',
+      'custom-green': '#00DC82',
     }
   },
   presets: [

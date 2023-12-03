@@ -37,18 +37,18 @@ watch(() => route.path, () => {
         <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
         <div v-if="!route.path.startsWith('/admin')" :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" absolute inset-x-0 z-40 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-900 md:bg-transparent md:dark:bg-transparent md:mt-0 md:p-0 md:top-0 md:relative md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center>
           <div flex flex-col md:flex-row md:mx-6>
-            <a :class="route.path === '/' ? 'text-blue-500 dark:text-blue-400' : 'text-gray-700 dark:text-gray-200'" class="font-xihei my-2 transition-colors duration-300 transform hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0 cursor-pointer" @click="router.push('/')">首页</a>
+            <a :class="route.path === '/' ? 'text-custom-green' : 'text-gray-700 dark:text-gray-200'" class="font-xihei my-2 transition-colors duration-300 transform hover:text-custom-green md:mx-4 md:my-0 cursor-pointer" @click="router.push('/')">首页</a>
             <a
               v-if="photosList"
               v-for="item in photosList"
               :key="item.title"
-              :class="route.path === item.url ? 'text-blue-500 dark:text-blue-400' : 'text-gray-700 dark:text-gray-200'"
-              class="font-xihei my-2 transition-colors duration-300 transform hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0 cursor-pointer"
+              :class="route.path === item.url ? 'text-custom-green' : 'text-gray-700 dark:text-gray-200'"
+              class="font-xihei my-2 transition-colors duration-300 transform hover:text-custom-green md:mx-4 md:my-0 cursor-pointer"
               @click="router.push(item.url)"
             >
               {{ item.title }}
             </a>
-            <a :class="route.path === '/about' ? 'text-blue-500 dark:text-blue-400' : 'text-gray-700 dark:text-gray-200'" class="font-xihei my-2 transition-colors duration-300 transform hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0 cursor-pointer" @click="router.push('/about')">关于</a>
+            <a :class="route.path === '/about' ? 'text-custom-green' : 'text-gray-700 dark:text-gray-200'" class="font-xihei my-2 transition-colors duration-300 transform hover:text-custom-green md:mx-4 md:my-0 cursor-pointer" @click="router.push('/about')">关于</a>
           </div>
         </div>
 
