@@ -45,11 +45,11 @@ onUnmounted(() => {
     align-center
     @close="() => xClick()"
   >
-    <div h-full flex flex-col space-y-2 md:grid md:grid-cols-1 md:gap-2 md:grid-cols-3 lg:gap-4>
-      <div md:col-span-2 md:max-h-full md:flex md:justify-center class="md:h-[90vh]">
+    <div h-full flex flex-col space-y-2 lg:grid lg:grid-cols-1 lg:gap-2 lg:grid-cols-3 xl:gap-4>
+      <div lg:col-span-2 lg:max-h-full lg:flex lg:justify-center class="lg:h-[90vh]">
         <ClientOnly>
           <el-image
-            class="md:h-[85vh]"
+            class="lg:h-[85vh]"
             :src="obj?.url"
             :alt="obj?.detail"
             :zoom-rate="1.2"
@@ -62,21 +62,21 @@ onUnmounted(() => {
         </ClientOnly>
       </div>
       <div flex flex-col space-y-2 mt-8>
-        <el-card class="box-card" mx-auto max-w-md rounded-lg shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
+        <el-card class="box-card" mx-auto rounded-lg shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
           <h3 flex justify-center items-center space-x-1 text-base text-center font-medium>
             <div i-carbon-camera />
             <p>相机</p>
           </h3>
           <p mt-1 text-center>{{ obj?.exif?.Model?.description || 'N&A' }}</p>
         </el-card>
-        <el-card class="box-card" mx-auto max-w-md rounded-lg shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
+        <el-card class="box-card" mx-auto rounded-lg shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
           <h3 flex justify-center items-center space-x-1 text-base text-center font-medium>
             <div i-carbon-txt />
             <p>相片描述</p>
           </h3>
           <p mt-1 text-center>{{ obj?.detail || 'N&A' }}</p>
         </el-card>
-        <el-card class="box-card" mx-auto max-w-md rounded-lg shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
+        <el-card class="box-card" mx-auto rounded-lg shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
           <h3 flex justify-center items-center space-x-1 text-base text-center font-medium>
             <div i-carbon-thumbs-up />
             <p>评分</p>
@@ -91,7 +91,7 @@ onUnmounted(() => {
             />
           </div>
         </el-card>
-        <el-card class="box-card" mx-auto max-w-md rounded-lg shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
+        <el-card class="box-card" mx-auto rounded-lg shadow-md w-full hover:-translate-y-1 hover:scale-105 hover:transition duration-300>
           <h3 flex justify-center items-center space-x-1 text-base text-center font-medium>
             <div i-carbon-image-search />
             <p>EXIF</p>
@@ -101,7 +101,7 @@ onUnmounted(() => {
               <el-descriptions
                 :title="Object.keys(obj?.exif).length === 0 ? 'EXIF 信息为空！' : ''"
                 direction="vertical"
-                :column="smAndLarger ? 2 : 1"
+                :column="smAndLarger ? 3 : 1"
                 border
               >
                 <el-descriptions-item v-if="obj?.exif?.Make?.description" label="相机品牌">
