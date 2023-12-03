@@ -82,6 +82,7 @@ definePageMeta({
           shadow-xl border-4 bg-white cursor-pointer
         >
           <NuxtImg
+            w-full
             loading="lazy"
             :src="item.url"
             :alt="item.detail"
