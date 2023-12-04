@@ -12,7 +12,7 @@ definePageMeta({
       <h2 dark:text-white>关于页面</h2>
       <!-- 如有需要，可以在此修改 -->
       <p>一款专供摄影佬使用的记录网站，支持常见的图片格式，可以读取 EXIF 信息，管理维护图片，瀑布流展示查看图片。</p>
-      <p>兼容 S3 API、支持 CDN 配置。首页轮播图和精品照片展示，子页分类展示等功能。</p>
+      <p>兼容 S3 API、支持 CDN 配置。精品照片展示，子页分类展示等功能。</p>
       <p>基于 Nuxt3 开发，支持一键部署，无需单独后端。更多功能还在开发中~ 今天又是想当二次元摄影高手的一天呢！</p>
       <el-divider content-position="left" prose prose-slate mx-auto>怎么不是原图？</el-divider>
       <div>

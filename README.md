@@ -50,24 +50,24 @@ nitro: {
 > 
 > 项目内默认的 key 都是用作演示用途！
 
-| Key              | 备注                                                                                              |
-| ---------------- |-------------------------------------------------------------------------------------------------|
-| Postgre_HOST     | Postgre 数据库主机，如：db.kamera.supabase.co                                                           |
-| Postgre_PORT     | Postgre 数据库端口，默认值：5432                                                                          |
-| Postgre_DATABASE | Postgre 数据库名称，默认值：postgres                                                                      |
-| Postgre_USERNAME | Postgre 数据库用户名，默认值：postgres                                                                     |
-| Postgre_PASSWORD | Postgre 数据库密码，默认值：postgres                                                                      |
-| AUTH_KEY         | 权限 key，jwt 和 hash 都需要用到它。如果您更改了它，请自行生成新密码，默认值：kamera                                                                         |
-| AccessKey_ID     | 阿里 OSS / AWS S3 AccessKey_ID                                                                    |
-| AccessKey_Secret | 阿里 OSS / AWS S3 AccessKey_Secret                                                                |
-| Region           | 阿里 OSS / AWS S3 Region 地域，如：oss-cn-hongkong                                                     |
-| Endpoint         | 阿里 OSS / AWS S3 Endpoint 地域节点，如：oss-cn-hongkong.aliyuncs.com                                    |
-| Bucket           | 阿里 OSS / AWS S3 Bucket 存储桶名称，如：kamera                                                           |
-| STORAGE_FOLDER   | 存储文件夹，严格格式，如：kamera 或 kamera/images ，填 / 或者不填表示根路径                                              |
-| CDN_URL          | CDN 域名，请严格按照 example.com 格式，不需要添加 https:// 会自动补充，如：kamera-s3-cdn.heming.dev                     |
-| STORAGE_MODEL    | 存储模式：本地维护填 local / 对象存储填 s3。选本地的话，就会从 assets/server 下加载 json 文件，你需要手动维护；选对象存储，通过后台功能进行维护。默认值：s3 |
-| KAMERA_USERNAME  | 系统用户账号，默认值：admin，单次登录有效期 24 小时。                                                                 |
-| KAMERA_PASSWORD  | 系统用户密码，默认值(666666)，如果需要更改密码，可在登录后进入后台自行生成后替换。                                                   |
+| Key              | 备注                                                                                                          |
+| ---------------- |-------------------------------------------------------------------------------------------------------------|
+| Postgre_HOST     | Postgre 数据库主机，如：db.kamera.supabase.co                                                                       |
+| Postgre_PORT     | Postgre 数据库端口，默认值：5432                                                                                      |
+| Postgre_DATABASE | Postgre 数据库名称，默认值：postgres                                                                                  |
+| Postgre_USERNAME | Postgre 数据库用户名，默认值：postgres                                                                                 |
+| Postgre_PASSWORD | Postgre 数据库密码，默认值：postgres                                                                                  |
+| AUTH_KEY         | 权限 key，jwt 和 hash 都需要用到它。如果您更改了它，请自行生成新密码，默认值：kamera                                                        |
+| AccessKey_ID     | 阿里 OSS / AWS S3 AccessKey_ID                                                                                |
+| AccessKey_Secret | 阿里 OSS / AWS S3 AccessKey_Secret                                                                            |
+| Region           | 阿里 OSS / AWS S3 Region 地域，如：oss-cn-hongkong                                                                 |
+| Endpoint         | 阿里 OSS / AWS S3 Endpoint 地域节点，如：oss-cn-hongkong.aliyuncs.com                                                |
+| Bucket           | 阿里 OSS / AWS S3 Bucket 存储桶名称，如：kamera                                                                       |
+| STORAGE_FOLDER   | 存储文件夹，严格格式，如：kamera 或 kamera/images ，填 / 或者不填表示根路径                                                          |
+| CDN_URL          | CDN 域名，请严格按照 example.com 格式，不需要添加 https:// 会自动补充，如：`kamera-s3-cdn.heming.dev`，CDN 以兼容阿里云 OSS 为主，理论上适配大多数存储。 |
+| STORAGE_MODEL    | 存储模式：本地维护填 local / 对象存储填 s3。选本地的话，就会从 assets/server 下加载 json 文件，你需要手动维护；选对象存储，通过后台功能进行维护。默认值：s3             |
+| KAMERA_USERNAME  | 系统用户账号，默认值：admin，单次登录有效期 24 小时。                                                                             |
+| KAMERA_PASSWORD  | 系统用户密码，默认值(666666)在 `.env.local` 文件中可查，如果需要更改密码，可在登录后进入后台自行生成后替换。                                             |
 
 > 理论上存储兼容 AWS S3 API，除了阿里云 OSS 外，其它兼容 S3 API 的存储都可以使用。
 
