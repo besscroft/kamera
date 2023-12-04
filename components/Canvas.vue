@@ -120,7 +120,7 @@ onUnmounted(() => {
             <el-descriptions
               v-else
               direction="vertical"
-              :column="smAndLarger ? 3 : 1"
+              :column="smAndLarger ? 3 : 2"
               border mt-2
             >
               <el-descriptions-item v-if="obj?.exif?.Make?.description" label="相机品牌">

@@ -4,6 +4,7 @@ import { useUserStore } from '~/composables/user'
 const user = useUserStore()
 const indexDataList = ref<Array<Object>>([])
 const indexLoading = ref<boolean>(false)
+const mounted = ref<boolean>(false)
 const imgId = ref<number>(0)
 const showModal = ref<boolean>(false)
 const handleButton = ref<boolean>(true)
@@ -63,16 +64,20 @@ onBeforeMount(async () => {
   await indexDataHandle()
 })
 
+onMounted(() => {
+  mounted.value = true
+})
+
 definePageMeta({
   layout: 'default',
 })
 </script>
 
 <template>
-  <div h-full p2>
+  <div min-h-screen p2>
     <div flex flex-col justify-center items-center mt4>
       <div
-        v-if="indexDataList"
+        v-if="indexDataList?.length > 0"
         flex flex-col justify-center items-center space-y-8
       >
         <div
@@ -93,7 +98,11 @@ definePageMeta({
           />
         </div>
       </div>
-      <el-empty v-else-if="!indexLoading" description="暂时没有精选图片，请登录后进入后台管理！" />
+      <div v-else-if="indexLoading">
+        加载中...
+      </div>
+      <el-empty v-else-if="!mounted" description=" " />
+      <el-empty v-else description="暂时没有精选图片，请登录后进入后台管理！" />
     </div>
 
     <Canvas :showModal="showModal" :dataList="indexDataList" :imgId="imgId" @modalUpdate="modalUpdate" />

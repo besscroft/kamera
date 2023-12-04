@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { useUserStore } from '~/composables/user'
+import {
+  ChatDotSquare,
+  Star,
+} from '@element-plus/icons-vue'
 
 const toast = useToast()
 const passwordStr = ref<string>('')
@@ -55,6 +59,16 @@ definePageMeta({
         </el-input>
         <p break-words>密码：{{ hashPassword || 'N&A' }}</p>
       </div>
+      <template #footer>
+        <div space-x-2>
+          <NuxtLink to="https://github.com/besscroft/kamera" target="_blank">
+            <el-button :icon="Star">Star</el-button>
+          </NuxtLink>
+          <NuxtLink to="https://github.com/besscroft/kamera/issues/new" target="_blank">
+            <el-button :icon="ChatDotSquare">反馈 | 建议</el-button>
+          </NuxtLink>
+        </div>
+      </template>
     </el-card>
   </div>
 </template>

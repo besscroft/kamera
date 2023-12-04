@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const imgId = ref<number>(0)
 const showModal = ref<boolean>(false)
+const mounted = ref<boolean>(false)
 const props = defineProps({
   loading: Boolean,
   handleButton: Boolean,
@@ -28,6 +29,7 @@ const LazyImg = defineAsyncComponent(() =>
 )
 
 onMounted(async () => {
+  mounted.value = true
   await emit('dataHandle')
 })
 
@@ -68,6 +70,7 @@ onUnmounted(() => {
           <el-skeleton-item variant="image" v-for="index in 4" :key="index" style="height: 16rem" />
         </template>
       </el-skeleton>
+      <el-empty v-else-if="!mounted" p2 description=" " />
       <el-empty v-else p2 description="暂时还没有内容哦！" />
     </ClientOnly>
 

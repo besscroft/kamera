@@ -15,6 +15,6 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
       <el-backtop :right="smAndLarger ? 100 : 24" :bottom="smAndLarger ? 100 : 24" z-50 />
       <Music v-if="!isMobile" />
     </ClientOnly>
-    <Footer v-if="!(route.path === '/tietie' || route.path === '/timeline' || route.path === '/cosplay')" />
+    <Footer v-if="route.path === '/' || route.path === '/about'" />
   </main>
 </template>
