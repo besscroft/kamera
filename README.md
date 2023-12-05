@@ -50,24 +50,24 @@ nitro: {
 > 
 > 项目内默认的 key 都是用作演示用途！
 
-| Key              | 备注                                                                                              |
-| ---------------- |-------------------------------------------------------------------------------------------------|
-| Postgre_HOST     | Postgre 数据库主机，如：db.kamera.supabase.co                                                           |
-| Postgre_PORT     | Postgre 数据库端口，默认值：5432                                                                          |
-| Postgre_DATABASE | Postgre 数据库名称，默认值：postgres                                                                      |
-| Postgre_USERNAME | Postgre 数据库用户名，默认值：postgres                                                                     |
-| Postgre_PASSWORD | Postgre 数据库密码，默认值：postgres                                                                      |
-| AUTH_KEY         | 权限 key，jwt 和 hash 都需要用到它。如果您更改了它，请自行生成新密码，默认值：kamera                                                                         |
-| AccessKey_ID     | 阿里 OSS / AWS S3 AccessKey_ID                                                                    |
-| AccessKey_Secret | 阿里 OSS / AWS S3 AccessKey_Secret                                                                |
-| Region           | 阿里 OSS / AWS S3 Region 地域，如：oss-cn-hongkong                                                     |
-| Endpoint         | 阿里 OSS / AWS S3 Endpoint 地域节点，如：oss-cn-hongkong.aliyuncs.com                                    |
-| Bucket           | 阿里 OSS / AWS S3 Bucket 存储桶名称，如：kamera                                                           |
-| STORAGE_FOLDER   | 存储文件夹，严格格式，如：kamera 或 kamera/images ，填 / 或者不填表示根路径                                              |
-| CDN_URL          | CDN 域名，请严格按照 example.com 格式，不需要添加 https:// 会自动补充，如：kamera-s3-cdn.heming.dev                     |
-| STORAGE_MODEL    | 存储模式：本地维护填 local / 对象存储填 s3。选本地的话，就会从 assets/server 下加载 json 文件，你需要手动维护；选对象存储，通过后台功能进行维护。默认值：s3 |
-| KAMERA_USERNAME  | 系统用户账号，默认值：admin，单次登录有效期 24 小时。                                                                 |
-| KAMERA_PASSWORD  | 系统用户密码，默认值(666666)，如果需要更改密码，可在登录后进入后台自行生成后替换。                                                   |
+| Key              | 备注                                                                                                          |
+| ---------------- |-------------------------------------------------------------------------------------------------------------|
+| Postgre_HOST     | Postgre 数据库主机，如：db.kamera.supabase.co                                                                       |
+| Postgre_PORT     | Postgre 数据库端口，默认值：5432                                                                                      |
+| Postgre_DATABASE | Postgre 数据库名称，默认值：postgres                                                                                  |
+| Postgre_USERNAME | Postgre 数据库用户名，默认值：postgres                                                                                 |
+| Postgre_PASSWORD | Postgre 数据库密码，默认值：postgres                                                                                  |
+| AUTH_KEY         | 权限 key，jwt 和 hash 都需要用到它。如果您更改了它，请自行生成新密码，默认值：kamera                                                        |
+| AccessKey_ID     | 阿里 OSS / AWS S3 AccessKey_ID                                                                                |
+| AccessKey_Secret | 阿里 OSS / AWS S3 AccessKey_Secret                                                                            |
+| Region           | 阿里 OSS / AWS S3 Region 地域，如：oss-cn-hongkong                                                                 |
+| Endpoint         | 阿里 OSS / AWS S3 Endpoint 地域节点，如：oss-cn-hongkong.aliyuncs.com                                                |
+| Bucket           | 阿里 OSS / AWS S3 Bucket 存储桶名称，如：kamera                                                                       |
+| STORAGE_FOLDER   | 存储文件夹，严格格式，如：kamera 或 kamera/images ，填 / 或者不填表示根路径                                                          |
+| CDN_URL          | CDN 域名，请严格按照 example.com 格式，不需要添加 https:// 会自动补充，如：`kamera-s3-cdn.heming.dev`，CDN 以兼容阿里云 OSS 为主，理论上适配大多数存储。 |
+| STORAGE_MODEL    | 存储模式：本地维护填 local / 对象存储填 s3。选本地的话，就会从 assets/server 下加载 json 文件，你需要手动维护；选对象存储，通过后台功能进行维护。默认值：s3             |
+| KAMERA_USERNAME  | 系统用户账号，默认值：admin，单次登录有效期 24 小时。                                                                             |
+| KAMERA_PASSWORD  | 系统用户密码，默认值(666666)在 `.env.local` 文件中可查，如果需要更改密码，可在登录后进入后台自行生成后替换。                                             |
 
 > 理论上存储兼容 AWS S3 API，除了阿里云 OSS 外，其它兼容 S3 API 的存储都可以使用。
 
@@ -148,6 +148,127 @@ export default defineAppConfig({
 | copyright | 版权声明作者名称，如“Bess Croft”，显示为：© 2023 Bess Croft 版权所有. |
 
 > 虽然您可以修改源码再部署，但我们希望您能保留 Made with 和 GitHub 仓库地址。
+
+如果你要修改音乐列表，请在 `assets/server/music.json` 下更改，可以换成你自己的。
+
+### 容器部署
+
+我把容器部署往后放，是不希望前面的内容被跳过，这样你在构建/部署时才能得心应手！
+
+#### 直接部署
+
+如果你想用我的镜像（由 GitHub Actions 构建），就意味着你的某些配置与我相同，比如网站的几个目录。
+但实际上你肯定得改一下网站标题，配置子页面啊之类的，改一下音乐播放器里面的歌之类的。
+至于为啥我没有做成动态从数据库获取，主要还是觉得没太大必要（懒~
+
+所以我的镜像只适合你快速体验预览之类的，还是建议你自己构建，反正也很方便，或者你直接部署到 Vercel 之类的平台。
+如果你要运行我的镜像，你只需要执行下面的命令即可部署：
+
+```shell
+docker run -d --name kamera \
+  -p 3000:3000 \
+  -e Postgre_HOST="db.supabase.co" \
+  -e Postgre_PORT="5432" \
+  -e Postgre_DATABASE="postgres" \
+  -e Postgre_USERNAME="postgres" \
+  -e Postgre_PASSWORD="postgres" \
+  -e AUTH_KEY="kamera" \
+  -e AccessKey_ID="postgres" \
+  -e AccessKey_Secret="postgres" \
+  -e Region="postgres" \
+  -e Endpoint="postgres.aliyuncs.com" \
+  -e Bucket="postgres" \
+  -e STORAGE_FOLDER="kamera" \
+  -e CDN_URL="kamera-s3-cdn.heming.dev" \
+  -e STORAGE_MODEL="s3" \
+  -e KAMERA_USERNAME="admin" \
+  -e KAMERA_PASSWORD="2a2a3d2b5dcef92937839896bcf07dc62605ebe2ac428f57ea061c734d950d075667654a5e130a9fee5b85512a98eac8138100f32a40953b8678243dbfc97297" \
+  besscroft/kamera:latest
+```
+
+> 看到这里您应该明白，环境变量当然要换成自己的！
+
+#### 自己构建镜像
+
+无需多说，直接 fork 本项目，然后更改任意文件并 `commit` 后，会自动触发 GitHub Actions 构建。
+当然在那之前，你需要先在你 fork 的仓库创建 2 个机密，具体看[为存储库创建机密](https://docs.github.com/zh/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository)
+
+> `DOCKERHUB_USERNAME` 和 `DOCKERHUB_TOKEN` 这两个，这样才能在构建后，上传到你自己的 docker 仓库去。
+
+在构建好镜像之后，你可以用上面的命令执行（记得镜像换成你自己构建的哈），如果你要 Docker Compose 执行：
+
+```shell
+version: '3'
+services:
+  kamera:
+    image: besscroft/kamera:latest
+    container_name: kamera
+    ports:
+      - 3000:3000
+    environment:
+      - Postgre_HOST="db.supabase.co"
+      - Postgre_PORT=5432
+      - Postgre_DATABASE="postgres"
+      - Postgre_USERNAME="postgres"
+      - Postgre_PASSWORD="postgres"
+      - AUTH_KEY="kamera"
+      - AccessKey_ID="postgres"
+      - AccessKey_Secret="postgres"
+      - Region="postgres"
+      - Endpoint="postgres.aliyuncs.com"
+      - Bucket="postgres"
+      - STORAGE_FOLDER="kamera"
+      - CDN_URL="kamera-s3-cdn.heming.dev"
+      - STORAGE_MODEL="s3"
+      - KAMERA_USERNAME="admin"
+      - KAMERA_PASSWORD="2a2a3d2b5dcef92937839896bcf07dc62605ebe2ac428f57ea061c734d950d075667654a5e130a9fee5b85512a98eac8138100f32a40953b8678243dbfc97297"
+```
+
+> 一样的，参考上面的环境变量表格，配置你自己的环境变量。
+
+#### 构建镜像 Q&A
+
+Q：我 fork 仓库后，网站设置也改了自己的之后，构建的镜像是被人 pull 有风险吗？
+
+A：原则上没有，但如果你自己要往文件里面填写机密信息，那是你自己的问题！
+别人并不知道你的环境变量的值，除非你自己泄露！
+
+Q：用你这玩意怎么这么麻烦？人家的都能放数据库里面，访问时动态获取。
+
+A：没错，我是懒狗。但是这部分内容我觉得真没太大必要每次还从数据库查（即使做缓存又如何呢？）。
+基于 SSR 的特性大部分配置内容，是在编译期处理的，比如咱们配置的那些自定义页面。
+
+#### 自行编译并部署
+
+这种方式适合那些想自己打包直接放在 Node 上跑的朋友。
+
+```shell
+git clone https://github.com/besscroft/kamera.git
+
+pnpm i
+
+pnpm run build
+```
+
+构建完成后，你会看到一个 `.output` 文件夹，你可以使用如下命令运行：
+
+```shell
+node /app/.output/server/index.mjs
+```
+
+> 如果你选择这种部署方式，我相信你是会使用 Node 的。
+
+#### 宝塔面板
+
+对于使用宝塔面板之类的用户，包括使用 Nginx 来提供访问服务的用户，记得配置反向代理：
+
+```shell
+location ^~ // {
+  proxy_pass http://localhost:3000;
+}
+```
+
+> 端口和路径之类的，就看你自己部署时，设置的什么了。
 
 ### 在线开发
 
