@@ -81,7 +81,7 @@ definePageMeta({
         flex flex-col justify-center items-center space-y-8
       >
         <div
-          class="w-11/12 md:w-10/12"
+          class="w-11/12 md:w-3/4"
           v-for="item in indexDataList"
           :key="item.id"
           shadow-xl border-4 bg-white cursor-pointer

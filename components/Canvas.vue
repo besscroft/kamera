@@ -13,6 +13,7 @@ const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
 const show = ref(false)
 const obj = ref({})
+const defaultIndex = ref(0)
 const emit = defineEmits(['modalUpdate'])
 
 const items = [{
@@ -32,6 +33,7 @@ const xClick = () => {
 }
 
 watch(() => props.showModal, (val) => {
+  defaultIndex.value = 0
   show.value = props.showModal
   obj.value = props.dataList?.find((item: any) => item.id === props.imgId)
 })
@@ -41,6 +43,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  defaultIndex.value = 0
   emit('modalUpdate')
 })
 </script>
@@ -69,7 +72,7 @@ onUnmounted(() => {
           />
         </ClientOnly>
       </div>
-      <UTabs :items="items" mt-8 w-full>
+      <UTabs :items="items" v-model="defaultIndex" mt-8 w-full>
         <template #info="{ item }">
           <div flex flex-col space-y-2>
             <el-card class="box-card" mx-auto rounded-lg shadow-md w-full>
