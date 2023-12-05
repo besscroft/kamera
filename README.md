@@ -195,7 +195,7 @@ docker run -d --name kamera \
 
 > `DOCKERHUB_USERNAME` 和 `DOCKERHUB_TOKEN` 这两个，这样才能在构建后，上传到你自己的 docker 仓库去。
 
-在构建好镜像之后，你可以用上面的命令执行，如果你要 Docker Compose 执行：
+在构建好镜像之后，你可以用上面的命令执行（记得镜像换成你自己构建的哈），如果你要 Docker Compose 执行：
 
 ```shell
 version: '3'
