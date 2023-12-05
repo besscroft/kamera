@@ -1,8 +1,22 @@
 import s3 from '~/config/s3'
 
 export default defineEventHandler(async (event) => {
+    // temp----------
+    const contentType = getRequestHeader(event, "content-type");
+    console.log('contentType', contentType)
+    if (!contentType || !contentType.startsWith("multipart/form-data")) {
+        throw createError({ statusCode: 500, statusMessage: 'Provider Upload Error!' })
+    }
+    const boundary = contentType.match(/boundary=([^;]*)(;|$)/i)?.[1];
+    console.log('boundary', boundary)
+    if (!boundary) {
+        throw createError({ statusCode: 500, statusMessage: 'Provider Upload Error!' })
+    }
+    const rawBody = await readRawBody(event, false);
+    console.log('rawBody', rawBody)
+    // ----------
     const body = await readMultipartFormData(event)
-
+    console.log('body', body)
     const uploadParams = { Bucket: process.env.Bucket, Key: '', Body: '' }
     const file = body[0].data
     const type = body[1].data
