@@ -150,6 +150,14 @@ const updateShowHandle = async (val: number, id: number) => {
   }
 }
 
+const isDiyType = (type: string) => {
+  return photosList.some(item => type === item.url.replace('/', ''));
+}
+
+const tagTitleHandle = (type: string) => {
+  return photosList.find(item => type === item.url.replace('/', ''))?.title
+}
+
 onBeforeMount(async () => {
   await dataHandle()
 })
@@ -172,11 +180,8 @@ definePageMeta({
         <el-table-column label="类型" prop="type">
           <template #default="scope">
             <el-tag v-if="scope.row.type === 'index'">首页精选</el-tag>
-            <el-tag
-                v-for="item in photosList"
-                :key="item.url"
-                v-else-if="scope.row.type === item.url.replace('/', '')">
-              {{ item.title }}
+            <el-tag v-else-if="isDiyType(scope.row.type)">
+              {{ tagTitleHandle(scope.row.type) || '错误类型' }}
             </el-tag>
             <el-tag v-else type="danger">错误类型</el-tag>
           </template>
