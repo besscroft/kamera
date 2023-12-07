@@ -197,7 +197,7 @@ docker run -d --name kamera \
 
 在构建好镜像之后，你可以用上面的命令执行（记得镜像换成你自己构建的哈），如果你要 Docker Compose 执行：
 
-```shell
+```yaml
 version: '3'
 services:
   kamera:
@@ -263,7 +263,7 @@ node /app/.output/server/index.mjs
 对于使用宝塔面板之类的用户，包括使用 Nginx 来提供访问服务的用户，记得配置反向代理：
 
 ```shell
-location ^~ // {
+location ^~ / {
   proxy_pass http://localhost:3000;
 }
 ```
