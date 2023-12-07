@@ -42,7 +42,6 @@
     "@formkit/auto-animate": "^0.8.1",
     "@nuxt/image": "^1.1.0",
     "@nuxt/ui": "^2.11.0",
-    "@vercel/analytics": "^1.1.1",
     "aws-sdk": "^2.1508.0",
     "crypto-js": "^4.2.0",
     "exifreader": "^4.17.0",
