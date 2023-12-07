@@ -1,8 +1,4 @@
 import sql from '~/config/db'
-import timelineData from '~/assets/server/json/timeline.json'
-import tietieData from '~/assets/server/json/tietie.json'
-import cosplayData from '~/assets/server/json/cosplay.json'
-import indexData from '~/assets/server/json/index.json'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
@@ -13,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
     let length;
     let data;
-    if (process.env.STORAGE_MODEL === 's3') {
+    if (process.env.STORAGE_MODEL === 's3' || !process.env.STORAGE_MODEL) {
         if (body.type === '') {
             length = await sql`
                 SELECT
@@ -81,26 +77,12 @@ export default defineEventHandler(async (event) => {
             })
         }
     } else {
-        let dataList;
-        if (body.type === 'timeline') {
-            dataList = timelineData
-        } else if (body.type === 'tietie') {
-            dataList = tietieData
-        } else if (body.type === 'cosplay') {
-            dataList = cosplayData
-        } else if (body.type === 'index') {
-            dataList = indexData
-        }
-        const returnData = dataList
-            .sort((a, b) => b.id - a.id)
-            .slice((body.pageNum - 1) * body.pageSize, body.pageNum * body.pageSize)
-
         return {
-            total: dataList.length,
-            totalPage: Math.ceil(dataList.length / body.pageSize),
+            total: 0,
+            totalPage: 0,
             pageNum: body.pageNum,
             pageSize: body.pageSize,
-            data: returnData
+            data: 0
         }
     }
 })
