@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { useUserStore } from '~/composables/user'
+import photosList from '~/constants/photos.json'
 
 const toast = useToast()
 const breakpoints = useBreakpoints(breakpointsTailwind)
@@ -171,9 +172,12 @@ definePageMeta({
         <el-table-column label="类型" prop="type">
           <template #default="scope">
             <el-tag v-if="scope.row.type === 'index'">首页精选</el-tag>
-            <el-tag v-else-if="scope.row.type === 'cosplay'">Cosplay</el-tag>
-            <el-tag v-else-if="scope.row.type === 'tietie'">集邮</el-tag>
-            <el-tag v-else-if="scope.row.type === 'timeline'">时光相册</el-tag>
+            <el-tag
+                v-for="item in photosList"
+                :key="item.url"
+                v-else-if="scope.row.type === item.url.replace('/', '')">
+              {{ item.title }}
+            </el-tag>
             <el-tag v-else type="danger">错误类型</el-tag>
           </template>
         </el-table-column>
