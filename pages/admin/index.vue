@@ -150,24 +150,26 @@ const exceed = () => {
 }
 
 watch(storage, async (val) => {
-  if (val === 'alist' && (!mountOptions || mountOptions.value.length === 0)) {
-    const { data } = await $fetch('/api/getStorageList', {
-      timeout: 60000,
-      method: 'get',
-      headers: {
-        Authorization: `${user.tokenName} ${user.token}`,
-      },
-    })
-    if (data) {
-      // 遍历数组，给 mountOptions 赋值
-      data.forEach((item: any) => {
-        if (item.status === 'work') {
-          mountOptions.value.push({
-            label: item.mount_path,
-            value: item.mount_path,
-          })
-        }
+  if (val === 'alist') {
+    if (mountOptions.value.length === 0) {
+      const { data } = await $fetch('/api/getStorageList', {
+        timeout: 60000,
+        method: 'get',
+        headers: {
+          Authorization: `${user.tokenName} ${user.token}`,
+        },
       })
+      if (data) {
+        // 遍历数组，给 mountOptions 赋值
+        data.forEach((item: any) => {
+          if (item.status === 'work') {
+            mountOptions.value.push({
+              label: item.mount_path,
+              value: item.mount_path,
+            })
+          }
+        })
+      }
     }
     mountSelectShow.value = true
   } else {
