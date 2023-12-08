@@ -65,7 +65,7 @@ nitro: {
 | Bucket           | 阿里 OSS / AWS S3 Bucket 存储桶名称，如：kamera                                                                       |
 | STORAGE_FOLDER   | 存储文件夹，严格格式，如：kamera 或 kamera/images ，填 / 或者不填表示根路径                                                          |
 | CDN_URL          | CDN 域名，请严格按照 example.com 格式，不需要添加 https:// 会自动补充，如：`kamera-s3-cdn.heming.dev`，CDN 以兼容阿里云 OSS 为主，理论上适配大多数存储。 |
-| STORAGE_MODEL    | 存储模式：暂仅支持对象存储，值 `s3`。默认值：`s3`                      |
+| STORAGE_MODEL    | 存储模式：暂仅支持对象存储（包括自建的 MinIO），值 `s3`。默认值：`s3`                                                                  |
 | KAMERA_USERNAME  | 系统用户账号，默认值：admin，单次登录有效期 24 小时。                                                                             |
 | KAMERA_PASSWORD  | 系统用户密码，默认值(666666)在 `.env.local` 文件中可查，如果需要更改密码，可在登录后进入后台自行生成后替换。                                           |
 
