@@ -11,6 +11,7 @@ const user = useUserStore()
 const fileUrl = ref('')
 const loading = ref<boolean>(false)
 const toast = useToast()
+const mountSelectShow = ref(false)
 
 const storage = ref('')
 const imgData = reactive({
@@ -157,7 +158,6 @@ watch(storage, async (val) => {
         Authorization: `${user.tokenName} ${user.token}`,
       },
     })
-    console.log(data)
     if (data) {
       // 遍历数组，给 mountOptions 赋值
       data.forEach((item: any) => {
@@ -169,6 +169,9 @@ watch(storage, async (val) => {
         }
       })
     }
+    mountSelectShow.value = true
+  } else {
+    mountSelectShow.value = false
   }
 })
 
@@ -214,7 +217,7 @@ definePageMeta({
         </el-select>
         <el-button round v-if="fileUrl" :loading="loading" @click="submit"> 保存 </el-button>
       </div>
-      <div v-if="mountOptions && mountOptions.length > 0" flex items-center justify-center pb-2>
+      <div v-if="mountSelectShow && mountOptions.length > 0" flex items-center justify-center pb-2>
         <el-select v-model="imgData.mountPath" m-2 placeholder="请选择挂载目录">
           <el-option
             v-for="item in mountOptions"
