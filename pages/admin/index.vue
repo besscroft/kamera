@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import photosList from '~/constants/photos.json'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import * as ExifReader from 'exifreader'
+import photosList from '~/constants/photos.json'
 import { useUserStore } from '~/composables/user'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
@@ -11,16 +11,31 @@ const user = useUserStore()
 const fileUrl = ref('')
 const loading = ref<boolean>(false)
 const toast = useToast()
+const mountSelectShow = ref(false)
 
+const storage = ref('')
 const imgData = reactive({
+  mountPath: '',
   type: '',
   url: '',
   exif: {},
   detail: '',
-  rating: ''
+  rating: '',
 })
 
-const options = ref([
+const storageOptions = ref([
+  {
+    label: 'S3',
+    value: 's3',
+  },
+  {
+    label: 'AList',
+    value: 'alist',
+  },
+])
+const mountOptions = ref([
+])
+const imgTypeOptions = ref([
   {
     label: '首页精选',
     value: 'index',
@@ -28,16 +43,18 @@ const options = ref([
 ])
 
 /** 自定义上传请求 */
-const onRequestUpload = async (option: any) => {
+async function onRequestUpload(option: any) {
   const file = option.file
-  let formData = new FormData();
-  formData.append('file', file);
-  formData.append('type', imgData.type || '');
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('storage', storage.value || '')
+  formData.append('type', imgData.type || '')
+  formData.append('mountPath', imgData.mountPath || '')
   const { data, url } = await $fetch('/api/uploadFile', {
     timeout: 60000,
     method: 'post',
     headers: {
-      Authorization: `${user.tokenName} ${user.token}`
+      Authorization: `${user.tokenName} ${user.token}`,
     },
     body: formData,
   })
@@ -62,9 +79,19 @@ const onRequestUpload = async (option: any) => {
   }
 }
 
-const submit = async () => {
+async function submit() {
   loading.value = true
   try {
+    if (storage.value === '') {
+      toast.add({ title: '请选择存储！', timeout: 2000, color: 'red' })
+      loading.value = false
+      return
+    }
+    if (storage.value === 'alist' && imgData.mountPath === '') {
+      toast.add({ title: '请选择挂载目录！', timeout: 2000, color: 'red' })
+      loading.value = false
+      return
+    }
     if (imgData.type === '') {
       toast.add({ title: '请选择类型！', timeout: 2000, color: 'red' })
       loading.value = false
@@ -74,32 +101,43 @@ const submit = async () => {
       timeout: 60000,
       method: 'post',
       headers: {
-        Authorization: `${user.tokenName} ${user.token}`
+        Authorization: `${user.tokenName} ${user.token}`,
       },
       body: imgData,
     })
     if (data === 0) {
       toast.add({ title: '保存成功！', timeout: 2000 })
-    } else {
+    }
+    else {
       toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
     }
-  } catch (e) {
+  }
+  catch (e) {
     loading.value = false
   }
   loading.value = false
 }
 
-const removeFile = () => {
-  fileUrl.value = '';
-  imgData.url = '';
-  imgData.rating = 0;
-  imgData.detail = '';
-  imgData.exif = {};
-  imgData.type = '';
+function removeFile() {
+  mountOptions.value = []
+  fileUrl.value = ''
+  storage.value = ''
+  imgData.mountPath = ''
+  imgData.url = ''
+  imgData.rating = 0
+  imgData.detail = ''
+  imgData.exif = {}
+  imgData.type = ''
 }
 
-const onBeforeUpload = (file: any) => {
-  if (!imgData.type || imgData.type === '') {
+function onBeforeUpload(file: any) {
+  if (!storage.value || storage.value === '') {
+    toast.add({ title: '请先选择存储！', timeout: 2000, color: 'red' })
+    file.abort()
+  } else if (storage.value === 'alist' && (!imgData.mountPath || imgData.mountPath === '')) {
+    toast.add({ title: '请先选择挂载目录！', timeout: 2000, color: 'red' })
+    file.abort()
+  } else if (!imgData.type || imgData.type === '') {
     toast.add({ title: '请先选择图片类别！', timeout: 2000, color: 'red' })
     file.abort()
   } else {
@@ -111,15 +149,47 @@ const exceed = () => {
   toast.add({ title: '只能同时上传一张图片！', timeout: 2000, color: 'red' })
 }
 
+watch(storage, async (val) => {
+  if (val === 'alist') {
+    if (mountOptions.value.length === 0) {
+      const { data } = await $fetch('/api/getStorageList', {
+        timeout: 60000,
+        method: 'get',
+        headers: {
+          Authorization: `${user.tokenName} ${user.token}`,
+        },
+      })
+      if (data) {
+        // 遍历数组，给 mountOptions 赋值
+        data.forEach((item: any) => {
+          if (item.status === 'work') {
+            mountOptions.value.push({
+              label: item.mount_path,
+              value: item.mount_path,
+            })
+          }
+        })
+      }
+    }
+    mountSelectShow.value = true
+  } else {
+    mountSelectShow.value = false
+  }
+})
+
 onBeforeMount(() => {
   if (photosList) {
     photosList?.forEach((photo: any) => {
-      options.value.push({
+      imgTypeOptions.value.push({
         label: photo.title,
         value: photo.url.replace('/', ''),
-      });
-    });
+      })
+    })
   }
+})
+
+onUnmounted(() => {
+  removeFile()
 })
 
 definePageMeta({
@@ -131,15 +201,33 @@ definePageMeta({
   <div w-full max-h-full md:max-w-7xl flex flex-col items-center justify-center mx-auto p2 md:p8 pb-20>
     <div my-6 md:my-16 mx-auto w-full md:max-w-4xl rounded-md bg-white dark:bg-gray-800 shadow p-2>
       <div flex items-center justify-center pb-2 space-x-2>
-        <el-select v-model="imgData.type" m-2 placeholder="请选择图片类别">
+        <el-select v-model="storage" m-2 placeholder="请选择存储">
           <el-option
-            v-for="item in options"
+            v-for="item in storageOptions"
             :key="item.value"
             :label="item.label"
             :value="item.value"
           />
         </el-select>
-        <el-button round v-if="fileUrl" :loading="loading" @click="submit">保存</el-button>
+        <el-select v-model="imgData.type" m-2 placeholder="请选择图片类别">
+          <el-option
+            v-for="item in imgTypeOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+        <el-button round v-if="fileUrl" :loading="loading" @click="submit"> 保存 </el-button>
+      </div>
+      <div v-if="mountSelectShow && mountOptions.length > 0" flex items-center justify-center pb-2>
+        <el-select v-model="imgData.mountPath" m-2 placeholder="请选择挂载目录">
+          <el-option
+            v-for="item in mountOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </div>
       <el-upload
         class="upload-demo"
