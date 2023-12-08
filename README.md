@@ -69,12 +69,12 @@ nitro: {
 | Region           | 阿里 OSS / AWS S3 Region 地域，如：oss-cn-hongkong                                                                       |
 | Endpoint         | 阿里 OSS / AWS S3 Endpoint 地域节点，如：oss-cn-hongkong.aliyuncs.com                                                      |
 | Bucket           | 阿里 OSS / AWS S3 Bucket 存储桶名称，如：kamera                                                                             |
-| STORAGE_FOLDER   | 存储文件夹，严格格式，如：kamera 或 kamera/images ，填 / 或者不填表示根路径                                                                |
+| STORAGE_FOLDER   | 存储文件夹(S3)，严格格式，如：kamera 或 kamera/images ，填 / 或者不填表示根路径                                                            |
+| ALIST_URL   | AList 地址，如：https://alist.besscroft.com                                                                                                       |
+| ALIST_TOKEN   | alist 令牌                                                              |
 | CDN_URL          | CDN 域名（仅 S3），请严格按照 example.com 格式，不需要添加 https:// 会自动补充，如：`kamera-s3-cdn.heming.dev`，CDN 以兼容阿里云 OSS 为主，理论上适配大多数存储。 |
 | KAMERA_USERNAME  | 系统用户账号，默认值：admin，单次登录有效期 24 小时。                                                                                   |
 | KAMERA_PASSWORD  | 系统用户密码，默认值(666666)在 `.env.local` 文件中可查，如果需要更改密码，可在登录后进入后台自行生成后替换。                                                 |
-
-> 理论上存储兼容 AWS S3 API，除了阿里云 OSS 外，其它兼容 S3 API 的存储都可以使用。
 
 #### 页面配置
 
