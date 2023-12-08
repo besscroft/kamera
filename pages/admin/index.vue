@@ -157,13 +157,16 @@ watch(storage, async (val) => {
         Authorization: `${user.tokenName} ${user.token}`,
       },
     })
+    console.log(data)
     if (data) {
       // 遍历数组，给 mountOptions 赋值
       data.forEach((item: any) => {
-        mountOptions.value.push({
-          label: item.mount_path,
-          value: item.mount_path,
-        })
+        if (item.status === 'work') {
+          mountOptions.value.push({
+            label: item.mount_path,
+            value: item.mount_path,
+          })
+        }
       })
     }
   }
