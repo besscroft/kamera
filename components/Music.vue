@@ -3,6 +3,7 @@ import 'aplayer/dist/APlayer.min.css'
 import APlayer from 'aplayer'
 
 const ap = ref<APlayer>()
+const showMusic = ref(false)
 
 const initPlayer = (dataList: Array<Object> | any) => {
   ap.value = new APlayer({
@@ -33,7 +34,12 @@ onMounted(async () => {
   const data = await $fetch('/api/music', {
     method: 'post',
   })
-  initPlayer(data.data)
+  if (data.data && data.data.length > 0) {
+    initPlayer(data.data)
+    showMusic.value = true
+  } else {
+    showMusic.value = false
+  }
 })
 
 onUnmounted(() => {
@@ -42,7 +48,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div id="player" />
+  <div v-show="showMusic" id="player" />
 </template>
 
 <style scoped>
