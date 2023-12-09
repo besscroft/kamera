@@ -4,23 +4,23 @@ Kamera
 </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6-%E5%BC%80%E5%8F%91%E4%B8%AD-brightgreen?style=flat-square" alt="开发进度">
   <a href="https://github.com/besscroft/kamera/blob/main/LICENSE"><img src="https://img.shields.io/github/license/besscroft/kamera?style=flat-square" alt="许可证"></a>
   <img src="https://img.shields.io/github/repo-size/besscroft/kamera?style=flat-square&color=328657" alt="存储库大小">
 </p>
 
-一款专供摄影佬使用的记录网站，支持常见的图片格式，可以读取 EXIF 信息，管理维护图片，瀑布流展示查看图片。
-兼容 S3 API、支持 CDN 配置。首页精品照片展示，子页分类展示等功能。
-基于 Nuxt 3 开发，支持一键部署，无需单独后端。更多功能还在开发中~
+一款专供摄影佬使用的记录网站，瀑布流展示图片，预览图片及 EXIF 信息，支持常见的图片格式。
+可读取 EXIF 信息并上传、管理维护图片数据，首页精品照片展示，子页分类展示等功能。
+图片存储兼容 S3 API、AList API、支持 CDN 配置。
+基于 Nuxt 3 开发，支持 Docker 一键部署，无需单独后端。更多功能还在开发中~
 今天又是想当二次元摄影高手的一天呢！
 
 ### 如何部署
 
-你可以 Fork 后点击下面的按钮来一键部署到 Vercel
+你可以 Fork 后点击下面的按钮来一键部署到 Vercel（容器部署请往下看）
 
 <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbesscroft%2Fkamera&env=Postgre_HOST,Postgre_PORT,Postgre_DATABASE,Postgre_USERNAME,Postgre_PASSWORD,AUTH_KEY,STORAGE_MODEL,KAMERA_USERNAME,KAMERA_PASSWORD"><img src="https://vercel.com/button" alt="Deploy with Vercel"/></a>
 
-当然，如果你想部署到 Netlify 或者自部署也是可以的，只需要改一下预设即可 `nuxt.config.ts`：
+当然，如果你想部署到其它平台或者自部署也是可以的，只需要改一下预设即可 `nuxt.config.ts`：
 
 ```ts
 nitro: {
@@ -49,6 +49,8 @@ nitro: {
 所有值都经过静态加密，并且对有权访问该项目的任何用户都可见。使用非敏感数据和敏感数据（例如令牌）都是安全的。**但请注意您自己不要泄露环境变量的值！**
 
 如果您更改了环境变量，它不会影响当前的部署，您需要重新构建部署后才会生效！
+
+当然，如果您是容器化部署的，更改环境变量后只需要重启容器就行了，无需重新构建！
 
 受限于 Nuxt3 的局限性，某些设计可能不是特别人性化（主要还是懒），望理解！
 
