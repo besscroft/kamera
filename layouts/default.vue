@@ -10,7 +10,9 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
 <template>
   <main>
     <Header />
-    <slot />
+    <div>
+      <slot />
+    </div>
     <ClientOnly>
       <el-backtop :right="smAndLarger ? 100 : 24" :bottom="smAndLarger ? 100 : 24" z-50 />
       <Music v-if="!isMobile" />

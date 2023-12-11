@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-import {isDark} from "~/composables/dark";
 
 const router = useRouter()
 const { isMobile } = useDevice()
@@ -12,7 +11,9 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
 <template>
   <div>
     <Header />
-    <slot />
+    <div>
+      <slot />
+    </div>
     <ClientOnly>
       <el-backtop :right="smAndLarger ? 100 : 24" :bottom="smAndLarger ? 100 : 24" z-50 />
       <Music v-if="!isMobile" />
