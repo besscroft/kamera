@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useUserStore } from '~/composables/user'
-
 const isDark = useDark()
 const router = useRouter()
 const route = useRoute()

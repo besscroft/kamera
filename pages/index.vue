@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useUserStore } from '~/composables/user'
-
 const user = useUserStore()
 const indexDataList = ref<Array<Object>>([])
 const indexLoading = ref<boolean>(false)

@@ -3,7 +3,6 @@ import {
   ChatDotSquare,
   Star,
 } from '@element-plus/icons-vue'
-import { useUserStore } from '~/composables/user'
 
 const toast = useToast()
 const passwordStr = ref<string>('')

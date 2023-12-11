@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-import { useUserStore } from '~/composables/user'
 import photosList from '~/constants/photos.json'
 
 const toast = useToast()

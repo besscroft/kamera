@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-const props = defineProps({
-  showModal: Boolean,
-  imgId: Number,
+const props = defineProps<{
+  showModal?: boolean
+  imgId: number
   dataList: {
-    type: Array,
-  },
-})
+    type: []
+  }
+}>()
 
 const emit = defineEmits(['modalUpdate'])
 const breakpoints = useBreakpoints(breakpointsTailwind)
