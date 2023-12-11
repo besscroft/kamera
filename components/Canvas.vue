@@ -6,22 +6,21 @@ const props = defineProps({
   imgId: Number,
   dataList: {
     type: Array,
-  }
+  },
 })
 
+const emit = defineEmits(['modalUpdate'])
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
 const show = ref(false)
 const obj = ref({})
 const defaultIndex = ref(0)
-const emit = defineEmits(['modalUpdate'])
-
 const items = [{
   slot: 'info',
-  label: '信息'
+  label: '信息',
 }, {
   slot: 'other',
-  label: '更多'
+  label: '更多',
 }]
 
 const xClick = () => {

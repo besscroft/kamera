@@ -61,7 +61,7 @@ definePageMeta({
       console.log(e)
       return false
     }
-  }
+  },
 })
 </script>
 

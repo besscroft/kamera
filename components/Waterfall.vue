@@ -1,17 +1,15 @@
 <script setup lang="ts">
-const imgId = ref<number>(0)
-const showModal = ref<boolean>(false)
-const mounted = ref<boolean>(false)
 const props = defineProps({
   loading: Boolean,
   handleButton: Boolean,
   dataList: {
     type: Array,
-  }
+  },
 })
-
 const emit = defineEmits(['dataHandle'])
-
+const imgId = ref<number>(0)
+const showModal = ref<boolean>(false)
+const mounted = ref<boolean>(false)
 const modalUpdate = () => {
   showModal.value = false
 }
@@ -22,10 +20,10 @@ const clickImg = (id: Number) => {
 }
 
 const Waterfall = defineAsyncComponent(() =>
-    import('vue-waterfall-plugin-next').then((module) => module.Waterfall)
+  import('vue-waterfall-plugin-next').then((module) => module.Waterfall)
 )
 const LazyImg = defineAsyncComponent(() =>
-    import('vue-waterfall-plugin-next').then((module) => module.LazyImg)
+  import('vue-waterfall-plugin-next').then((module) => module.LazyImg)
 )
 
 onMounted(async () => {
@@ -42,16 +40,16 @@ onUnmounted(() => {
   <div px-2>
     <ClientOnly>
       <Waterfall
-        v-if="dataList?.length > 0"
+        v-if="dataList && dataList?.length > 0"
         :list="dataList"
         :gutter="12"
         :hasAroundGutter="true"
         :crossOrigin="false"
         :backgroundColor="isDark ? '#121212' : '#FFFFFF'"
         :breakpoints="{
-          9999:{rowPerView:4},
-          1024:{rowPerView:2},
-          768:{rowPerView:1}
+          9999: { rowPerView: 4 },
+          1024: { rowPerView: 2 },
+          768: { rowPerView: 1 },
         }"
       >
         <template #item="{ item }">

@@ -9,8 +9,7 @@ export default defineEventHandler((event) => {
   const secretKey = process.env.AUTH_KEY
   try {
     const { err } = jwt.verify(token, secretKey)
-  }
-  catch (e) {
+  } catch (e) {
     sendRedirect(event, '/login', 302)
   }
 })

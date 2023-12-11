@@ -29,7 +29,7 @@ export default defineNuxtConfig({
   pinia: {
     autoImports: [
       'defineStore',
-    ]
+    ],
   },
 
   piniaPersistedstate: {
@@ -76,7 +76,7 @@ export default defineNuxtConfig({
       ],
     },
     hooks: {
-      async 'prerender:routes'(routes) {
+      'prerender:routes': async function (routes) {
         const preRoutes = []
         if (photosList) {
           const genericRoutes = photosList?.map((item: any) => {
@@ -110,8 +110,8 @@ export default defineNuxtConfig({
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
       ],
       htmlAttrs: {
-        lang: 'zh'
-      }
+        lang: 'zh',
+      },
     },
     pageTransition: { name: 'page', mode: 'out-in' },
   },

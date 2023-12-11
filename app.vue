@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { appName } from '~/constants'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import { ElConfigProvider } from 'element-plus'
+import { appName } from '~/constants'
 
 useHead({
   title: appName,
@@ -13,9 +13,9 @@ useHead({
   <NuxtLayout>
     <NuxtLoadingIndicator />
     <UNotifications :ui="{ width: 'w-full md:w-80' }" />
-    <el-config-provider :locale="zhCn">
+    <ElConfigProvider :locale="zhCn">
       <NuxtPage />
-    </el-config-provider>
+    </ElConfigProvider>
   </NuxtLayout>
 </template>
 
