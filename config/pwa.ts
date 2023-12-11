@@ -1,4 +1,3 @@
-import process from 'node:process'
 import type { ModuleOptions } from '@vite-pwa/nuxt'
 import { appDescription, appName } from '../constants/index'
 
@@ -73,7 +72,7 @@ export const pwa: ModuleOptions = {
   registerWebManifestInRouteRules: true,
   writePlugin: true,
   devOptions: {
-    enabled: process.env.VITE_PLUGIN_PWA === 'true',
+    enabled: true,
     navigateFallback: scope,
   },
 }

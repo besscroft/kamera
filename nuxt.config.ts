@@ -14,7 +14,6 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@element-plus/nuxt',
     '@nuxt/ui',
-    '@nuxt/image',
   ],
 
   experimental: {
@@ -47,6 +46,16 @@ export default defineNuxtConfig({
 
   colorMode: {
     classSuffix: '',
+  },
+
+  routeRules: {
+    // CDN cache rules
+    '/manifest.webmanifest': {
+      headers: {
+        'Content-Type': 'application/manifest+json',
+        'Cache-Control': 'public, max-age=0, must-revalidate',
+      },
+    },
   },
 
   nitro: {
