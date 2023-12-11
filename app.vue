@@ -3,6 +3,10 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import { ElConfigProvider } from 'element-plus'
 import { appName } from '~/constants'
 
+onHydrated(() => {
+  console.log(isHydrated.value)
+})
+
 useHead({
   title: appName,
 })
