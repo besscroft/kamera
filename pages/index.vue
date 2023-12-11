@@ -85,13 +85,15 @@ definePageMeta({
           v-for="item in indexDataList"
           :key="item.id"
           shadow-xl border-4 bg-white cursor-pointer
+          @click="clickImg(item.id)"
         >
-          <img
-            lazy
+          <el-image
             :src="item.url"
             :alt="item.detail"
-            @click="clickImg(item.id)"
-          />
+            lazy
+            style="display: block !important;"
+          >
+          </el-image>
         </div>
       </div>
       <div v-else-if="indexLoading">
