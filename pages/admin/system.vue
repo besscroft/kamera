@@ -31,7 +31,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div w-full max-h-full md:max-w-7xl flex flex-col items-center justify-center mx-auto p2 md:p8 pb-20 class="md:w-1/2">
+  <div w-full max-h-full flex flex-col items-center justify-center mx-auto p2 md:p8 pb-20 class="md:w-4/5 lg:w-3/5">
     <el-card class="box-card" w-full>
       <template #header>
         <div class="card-header">

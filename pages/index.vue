@@ -85,17 +85,15 @@ definePageMeta({
           v-for="item in indexDataList"
           :key="item.id"
           shadow-xl border-4 bg-white cursor-pointer
+          @click="clickImg(item.id)"
         >
-          <NuxtImg
-            w-full
-            loading="lazy"
+          <el-image
             :src="item.url"
             :alt="item.detail"
-            format="webp"
-            quality="80"
-            @click="clickImg(item.id)"
-            densities="x1 x2"
-          />
+            lazy
+            style="display: block !important;"
+          >
+          </el-image>
         </div>
       </div>
       <div v-else-if="indexLoading">

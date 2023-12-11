@@ -4,7 +4,9 @@ const { isMobile } = useDevice()
 
 <template>
   <div h-full>
-    <slot />
+    <div>
+      <slot />
+    </div>
     <ClientOnly v-if="!isMobile">
       <Music />
     </ClientOnly>
