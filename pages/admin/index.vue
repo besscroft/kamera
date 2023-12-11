@@ -198,8 +198,8 @@ definePageMeta({
 </script>
 
 <template>
-  <div w-full max-h-full md:max-w-7xl flex flex-col items-center justify-center mx-auto p2 md:p8 pb-20>
-    <div my-6 md:my-16 mx-auto w-full md:max-w-4xl rounded-md bg-white dark:bg-gray-800 shadow p-2>
+  <div w-full max-h-full flex flex-col items-center justify-center mx-auto p2 md:p8 pb-20 class="md:w-4/5 lg:w-3/5">
+    <div my-6 md:my-16 mx-auto w-full rounded-md bg-white dark:bg-gray-800 shadow p-2>
       <div flex items-center justify-center pb-2 space-x-2>
         <el-select v-model="storage" m-2 placeholder="请选择存储">
           <el-option
