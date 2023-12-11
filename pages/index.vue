@@ -86,15 +86,11 @@ definePageMeta({
           :key="item.id"
           shadow-xl border-4 bg-white cursor-pointer
         >
-          <NuxtImg
-            w-full
-            loading="lazy"
+          <img
+            lazy
             :src="item.url"
             :alt="item.detail"
-            format="webp"
-            quality="80"
             @click="clickImg(item.id)"
-            densities="x1 x2"
           />
         </div>
       </div>

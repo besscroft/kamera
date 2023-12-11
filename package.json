@@ -40,7 +40,6 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
-    "@nuxt/image": "^1.1.0",
     "@nuxt/ui": "^2.11.0",
     "aws-sdk": "^2.1515.0",
     "crypto-js": "^4.2.0",
