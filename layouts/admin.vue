@@ -13,7 +13,7 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
       <slot />
     </div>
     <ClientOnly>
-      <el-backtop v-if="!smAndLarger" :right="100" :bottom="100" z-50 />
+      <el-backtop v-if="smAndLarger" :right="100" :bottom="100" z-50 />
       <Music v-if="smAndLarger && !isMobile" />
       <NavBottom v-if="!smAndLarger" />
     </ClientOnly>
