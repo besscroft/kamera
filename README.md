@@ -87,20 +87,24 @@ nitro: {
 [
   {
     "title": "Cosplay",
-    "url": "/cosplay"
+    "url": "/cosplay",
+    "icon": "i-carbon-camera"
   },
   {
     "title": "集邮",
-    "url": "/tietie"
+    "url": "/tietie",
+    "icon": "i-carbon-face-wink"
   },
   {
     "title": "时光相册",
-    "url": "/timeline"
+    "url": "/timeline",
+    "icon": "i-carbon-image"
   }
 ]
 ```
 
 顾名思义，`title` 和 `uel` 对应的就是页面标题和页面地址，如果您想正常使用的话，还请照葫芦画瓢，而不是乱填。
+图标可以在 [Icones](https://icones.js.org/collection/carbon) 找到.
 
 > 每配置一个页面，都会对应的增添一个图片类别选项，在您的对象存储中，也会增加对应的文件夹。
 > 

@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const smAndLarger = breakpoints.greaterOrEqual('md')
 const isDark = useDark()
-const router = useRouter()
-const route = useRoute()
-const user = useUserStore()
 
 // @ts-expect-error: Transition API
 const isAppearanceTransition = document.startViewTransition
@@ -51,15 +52,14 @@ function toggleDark(event?: MouseEvent) {
 </script>
 
 <template>
-  <div flex flex-row items-center justify-center space-x-2>
-    <button
-      class="!outline-none"
-      :title="isDark ? '切换至⌈白夜⌋' : '切换至⌈常夜⌋'"
-      @click="toggleDark"
-    >
-      <span dark:i-carbon-moon i-carbon-sun block aria-hidden="true" />
-    </button>
-    <span v-if="!user.token" i-carbon-user block cursor-pointer aria-hidden="true" title="登录" @click="router.push('/login')" />
-    <span v-else-if="!route.path.startsWith('/admin')" i-carbon-screen-map block cursor-pointer aria-hidden="true" title="后台" @click="router.push('/admin')" />
-  </div>
+  <button
+    v-if="!smAndLarger"
+    flex flex-row items-center block px-5 py-2 focus-blue w-full
+    class="!outline-none"
+    :title="isDark ? '切换至⌈白夜⌋' : '切换至⌈常夜⌋'"
+    @click="toggleDark"
+  >
+    <span dark:i-carbon-moon i-carbon-sun block text-xl me-4 aria-hidden="true" />{{ isDark ? '切换至⌈白夜⌋' : '切换至⌈常夜⌋' }}
+  </button>
+  <UButton v-else color="white" icon="dark:i-carbon-moon i-carbon-sun" :label="isDark ? '切换至⌈白夜⌋' : '切换至⌈常夜⌋'" @click="toggleDark" />
 </template>

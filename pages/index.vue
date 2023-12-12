@@ -72,7 +72,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div min-h-screen p2>
+  <div p2>
     <div flex flex-col justify-center items-center mt4>
       <div
         v-if="indexDataList?.length > 0"

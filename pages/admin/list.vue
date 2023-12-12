@@ -173,7 +173,7 @@ definePageMeta({
         :data="dataList"
         v-loading="loading"
         stripe
-        style="width: 100%"
+        height="calc(100vh - 16rem)"
       >
         <el-table-column label="id" prop="id" />
         <el-table-column label="类型" prop="type">
@@ -214,16 +214,17 @@ definePageMeta({
           </template>
         </el-table-column>
       </el-table>
-      <div flex items-center space-x-1 text-sm mt1>
+      <div flex flex-wrap items-center space-x-1 text-sm mt1>
         <p v-if="pageInfo.total > 0">共 {{ pageInfo.total }} 条</p>
         <el-pagination
-          background
+          background small
           layout="sizes, prev, pager, next"
           :page-sizes="[10, 20, 50, 100]"
           :total="pageInfo.total"
           v-model:page-size="pageInfo.pageSize"
           v-model:current-page="pageInfo.pageNum"
           :page-count="pageInfo.totalPage"
+          :pager-count="4"
           @size-change="(val: number) => { pageInfo.pageSize = val; dataHandle() }"
           @current-change="(val: number) => { pageInfo.pageNum = val; dataHandle() }"
         />
