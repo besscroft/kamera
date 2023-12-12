@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useUserStore } from '~/composables/user'
-
 const user = useUserStore()
 const indexDataList = ref<Array<Object>>([])
 const indexLoading = ref<boolean>(false)
@@ -74,7 +72,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div min-h-screen p2>
+  <div p2>
     <div flex flex-col justify-center items-center mt4>
       <div
         v-if="indexDataList?.length > 0"

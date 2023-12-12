@@ -1,3 +1,3 @@
 declare module 'aplayer' {
-    export default any
+  export default any
 }

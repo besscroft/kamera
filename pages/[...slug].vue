@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import photosList from '~/constants/photos.json'
-import { useUserStore } from '~/composables/user'
 
 const user = useUserStore()
 const route = useRoute()
@@ -61,7 +60,7 @@ definePageMeta({
       console.log(e)
       return false
     }
-  }
+  },
 })
 </script>
 

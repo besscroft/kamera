@@ -18,7 +18,7 @@ export default defineConfig({
     colors: {
       'custom-black': '#121212',
       'custom-green': '#00DC82',
-    }
+    },
   },
   presets: [
     presetUno(),

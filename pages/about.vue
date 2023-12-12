@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const active = ref('1')
-
 definePageMeta({
   layout: 'default',
 })

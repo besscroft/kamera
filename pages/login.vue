@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { appName } from '~/constants'
-import { useUserStore } from '~/composables/user'
 
 interface ModelType {
   username: string | null

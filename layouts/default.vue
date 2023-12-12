@@ -2,7 +2,6 @@
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 const { isMobile } = useDevice()
-const route = useRoute()
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
 </script>
@@ -10,13 +9,13 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
 <template>
   <main>
     <Header />
-    <div>
+    <div style="min-height: calc(100vh - 3.5rem);" pb-14>
       <slot />
     </div>
+    <el-backtop v-if="smAndLarger" :right="100" :bottom="100" z-50 />
     <ClientOnly>
-      <el-backtop :right="smAndLarger ? 100 : 24" :bottom="smAndLarger ? 100 : 24" z-50 />
-      <Music v-if="!isMobile" />
+      <Music v-if="smAndLarger && !isMobile" />
+      <NavBottom v-if="!smAndLarger" />
     </ClientOnly>
-    <Footer v-if="route.path === '/' || route.path === '/about'" />
   </main>
 </template>

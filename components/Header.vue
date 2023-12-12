@@ -1,13 +1,67 @@
 <script setup lang="ts">
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import photosList from '~/constants/photos.json'
 
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const smAndLarger = breakpoints.greaterOrEqual('md')
 const router = useRouter()
 const route = useRoute()
-
+const user = useUserStore()
 const isOpen = ref(false)
+
+const routeList = ref([])
+const systemRouterList = ref([
+  {
+    title: '上传',
+    to: '/admin',
+    icon: 'i-carbon-send-alt',
+  },
+  {
+    title: '维护',
+    to: '/admin/list',
+    icon: 'i-carbon-earth-southeast-asia-filled',
+  },
+  {
+    title: '系统',
+    to: '/admin/system',
+    icon: 'i-carbon-cloud-alerting',
+  },
+])
 
 watch(() => route.path, () => {
   isOpen.value = false
+})
+
+onBeforeMount(() => {
+  routeList.value.push({
+    title: '首页',
+    to: '/',
+    icon: 'i-carbon-aperture',
+  })
+  if (photosList && photosList?.length > 0) {
+    photosList.forEach((item) => {
+      routeList.value.push({
+        title: item.title,
+        to: item.url,
+        icon: item.icon && item.icon !== '' ? item.icon : 'i-carbon-debug',
+      })
+    })
+  }
+  routeList.value.push({
+    title: '关于',
+    to: '/about',
+    icon: 'i-carbon-warning',
+  })
+})
+
+const logout = () => {
+  user.setToken('')
+  user.setTokenName('')
+  router.push('/')
+}
+
+onBeforeUnmount(() => {
+  routeList.value = []
 })
 </script>
 
@@ -19,42 +73,48 @@ watch(() => route.path, () => {
           <ClientOnly>
             <img class="h-8 w-auto" :src="isDark ? '/maskable-icon-dark.png' : '/maskable-icon.png'" cursor-pointer @click="router.push('/')" alt="logo">
           </ClientOnly>
-
-          <!-- Mobile menu button -->
-          <div v-if="!route.path.startsWith('/admin')" flex md:hidden z-50>
-            <button @click="isOpen = !isOpen" type="button" text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400 aria-label="toggle menu">
-              <svg v-show="!isOpen" xmlns="http://www.w3.org/2000/svg" w-6 h-6 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16" />
-              </svg>
-
-              <svg v-show="isOpen" xmlns="http://www.w3.org/2000/svg" w-6 h-6 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
         </div>
 
-        <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
-        <div v-if="!route.path.startsWith('/admin')" :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" absolute inset-x-0 z-40 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-900 md:bg-transparent md:dark:bg-transparent md:mt-0 md:p-0 md:top-0 md:relative md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center>
-          <div flex flex-col md:flex-row md:mx-6>
-            <a :class="route.path === '/' ? 'text-custom-green' : 'text-gray-700 dark:text-gray-200'" class="font-xihei my-2 transition-colors duration-300 transform hover:text-custom-green md:mx-4 md:my-0 cursor-pointer" @click="router.push('/')">首页</a>
-            <a
-              v-if="photosList"
-              v-for="item in photosList"
-              :key="item.title"
-              :class="route.path === item.url ? 'text-custom-green' : 'text-gray-700 dark:text-gray-200'"
-              class="font-xihei my-2 transition-colors duration-300 transform hover:text-custom-green md:mx-4 md:my-0 cursor-pointer"
-              @click="router.push(item.url)"
-            >
-              {{ item.title }}
-            </a>
-            <a :class="route.path === '/about' ? 'text-custom-green' : 'text-gray-700 dark:text-gray-200'" class="font-xihei my-2 transition-colors duration-300 transform hover:text-custom-green md:mx-4 md:my-0 cursor-pointer" @click="router.push('/about')">关于</a>
-          </div>
-        </div>
+        <div v-if="smAndLarger" flex items-center justify-center space-x-3>
+          <ClientOnly>
+            <DarkToggle />
+          </ClientOnly>
+          <UPopover mode="hover">
+            <UButton color="white" trailing-icon="i-carbon-app" />
 
-        <ClientOnly>
-          <DarkToggle pl-2 />
-        </ClientOnly>
+            <template #panel>
+              <div p-2>
+                <NuxtLink
+                  v-for="item in routeList"
+                  :key="item.to"
+                  :to="item.to"
+                  flex flex-row items-center
+                  block px-5 py-2 focus-blue w-full
+                  transition-colors duration-200 transform
+                  hover="bg-gray-100 dark:(bg-gray-700 text-white)"
+                  :class="route.path === item.to ? 'text-custom-green' : 'text-gray-700 dark:text-gray-200'"
+                >
+                  <span :class="item.icon" text-xl me-4 />{{ item.title }}
+                </NuxtLink>
+                <div border="neutral-300 dark:neutral-700 t-1" mx-3 my-2 />
+                <NuxtLink
+                  v-for="item in systemRouterList"
+                  :key="item.to"
+                  :to="item.to"
+                  flex flex-row items-center
+                  block px-5 py-2 focus-blue w-full
+                  transition-colors duration-200 transform
+                  hover="bg-gray-100 dark:(bg-gray-700 text-white)"
+                  :class="route.path === item.to ? 'text-custom-green' : 'text-gray-700 dark:text-gray-200'"
+                >
+                  <span :class="item.icon" text-xl me-4 />{{ item.title }}
+                </NuxtLink>
+              </div>
+            </template>
+          </UPopover>
+          <UButton v-if="!user.token" color="white" label="登录" @click="router.push('/login')" />
+          <UButton v-if="user.token && route.path.startsWith('/admin')" color="white" label="注销" @click="logout" />
+        </div>
       </div>
     </nav>
   </header>
