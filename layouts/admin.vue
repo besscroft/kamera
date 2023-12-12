@@ -15,8 +15,8 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
     <ClientOnly>
       <el-backtop v-if="!smAndLarger" :right="100" :bottom="100" z-50 />
       <Music v-if="smAndLarger && !isMobile" />
+      <NavBottom v-if="!smAndLarger" />
     </ClientOnly>
-    <NavBottom v-if="!smAndLarger" />
   </div>
 </template>
 
