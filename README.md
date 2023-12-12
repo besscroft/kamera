@@ -156,9 +156,6 @@ export default defineAppConfig({
 | ---------------- |-----------------------------|
 | appName     | 网站标题                        |
 | appDescription     | 网站描述                        |
-| copyright | 版权声明作者名称，如“Bess Croft”，显示为：© 2023 Bess Croft 版权所有. |
-
-> 虽然您可以修改源码再部署，但我们希望您能保留 Made with 和 GitHub 仓库地址。
 
 如果你要修改音乐列表，请在 `assets/server/music.json` 下更改，可以换成你自己的。
 
