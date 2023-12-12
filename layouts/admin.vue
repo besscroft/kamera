@@ -9,7 +9,7 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
 <template>
   <div>
     <Header />
-    <div style="height: calc(100vh - 10rem);" pb-14>
+    <div style="min-height: calc(100vh - 7rem);" pb-14>
       <slot />
     </div>
     <ClientOnly>
