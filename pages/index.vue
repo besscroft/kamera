@@ -76,13 +76,13 @@ definePageMeta({
     <div flex flex-col justify-center items-center mt4>
       <div
         v-if="indexDataList?.length > 0"
-        flex flex-col justify-center items-center space-y-8
+        flex flex-col justify-center items-center space-y-8 w-full
       >
         <div
           class="w-11/12 md:w-3/4"
           v-for="item in indexDataList"
           :key="item.id"
-          shadow-xl border-4 bg-white cursor-pointer
+          shadow-xl border-4 bg-white cursor-pointer aspect-video
           @click="clickImg(item.id)"
         >
           <el-image
