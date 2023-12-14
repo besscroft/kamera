@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const toast = useToast()
 const user = useUserStore()
 const indexDataList = ref<Array<Object>>([])
 const indexLoading = ref<boolean>(false)
@@ -19,7 +20,7 @@ const indexDataHandle = async () => {
     const { total, totalPage, pageNum, pageSize, data } = await $fetch('/api/getImageList', {
       method: 'post',
       headers: {
-        Authorization: `${user.tokenName} ${user.token}`
+        Authorization: `${user.tokenName} ${user.token}`,
       },
       body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize, type: 'index' },
     })
@@ -36,6 +37,8 @@ const indexDataHandle = async () => {
       pageInfo.total = total
       pageInfo.totalPage = totalPage
     }
+  } catch (e) {
+    toast.add({ title: '加载失败！', timeout: 2000, color: 'red' })
   } finally {
     indexLoading.value = false
   }
@@ -76,13 +79,13 @@ definePageMeta({
     <div flex flex-col justify-center items-center mt4>
       <div
         v-if="indexDataList?.length > 0"
-        flex flex-col justify-center items-center space-y-8
+        flex flex-col justify-center items-center space-y-8 w-full
       >
         <div
           class="w-11/12 md:w-3/4"
           v-for="item in indexDataList"
           :key="item.id"
-          shadow-xl border-4 bg-white cursor-pointer
+          shadow-xl border-4 bg-white cursor-pointer aspect-video
           @click="clickImg(item.id)"
         >
           <el-image

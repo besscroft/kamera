@@ -76,6 +76,12 @@ onBeforeUnmount(() => {
         </div>
 
         <div v-if="smAndLarger" flex items-center justify-center space-x-3>
+          <NuxtLink
+            to="https://github.com/besscroft/kamera"
+            target="_blank"
+          >
+            <UButton color="white" icon="i-carbon-logo-github" />
+          </NuxtLink>
           <ClientOnly>
             <DarkToggle />
           </ClientOnly>

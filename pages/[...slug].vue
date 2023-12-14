@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import photosList from '~/constants/photos.json'
 
+const toast = useToast()
 const user = useUserStore()
 const route = useRoute()
 const dataList = ref<Array<Object>>([])
@@ -19,7 +20,7 @@ const dataHandle = async () => {
     const { total, totalPage, pageNum, pageSize, data } = await $fetch('/api/getImageList', {
       method: 'post',
       headers: {
-        Authorization: `${user.tokenName} ${user.token}`
+        Authorization: `${user.tokenName} ${user.token}`,
       },
       body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize, type: route.path.replace('/', '') },
     })
@@ -36,6 +37,8 @@ const dataHandle = async () => {
       pageInfo.total = total
       pageInfo.totalPage = totalPage
     }
+  } catch (e) {
+    toast.add({ title: '加载失败！', timeout: 2000, color: 'red' })
   } finally {
     loading.value = false
   }

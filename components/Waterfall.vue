@@ -14,7 +14,7 @@ const modalUpdate = () => {
   showModal.value = false
 }
 
-const clickImg = (id: Number) => {
+const clickImg = (id: number) => {
   imgId.value = id
   showModal.value = true
 }

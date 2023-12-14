@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import * as ExifReader from 'exifreader'
 import photosList from '~/constants/photos.json'
-
-const breakpoints = useBreakpoints(breakpointsTailwind)
-const smAndLarger = breakpoints.greaterOrEqual('md')
 
 const user = useUserStore()
 const fileUrl = ref('')
@@ -19,7 +15,24 @@ const imgData = reactive({
   url: '',
   exif: {},
   detail: '',
-  rating: '',
+  rating: 0,
+})
+const exif = reactive<any>({
+  make: '',
+  model: '',
+  bits: '',
+  data_time: '',
+  exposure_time: '',
+  f_number: '',
+  exposure_program: '',
+  iso_speed_rating: '',
+  focal_length: '',
+  lens_specification: '',
+  lens_model: '',
+  exposure_mode: '',
+  cfa_pattern: '',
+  color_space: '',
+  white_balance: '',
 })
 
 const storageOptions = ref([
@@ -43,38 +56,44 @@ const imgTypeOptions = ref([
 
 /** 自定义上传请求 */
 async function onRequestUpload(option: any) {
-  const file = option.file
-  const formData = new FormData()
-  formData.append('file', file)
-  formData.append('storage', storage.value || '')
-  formData.append('type', imgData.type || '')
-  formData.append('mountPath', imgData.mountPath || '')
-  const { data, url } = await $fetch('/api/uploadFile', {
-    timeout: 60000,
-    method: 'post',
-    headers: {
-      Authorization: `${user.tokenName} ${user.token}`,
-    },
-    body: formData,
-  })
-  if (data === 0) {
-    fileUrl.value = url
-    const tags = await ExifReader.load(file)
-    if (tags?.Thumbnail && tags?.Thumbnail?.base64) {
-      tags.Thumbnail.base64 = undefined
+  try {
+    const file = option.file
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('storage', storage.value || '')
+    formData.append('type', imgData.type || '')
+    formData.append('mountPath', imgData.mountPath || '')
+    const { data, url } = await $fetch('/api/uploadFile', {
+      timeout: 60000,
+      method: 'post',
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`,
+      },
+      body: formData,
+    })
+    if (data === 0) {
+      fileUrl.value = url
+      const tags = await ExifReader.load(file)
+      exif.make = tags?.Make?.description
+      exif.model = tags?.Model?.description
+      exif.bits = tags?.['Bits Per Sample']?.description
+      exif.data_time = tags?.DateTime?.description
+      exif.exposure_time = tags?.ExposureTime?.description
+      exif.f_number = tags?.FNumber?.description
+      exif.exposure_program = tags?.ExposureProgram?.description
+      exif.iso_speed_rating = tags?.ISOSpeedRatings?.description
+      exif.focal_length = tags?.FocalLength?.description
+      exif.lens_specification = tags?.LensSpecification?.description
+      exif.lens_model = tags?.LensModel?.description
+      exif.exposure_mode = tags?.ExposureMode?.description
+      exif.cfa_pattern = tags?.CFAPattern?.description
+      exif.color_space = tags?.ColorSpace?.description
+      exif.white_balance = tags?.WhiteBalance?.description
+      imgData.exif = exif
+      imgData.url = url
     }
-    if (tags?.Thumbnail && tags?.Thumbnail?.image) {
-      tags.Thumbnail.image = undefined
-    }
-    imgData.exif = tags
-    if (tags?.Images) {
-      imgData.exif.Images = tags?.Images?.map(({ base64, image, ...item }) => {
-        return {
-          ...item,
-        }
-      })
-    }
-    imgData.url = url
+  } catch (e) {
+    toast.add({ title: '图片上传/解析失败！', timeout: 2000, color: 'red' })
   }
 }
 
@@ -96,25 +115,26 @@ async function submit() {
       loading.value = false
       return
     }
-    const { data } = await $fetch('/api/addImg', {
-      timeout: 60000,
-      method: 'post',
-      headers: {
-        Authorization: `${user.tokenName} ${user.token}`,
-      },
-      body: imgData,
-    })
-    if (data === 0) {
-      toast.add({ title: '保存成功！', timeout: 2000 })
-    }
-    else {
+    try {
+      const { data } = await $fetch('/api/addImg', {
+        timeout: 60000,
+        method: 'post',
+        headers: {
+          Authorization: `${user.tokenName} ${user.token}`,
+        },
+        body: imgData,
+      })
+      if (data === 0) {
+        toast.add({ title: '保存成功！', timeout: 2000 })
+      } else {
+        toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
+      }
+    } catch (e) {
       toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
     }
-  }
-  catch (e) {
+  } finally {
     loading.value = false
   }
-  loading.value = false
 }
 
 function removeFile() {
@@ -127,6 +147,22 @@ function removeFile() {
   imgData.detail = ''
   imgData.exif = {}
   imgData.type = ''
+
+  exif.make = ''
+  exif.model = ''
+  exif.bits = ''
+  exif.data_time = ''
+  exif.exposure_time = ''
+  exif.f_number = ''
+  exif.exposure_program = ''
+  exif.iso_speed_rating = ''
+  exif.focal_length = ''
+  exif.lens_specification = ''
+  exif.lens_model = ''
+  exif.exposure_mode = ''
+  exif.cfa_pattern = ''
+  exif.color_space = ''
+  exif.white_balance = ''
 }
 
 function onBeforeUpload(file: any) {
@@ -151,26 +187,30 @@ const exceed = () => {
 watch(storage, async (val) => {
   if (val === 'alist') {
     if (mountOptions.value.length === 0) {
-      const { data } = await $fetch('/api/getStorageList', {
-        timeout: 60000,
-        method: 'get',
-        headers: {
-          Authorization: `${user.tokenName} ${user.token}`,
-        },
-      })
-      if (data) {
-        // 遍历数组，给 mountOptions 赋值
-        data.forEach((item: any) => {
-          if (item.status === 'work') {
-            mountOptions.value.push({
-              label: item.mount_path,
-              value: item.mount_path,
-            })
-          }
+      try {
+        const { data } = await $fetch('/api/getStorageList', {
+          timeout: 60000,
+          method: 'get',
+          headers: {
+            Authorization: `${user.tokenName} ${user.token}`,
+          },
         })
+        if (data) {
+          // 遍历数组，给 mountOptions 赋值
+          data.forEach((item: any) => {
+            if (item.status === 'work') {
+              mountOptions.value.push({
+                label: item.mount_path,
+                value: item.mount_path,
+              })
+            }
+          })
+        }
+        mountSelectShow.value = true
+      } catch (e) {
+        toast.add({ title: 'AList 挂载目录获取失败！', timeout: 2000, color: 'red' })
       }
     }
-    mountSelectShow.value = true
   } else {
     mountSelectShow.value = false
   }
@@ -269,58 +309,7 @@ definePageMeta({
           <p>评分：</p>
           <el-rate v-model="imgData.rating" />
         </div>
-        <el-descriptions
-          :title="Object.keys(imgData.exif).length === 0 ? 'EXIF 信息为空！' : 'EXIF'"
-          direction="vertical"
-          :column="smAndLarger ? 4 : 2"
-          border
-        >
-          <el-descriptions-item v-if="imgData.exif?.Make?.description" label="相机品牌">
-            {{ imgData.exif?.Make?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.Model?.description" label="相机型号">
-            {{ imgData.exif?.Model?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.[`Bits Per Sample`]?.description" label="bit 位数">
-            {{ imgData.exif?.["Bits Per Sample"]?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.DateTime?.description" label="拍摄时间">
-            {{ imgData.exif?.DateTime?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.ExposureTime?.description" label="快门时间">
-            {{ imgData.exif?.ExposureTime?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.FNumber?.description" label="光圈">
-            {{ imgData.exif?.FNumber?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.ExposureProgram?.description" label="曝光程序">
-            {{ imgData.exif?.ExposureProgram?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.ISOSpeedRatings?.description" label="ISO">
-            {{ imgData.exif?.ISOSpeedRatings?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.FocalLength?.description" label="焦距">
-            {{ imgData.exif?.FocalLength?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.LensSpecification?.description" label="镜头规格">
-            {{ imgData.exif?.LensSpecification?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.LensModel?.description" label="镜头型号">
-            {{ imgData.exif?.LensModel?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.ExposureMode?.description" label="曝光模式">
-            {{ imgData.exif?.ExposureMode?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.CFAPattern?.description" label="CFA 模式">
-            {{ imgData.exif?.CFAPattern?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.ColorSpace?.description" label="色彩空间">
-            {{ imgData.exif?.ColorSpace?.description }}
-          </el-descriptions-item>
-          <el-descriptions-item v-if="imgData.exif?.WhiteBalance?.description" label="白平衡">
-            {{ imgData.exif?.WhiteBalance?.description }}
-          </el-descriptions-item>
-        </el-descriptions>
+        <ImageExif :exif="imgData.exif" />
       </div>
     </div>
   </div>

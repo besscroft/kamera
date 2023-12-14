@@ -31,14 +31,18 @@ const initPlayer = (dataList: Array<Object> | any) => {
 }
 
 onMounted(async () => {
-  const data = await $fetch('/api/music', {
-    method: 'post',
-  })
-  if (data.data && data.data.length > 0) {
-    initPlayer(data.data)
-    showMusic.value = true
-  } else {
-    showMusic.value = false
+  try {
+    const data = await $fetch('/api/music', {
+      method: 'post',
+    })
+    if (data.data && data.data.length > 0) {
+      initPlayer(data.data)
+      showMusic.value = true
+    } else {
+      showMusic.value = false
+    }
+  } catch (e) {
+    console.log(e)
   }
 })
 

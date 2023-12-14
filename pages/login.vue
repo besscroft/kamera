@@ -31,10 +31,10 @@ const handleSubmitClick = async () => {
       toast.add({ title: '登录失败！', timeout: 2000, color: 'red' })
     }
   } catch (e) {
-    loading.value = false
     toast.add({ title: '登录失败！', timeout: 2000, color: 'red' })
+  } finally {
+    loading.value = false
   }
-  loading.value = false
 }
 
 const keyDown = (e) => {

@@ -66,13 +66,16 @@ const dataHandle = async () => {
       timeout: 60000,
       method: 'post',
       headers: {
-        Authorization: `${user.tokenName} ${user.token}`
+        Authorization: `${user.tokenName} ${user.token}`,
       },
       body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize, type: '' },
     })
     dataList.value = data
     pageInfo.total = total
     pageInfo.totalPage = totalPage
+  } catch (e) {
+    console.log(e)
+    toast.add({ title: '加载失败！', timeout: 2000, color: 'red' })
   } finally {
     loading.value = false
   }
@@ -84,7 +87,7 @@ const updateHandle = async () => {
       timeout: 60000,
       method: 'put',
       headers: {
-        Authorization: `${user.tokenName} ${user.token}`
+        Authorization: `${user.tokenName} ${user.token}`,
       },
       body: { id: objInfo.id, type: objInfo.type, rating: objInfo.rating, detail: objInfo.detail, url: objInfo.url, sort: objInfo.sort },
     })
@@ -107,7 +110,7 @@ const deleteHandle = async (id: number) => {
       timeout: 60000,
       method: 'delete',
       headers: {
-        Authorization: `${user.tokenName} ${user.token}`
+        Authorization: `${user.tokenName} ${user.token}`,
       },
       body: { id: id },
     })
@@ -130,7 +133,7 @@ const updateShowHandle = async (val: number, id: number) => {
       timeout: 60000,
       method: 'put',
       headers: {
-        Authorization: `${user.tokenName} ${user.token}`
+        Authorization: `${user.tokenName} ${user.token}`,
       },
       body: { id: id, show: val },
     })
@@ -150,7 +153,7 @@ const updateShowHandle = async (val: number, id: number) => {
 }
 
 const isDiyType = (type: string) => {
-  return photosList.some(item => type === item.url.replace('/', ''));
+  return photosList.some(item => type === item.url.replace('/', ''))
 }
 
 const tagTitleHandle = (type: string) => {
@@ -303,59 +306,7 @@ definePageMeta({
         <p>排序：</p>
         <el-tag class="ml-2" type="success">{{ objInfo.sort || 0 }}</el-tag>
       </div>
-      <el-descriptions
-        v-if="rowInfo.exif && Object.keys(rowInfo.exif).length > 0"
-        :title="Object.keys(rowInfo.exif).length === 0 ? 'EXIF 信息为空！' : 'EXIF'"
-        direction="vertical"
-        :column="smAndLarger ? 4 : 2"
-        border
-      >
-        <el-descriptions-item v-if="rowInfo.exif?.Make?.description" label="相机品牌">
-          {{ rowInfo.exif?.Make?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.Model?.description" label="相机型号">
-          {{ rowInfo.exif?.Model?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.[`Bits Per Sample`]?.description" label="bit 位数">
-          {{ rowInfo.exif?.["Bits Per Sample"]?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.DateTime?.description" label="拍摄时间">
-          {{ rowInfo.exif?.DateTime?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.ExposureTime?.description" label="快门时间">
-          {{ rowInfo.exif?.ExposureTime?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.FNumber?.description" label="光圈">
-          {{ rowInfo.exif?.FNumber?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.ExposureProgram?.description" label="曝光程序">
-          {{ rowInfo.exif?.ExposureProgram?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.ISOSpeedRatings?.description" label="ISO">
-          {{ rowInfo.exif?.ISOSpeedRatings?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.FocalLength?.description" label="焦距">
-          {{ rowInfo.exif?.FocalLength?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.LensSpecification?.description" label="镜头规格">
-          {{ rowInfo.exif?.LensSpecification?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.LensModel?.description" label="镜头型号">
-          {{ rowInfo.exif?.LensModel?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.ExposureMode?.description" label="曝光模式">
-          {{ rowInfo.exif?.ExposureMode?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.CFAPattern?.description" label="CFA 模式">
-          {{ rowInfo.exif?.CFAPattern?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.ColorSpace?.description" label="色彩空间">
-          {{ rowInfo.exif?.ColorSpace?.description }}
-        </el-descriptions-item>
-        <el-descriptions-item v-if="rowInfo.exif?.WhiteBalance?.description" label="白平衡">
-          {{ rowInfo.exif?.WhiteBalance?.description }}
-        </el-descriptions-item>
-      </el-descriptions>
+      <ImageExif v-if="rowInfo.exif && Object.keys(rowInfo.exif).length > 0" :exif="rowInfo.exif" />
     </el-drawer>
   </div>
 </template>
