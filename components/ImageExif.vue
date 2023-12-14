@@ -12,7 +12,7 @@ const smAndLarger = breakpoints.greaterOrEqual('md')
   <el-descriptions
     :title="Object.keys(exif).length === 0 ? 'EXIF 信息为空！' : 'EXIF'"
     direction="vertical"
-    :column="smAndLarger ? 4 : 2"
+    :column="smAndLarger ? 3 : 2"
     border
   >
     <el-descriptions-item v-if="exif.make" label="相机品牌">
