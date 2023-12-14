@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-
 const props = defineProps<{
   showModal?: boolean
   imgId: number
@@ -10,8 +8,6 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['modalUpdate'])
-const breakpoints = useBreakpoints(breakpointsTailwind)
-const smAndLarger = breakpoints.greaterOrEqual('md')
 const show = ref(false)
 const obj = ref({})
 const defaultIndex = ref(0)
@@ -49,9 +45,9 @@ onUnmounted(() => {
 
 <template>
   <el-dialog
-    min-h-full w-full
-    title="点击图片预览"
     v-model="show"
+    w-full min-h-full
+    title="点击图片预览"
     align-center
     @close="() => xClick()"
   >
@@ -119,58 +115,7 @@ onUnmounted(() => {
               title="噔噔！"
               mt-2
             />
-            <el-descriptions
-              v-else
-              direction="vertical"
-              :column="smAndLarger ? 3 : 2"
-              border mt-2
-            >
-              <el-descriptions-item v-if="obj?.exif?.Make?.description" label="相机品牌">
-                {{ obj?.exif?.Make?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.Model?.description" label="相机型号">
-                {{ obj?.exif?.Model?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.[`Bits Per Sample`]?.description" label="bit 位数">
-                {{ obj?.exif?.["Bits Per Sample"]?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.DateTime?.description" label="拍摄时间">
-                {{ obj?.exif?.DateTime?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.ExposureTime?.description" label="快门时间">
-                {{ obj?.exif?.ExposureTime?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.FNumber?.description" label="光圈">
-                {{ obj?.exif?.FNumber?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.ExposureProgram?.description" label="曝光程序">
-                {{ obj?.exif?.ExposureProgram?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.ISOSpeedRatings?.description" label="ISO">
-                {{ obj?.exif?.ISOSpeedRatings?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.FocalLength?.description" label="焦距">
-                {{ obj?.exif?.FocalLength?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.LensSpecification?.description" label="镜头规格">
-                {{ obj?.exif?.LensSpecification?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.LensModel?.description" label="镜头型号">
-                {{ obj?.exif?.LensModel?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj?.exif?.ExposureMode?.description" label="曝光模式">
-                {{ obj?.exif?.ExposureMode?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj.exif?.CFAPattern?.description" label="CFA 模式">
-                {{ obj.exif?.CFAPattern?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj.exif?.ColorSpace?.description" label="色彩空间">
-                {{ obj.exif?.ColorSpace?.description }}
-              </el-descriptions-item>
-              <el-descriptions-item v-if="obj.exif?.WhiteBalance?.description" label="白平衡">
-                {{ obj.exif?.WhiteBalance?.description }}
-              </el-descriptions-item>
-            </el-descriptions>
+            <ImageExif v-else :exif="obj.exif" />
           </el-card>
         </template>
       </UTabs>
