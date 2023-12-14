@@ -56,46 +56,44 @@ const imgTypeOptions = ref([
 
 /** 自定义上传请求 */
 async function onRequestUpload(option: any) {
-  const file = option.file
-  const formData = new FormData()
-  formData.append('file', file)
-  formData.append('storage', storage.value || '')
-  formData.append('type', imgData.type || '')
-  formData.append('mountPath', imgData.mountPath || '')
-  const { data, url } = await $fetch('/api/uploadFile', {
-    timeout: 60000,
-    method: 'post',
-    headers: {
-      Authorization: `${user.tokenName} ${user.token}`,
-    },
-    body: formData,
-  })
-  if (data === 0) {
-    fileUrl.value = url
-    const tags = await ExifReader.load(file)
-    if (tags?.Thumbnail && tags?.Thumbnail?.base64) {
-      tags.Thumbnail.base64 = undefined
+  try {
+    const file = option.file
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('storage', storage.value || '')
+    formData.append('type', imgData.type || '')
+    formData.append('mountPath', imgData.mountPath || '')
+    const { data, url } = await $fetch('/api/uploadFile', {
+      timeout: 60000,
+      method: 'post',
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`,
+      },
+      body: formData,
+    })
+    if (data === 0) {
+      fileUrl.value = url
+      const tags = await ExifReader.load(file)
+      exif.make = tags?.Make?.description
+      exif.model = tags?.Model?.description
+      exif.bits = tags?.['Bits Per Sample']?.description
+      exif.data_time = tags?.DateTime?.description
+      exif.exposure_time = tags?.ExposureTime?.description
+      exif.f_number = tags?.FNumber?.description
+      exif.exposure_program = tags?.ExposureProgram?.description
+      exif.iso_speed_rating = tags?.ISOSpeedRatings?.description
+      exif.focal_length = tags?.FocalLength?.description
+      exif.lens_specification = tags?.LensSpecification?.description
+      exif.lens_model = tags?.LensModel?.description
+      exif.exposure_mode = tags?.ExposureMode?.description
+      exif.cfa_pattern = tags?.CFAPattern?.description
+      exif.color_space = tags?.ColorSpace?.description
+      exif.white_balance = tags?.WhiteBalance?.description
+      imgData.exif = exif
+      imgData.url = url
     }
-    if (tags?.Thumbnail && tags?.Thumbnail?.image) {
-      tags.Thumbnail.image = undefined
-    }
-    exif.make = tags?.Make?.description
-    exif.model = tags?.Model?.description
-    exif.bits = tags?.["Bits Per Sample"]?.description
-    exif.data_time = tags?.DateTime?.description
-    exif.exposure_time = tags?.ExposureTime?.description
-    exif.f_number = tags?.FNumber?.description
-    exif.exposure_program = tags?.ExposureProgram?.description
-    exif.iso_speed_rating = tags?.ISOSpeedRatings?.description
-    exif.focal_length = tags?.FocalLength?.description
-    exif.lens_specification = tags?.LensSpecification?.description
-    exif.lens_model = tags?.LensModel?.description
-    exif.exposure_mode = tags?.ExposureMode?.description
-    exif.cfa_pattern = tags?.CFAPattern?.description
-    exif.color_space = tags?.ColorSpace?.description
-    exif.white_balance = tags?.WhiteBalance?.description
-    imgData.exif = exif
-    imgData.url = url
+  } catch (e) {
+    toast.add({ title: '图片上传/解析失败！', timeout: 2000, color: 'red' })
   }
 }
 
@@ -117,25 +115,26 @@ async function submit() {
       loading.value = false
       return
     }
-    const { data } = await $fetch('/api/addImg', {
-      timeout: 60000,
-      method: 'post',
-      headers: {
-        Authorization: `${user.tokenName} ${user.token}`,
-      },
-      body: imgData,
-    })
-    if (data === 0) {
-      toast.add({ title: '保存成功！', timeout: 2000 })
-    }
-    else {
+    try {
+      const { data } = await $fetch('/api/addImg', {
+        timeout: 60000,
+        method: 'post',
+        headers: {
+          Authorization: `${user.tokenName} ${user.token}`,
+        },
+        body: imgData,
+      })
+      if (data === 0) {
+        toast.add({ title: '保存成功！', timeout: 2000 })
+      } else {
+        toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
+      }
+    } catch (e) {
       toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
     }
-  }
-  catch (e) {
+  } finally {
     loading.value = false
   }
-  loading.value = false
 }
 
 function removeFile() {
@@ -188,26 +187,30 @@ const exceed = () => {
 watch(storage, async (val) => {
   if (val === 'alist') {
     if (mountOptions.value.length === 0) {
-      const { data } = await $fetch('/api/getStorageList', {
-        timeout: 60000,
-        method: 'get',
-        headers: {
-          Authorization: `${user.tokenName} ${user.token}`,
-        },
-      })
-      if (data) {
-        // 遍历数组，给 mountOptions 赋值
-        data.forEach((item: any) => {
-          if (item.status === 'work') {
-            mountOptions.value.push({
-              label: item.mount_path,
-              value: item.mount_path,
-            })
-          }
+      try {
+        const { data } = await $fetch('/api/getStorageList', {
+          timeout: 60000,
+          method: 'get',
+          headers: {
+            Authorization: `${user.tokenName} ${user.token}`,
+          },
         })
+        if (data) {
+          // 遍历数组，给 mountOptions 赋值
+          data.forEach((item: any) => {
+            if (item.status === 'work') {
+              mountOptions.value.push({
+                label: item.mount_path,
+                value: item.mount_path,
+              })
+            }
+          })
+        }
+        mountSelectShow.value = true
+      } catch (e) {
+        toast.add({ title: 'AList 挂载目录获取失败！', timeout: 2000, color: 'red' })
       }
     }
-    mountSelectShow.value = true
   } else {
     mountSelectShow.value = false
   }

@@ -9,7 +9,7 @@ const pwdHandle = async () => {
     const { data } = await $fetch('/api/getEncrypt', {
       method: 'post',
       headers: {
-        Authorization: `${user.tokenName} ${user.token}`
+        Authorization: `${user.tokenName} ${user.token}`,
       },
       body: { password: passwordStr.value },
     })
