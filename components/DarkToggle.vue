@@ -61,5 +61,5 @@ function toggleDark(event?: MouseEvent) {
   >
     <span dark:i-carbon-moon i-carbon-sun block text-xl me-4 aria-hidden="true" />{{ isDark ? '切换至⌈白夜⌋' : '切换至⌈常夜⌋' }}
   </button>
-  <UButton v-else color="black" icon="dark:i-carbon-moon i-carbon-sun" :label="isDark ? '切换至⌈白夜⌋' : '切换至⌈常夜⌋'" @click="toggleDark" />
+  <UButton v-else color="white" icon="dark:i-carbon-moon i-carbon-sun" :label="isDark ? '切换至⌈白夜⌋' : '切换至⌈常夜⌋'" @click="toggleDark" />
 </template>
