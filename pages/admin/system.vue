@@ -48,16 +48,6 @@ definePageMeta({
         </el-input>
         <p break-words>密码：{{ hashPassword || 'N&A' }}</p>
       </div>
-      <template #footer>
-        <div space-x-2>
-          <NuxtLink to="https://github.com/besscroft/kamera" target="_blank">
-            <UButton color="white" icon="i-carbon-star">Star</UButton>
-          </NuxtLink>
-          <NuxtLink to="https://github.com/besscroft/kamera/issues/new" target="_blank">
-            <UButton color="white" icon="i-carbon-chat-bot">反馈 | 建议</UButton>
-          </NuxtLink>
-        </div>
-      </template>
     </el-card>
   </div>
 </template>

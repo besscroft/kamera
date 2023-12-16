@@ -75,6 +75,7 @@ export default defineNuxtConfig({
         '/about',
         '/login',
         '/admin',
+        '/admin/upload',
         '/admin/list',
         '/admin/system',
       ],

@@ -38,3 +38,7 @@
 .aplayer-list-title {
     color: #212121 !important;
 }
+
+.el-table .cell {
+    padding: 0 !important;
+}
