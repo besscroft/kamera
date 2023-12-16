@@ -99,7 +99,7 @@ onBeforeUnmount(() => {
                   v-for="item in routeList"
                   :key="item.to"
                   :to="item.to"
-                  flex flex-row items-center
+                  flex flex-row items-center rounded-md
                   block px-5 py-2 focus-blue w-full
                   transition-colors duration-200 transform
                   hover="bg-gray-100 dark:(bg-gray-700 text-white)"
@@ -112,7 +112,7 @@ onBeforeUnmount(() => {
                   v-for="item in systemRouterList"
                   :key="item.to"
                   :to="item.to"
-                  flex flex-row items-center
+                  flex flex-row items-center rounded-md
                   block px-5 py-2 focus-blue w-full
                   transition-colors duration-200 transform
                   hover="bg-gray-100 dark:(bg-gray-700 text-white)"
