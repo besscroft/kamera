@@ -7,7 +7,7 @@ const isOpen = ref(false)
     <NuxtLink to="/" flex flex-row items-center place-content-center h-full flex-1>
       <div i-carbon-aperture />
     </NuxtLink>
-    <NuxtLink to="/admin/list" flex flex-row items-center place-content-center h-full flex-1>
+    <NuxtLink to="/admin" flex flex-row items-center place-content-center h-full flex-1>
       <div i-carbon-earth-southeast-asia-filled />
     </NuxtLink>
     <NavBottomMenu v-slot="{ toggleVisible, show }" v-model="isOpen" flex flex-row items-center place-content-center h-full flex-1 cursor-pointer>

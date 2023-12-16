@@ -12,14 +12,19 @@ const isOpen = ref(false)
 const routeList = ref([])
 const systemRouterList = ref([
   {
-    title: '上传',
+    title: '控制台',
     to: '/admin',
+    icon: 'i-carbon-earth-southeast-asia-filled',
+  },
+  {
+    title: '上传',
+    to: '/admin/upload',
     icon: 'i-carbon-send-alt',
   },
   {
     title: '维护',
     to: '/admin/list',
-    icon: 'i-carbon-earth-southeast-asia-filled',
+    icon: 'i-carbon-cics-sit-overrides',
   },
   {
     title: '系统',

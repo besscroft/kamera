@@ -130,6 +130,7 @@ export default defineAppConfig({
     ],
     loginPageWhiteList: [
         '/admin',
+        '/admin/upload',
         '/admin/list',
         '/admin/system',
     ],
