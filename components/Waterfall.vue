@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const smAndLarger = breakpoints.greaterOrEqual('md')
+
 const props = defineProps({
   loading: Boolean,
   handleButton: Boolean,
@@ -42,14 +47,14 @@ onUnmounted(() => {
       <Waterfall
         v-if="dataList && dataList?.length > 0"
         :list="dataList"
-        :gutter="12"
+        :gutter="smAndLarger ? 12 : 4"
         :hasAroundGutter="true"
         :crossOrigin="false"
         :backgroundColor="isDark ? '#121212' : '#FFFFFF'"
         :breakpoints="{
           9999: { rowPerView: 4 },
+          1280: { rowPerView: 3 },
           1024: { rowPerView: 2 },
-          768: { rowPerView: 1 },
         }"
       >
         <template #item="{ item }">
