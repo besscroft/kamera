@@ -16,9 +16,9 @@ export default defineNuxtPlugin((nuxtApp) => {
       new ProfilingIntegration(),
     ],
     // Performance Monitoring
-    tracesSampleRate: 0.2,
+    tracesSampleRate: 0.5,
     // Set sampling rate for profiling - this is relative to tracesSampleRate
-    profilesSampleRate: 0.2,
+    profilesSampleRate: 0.5,
   })
 
   nuxtApp.hooks.hook('error', (error) => {
