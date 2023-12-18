@@ -269,7 +269,6 @@ definePageMeta({
         </el-select>
       </div>
       <el-upload
-        class="upload-demo"
         drag
         :limit="1"
         :http-request="onRequestUpload"
@@ -286,15 +285,6 @@ definePageMeta({
         <div class="el-upload__text">
           点击或者拖动图片到该区域来上传，关闭图片可重置
         </div>
-        <template #tip>
-          <div mt-4>
-            <UAlert
-              description="同类别同名文件会被覆盖，支持大多数图片类型。受限于部署平台限制，如 Vercel，可能只允许免费用户传递 6M 内文件..."
-              :avatar="{ src: '/112962239_p0.jpg' }"
-              title="噔噔！"
-            />
-          </div>
-        </template>
       </el-upload>
       <div v-if="fileUrl" space-y-2>
         <p break-words text-green-400>图片地址：{{ fileUrl }}</p>
