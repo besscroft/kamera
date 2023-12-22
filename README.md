@@ -189,7 +189,6 @@ docker run -d --name kamera \
   -e Bucket="postgres" \
   -e STORAGE_FOLDER="kamera" \
   -e CDN_URL="kamera-s3-cdn.heming.dev" \
-  -e STORAGE_MODEL="s3" \
   -e KAMERA_USERNAME="admin" \
   -e KAMERA_PASSWORD="2a2a3d2b5dcef92937839896bcf07dc62605ebe2ac428f57ea061c734d950d075667654a5e130a9fee5b85512a98eac8138100f32a40953b8678243dbfc97297" \
   besscroft/kamera:latest
@@ -228,7 +227,6 @@ services:
       - Bucket="postgres"
       - STORAGE_FOLDER="kamera"
       - CDN_URL="kamera-s3-cdn.heming.dev"
-      - STORAGE_MODEL="s3"
       - KAMERA_USERNAME="admin"
       - KAMERA_PASSWORD="2a2a3d2b5dcef92937839896bcf07dc62605ebe2ac428f57ea061c734d950d075667654a5e130a9fee5b85512a98eac8138100f32a40953b8678243dbfc97297"
 ```
