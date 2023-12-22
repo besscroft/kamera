@@ -17,7 +17,6 @@ const dataHandle = async () => {
         Authorization: `${user.tokenName} ${user.token}`,
       },
     })
-    console.log(data)
     dataInfo.value = data
   } catch (e) {
     console.log(e)

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { FormError, FormSubmitEvent } from '#ui/types'
 import { appName } from '~/constants'
 
 interface ModelType {
@@ -15,7 +16,18 @@ const loginForm = reactive<ModelType>({
   password: '',
 })
 
-const handleSubmitClick = async () => {
+const validate = (state: any): FormError[] => {
+  const errors = []
+  if (!state.username) {
+    errors.push({ path: 'username', message: '用户名必填！' })
+  }
+  if (!state.password) {
+    errors.push({ path: 'password', message: '密码必填！' })
+  }
+  return errors
+}
+
+async function handleSubmitClick(event: FormSubmitEvent<any>) {
   loading.value = true
   try {
     const { token, tokenName } = await $fetch('/api/login', {
@@ -27,29 +39,18 @@ const handleSubmitClick = async () => {
     router.push('/admin')
     if (token) {
       toast.add({ title: '登录成功！', timeout: 2000 })
-    } else {
+    }
+    else {
       toast.add({ title: '登录失败！', timeout: 2000, color: 'red' })
     }
-  } catch (e) {
+  }
+  catch (e) {
     toast.add({ title: '登录失败！', timeout: 2000, color: 'red' })
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
-
-const keyDown = (e) => {
-  if (e.keyCode === 13 || e.keyCode === 100) {
-    handleSubmitClick()
-  }
-}
-
-onMounted(() => {
-  window.addEventListener('keydown', keyDown)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', keyDown, false)
-})
 
 definePageMeta({
   layout: 'none',
@@ -57,54 +58,49 @@ definePageMeta({
 </script>
 
 <template>
-  <div bg-white dark:bg-gray-900 w-full>
-    <div flex justify-center h-screen>
-      <div hidden bg-cover lg:block class="lg:w-2/3" style="background-image: url('/fufu.jpg')">
-        <div flex items-center h-full px-20 bg-gray-900 bg-opacity-40>
-          <div>
-            <h2 text-4xl text-white>旅行足迹</h2>
-
-            <p text-sm text-gray-300 mt-4>
-              鹤鸣工作室出品，一款基于 Nuxt3 构建的⌈相片集⌋。
-            </p>
+  <div flex items-center justify-center w-full h-full style="background-image: url('/fufu.jpg'); background-size: cover;"
+    md:grid md:grid-cols-10 md:gap-4
+  >
+    <div md:col-span-5></div>
+    <div
+      h-108 w-full mx-2 md:max-w-xl bg-white dark:bg-black rounded-md shadow-md md:col-span-4
+    >
+      <div h-full flex flex-col items-center>
+        <div flex items-center justify-center justify-between w-full px-4 mt-4>
+          <div text-left>
+            <div i-carbon-arrow-left cursor-pointer @click="router.push('/')" />
           </div>
+          <ClientOnly>
+            <div text-right>
+              <DarkToggle />
+            </div>
+          </ClientOnly>
         </div>
-      </div>
 
-      <div flex items-center w-full max-w-md px-6 mx-auto class="lg:w-2/6">
-        <div flex-1>
-          <div text-center>
-            <h2 text-4xl text-center text-gray-700 dark:text-white>{{ appName || '旅行足迹' }}</h2>
+        <h2 text-center text-3xl mt-4>
+          {{ appName || '旅行足迹' }}
+        </h2>
 
-            <p mt-3 text-gray-500 dark:text-gray-300>登录你的帐号</p>
-          </div>
+        <UForm :validate="validate" :state="loginForm" class="space-y-6 w-2/3 mt-6" @submit="handleSubmitClick">
+          <UFormGroup label="用户名" name="username">
+            <UInput v-model="loginForm.username" />
+          </UFormGroup>
 
-          <div mt-8>
-            <div>
-              <label for="account" block mb-2 text-sm text-gray-600 dark:text-gray-200>帐号</label>
-              <input type="account" v-model="loginForm.username" name="account" id="account" block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 />
-            </div>
+          <UFormGroup label="密码" name="password">
+            <UInput v-model="loginForm.password" type="password" />
+          </UFormGroup>
 
-            <div mt-6>
-              <div flex justify-between mb-2>
-                <label for="password" font-ark text-sm text-gray-600 dark:text-gray-200>密码</label>
-              </div>
+          <UButton type="submit" color="white" :loading="loading">
+            登录
+          </UButton>
+        </UForm>
 
-              <input type="password" v-model="loginForm.password" name="password" id="password" block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 />
-            </div>
-
-            <div mt-6>
-              <el-button
-                :loading="loading"
-                @click="handleSubmitClick"
-                w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50
-                type="primary"
-              >登录</el-button>
-            </div>
-          </div>
-        </div>
+        <p text-sm text-gray-400 mt-4>
+          鹤鸣工作室出品，一款基于 Nuxt3 构建的⌈相片集⌋。
+        </p>
       </div>
     </div>
+    <div md:col-span-1></div>
   </div>
 </template>
 

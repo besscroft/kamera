@@ -20,7 +20,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     // Configure this whole part as you need it!
 
-    tracesSampleRate: 0.2, // Change in prod
+    tracesSampleRate: 0.5, // Change in prod
 
     // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
     tracePropagationTargets: ['https://kamera.heming.dev'],

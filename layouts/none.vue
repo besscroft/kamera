@@ -4,7 +4,7 @@ const { isMobile } = useDevice()
 
 <template>
   <div h-full>
-    <div style="min-height: calc(100vh - 3.5rem);">
+    <div h-full>
       <slot />
     </div>
     <ClientOnly v-if="!isMobile">
