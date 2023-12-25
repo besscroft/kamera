@@ -188,6 +188,7 @@ watch(storage, async (val) => {
   if (val === 'alist') {
     if (mountOptions.value.length === 0) {
       try {
+        toast.add({ title: '正在获取 AList 挂载目录！', timeout: 2000 })
         const { data } = await $fetch('/api/getStorageList', {
           timeout: 60000,
           method: 'get',

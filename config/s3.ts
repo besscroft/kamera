@@ -1,10 +1,11 @@
 import AWS from 'aws-sdk'
+import { accesskeyId, accesskeySecret, endpoint, region } from '~/utils/query'
 
 AWS.config.update({
-  accessKeyId: process.env.AccessKey_ID,
-  secretAccessKey: process.env.AccessKey_Secret,
-  region: process.env.Region,
-  endpoint: process.env.Endpoint,
+  accessKeyId: accesskeyId,
+  secretAccessKey: accesskeySecret,
+  region: region,
+  endpoint: endpoint,
 })
 
 const s3 = new AWS.S3({ apiVersion: '2006-03-01' })

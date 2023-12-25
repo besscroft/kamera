@@ -1,4 +1,5 @@
 import s3 from '~/config/s3'
+import { alistToken, alistUrl, bucket, cdnUrl, endpoint, storageFolder } from '~/utils/query'
 
 export default defineEventHandler(async (event) => {
   const body = await readMultipartFormData(event)
@@ -9,9 +10,9 @@ export default defineEventHandler(async (event) => {
   const mountPath = body[3].data
 
   if (storage && storage.toString() === 's3') {
-    const uploadParams = { Bucket: process.env.Bucket, Key: '', Body: '' }
-    const fileName = process.env.STORAGE_FOLDER && process.env.STORAGE_FOLDER !== '/'
-      ? `${process.env.STORAGE_FOLDER}/${type}/${body[0].filename}`
+    const uploadParams = { Bucket: bucket, Key: '', Body: '' }
+    const fileName = storageFolder && storageFolder !== '/'
+      ? `${storageFolder}/${type}/${body[0].filename}`
       : `${type}/${body[0].filename}`
     uploadParams.Body = file
     uploadParams.Key = fileName
@@ -23,16 +24,16 @@ export default defineEventHandler(async (event) => {
     })
     return {
       data: 0,
-      url: process.env.CDN_URL && process.env.CDN_URL !== ''
-        ? `https://${process.env.CDN_URL}/${fileName}`
-        : `https://${process.env.Bucket}.${process.env.Endpoint}/${fileName}`,
+      url: cdnUrl && cdnUrl !== ''
+        ? `https://${cdnUrl}/${fileName}`
+        : `https://${bucket}.${endpoint}/${fileName}`,
     }
   } else if (storage && storage.toString() === 'alist') {
-    await $fetch(`${process.env.ALIST_URL}/api/fs/put`, {
+    await $fetch(`${alistUrl}/api/fs/put`, {
       timeout: 60000,
       method: 'put',
       headers: {
-        'Authorization': process.env.ALIST_TOKEN,
+        'Authorization': alistToken,
         'File-Path': encodeURIComponent(`${mountPath.toString() === '/' ? '' : mountPath}/${type}/${body[0].filename}`),
       },
       body: file,
@@ -42,7 +43,7 @@ export default defineEventHandler(async (event) => {
     })
     return {
       data: 0,
-      url: `${process.env.ALIST_URL}/d${mountPath.toString() === '/' ? '' : mountPath}/${type}/${body[0].filename}`,
+      url: `${alistUrl}/d${mountPath.toString() === '/' ? '' : mountPath}/${type}/${body[0].filename}`,
     }
   } else {
     throw createError({ statusCode: 500, statusMessage: 'Upload Error!' })

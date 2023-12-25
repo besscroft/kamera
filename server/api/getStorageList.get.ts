@@ -1,9 +1,11 @@
+import { alistToken, alistUrl } from '~/utils/query'
+
 export default defineEventHandler(async (event) => {
-  const { data } = await $fetch(`${process.env.ALIST_URL}/api/admin/storage/list`, {
+  const { data } = await $fetch(`${alistUrl}/api/admin/storage/list`, {
     timeout: 60000,
     method: 'get',
     headers: {
-      Authorization: process.env.ALIST_TOKEN,
+      Authorization: alistToken,
     },
   }).catch((e) => {
     console.log(e)

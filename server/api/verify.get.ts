@@ -1,12 +1,11 @@
 import jwt from 'jsonwebtoken'
+import { secretKey } from '~/utils/query'
 
 export default defineEventHandler(async (req) => {
   const token = req.headers.get('authorization').replace('Bearer ', '')
-  const secretKey = process.env.AUTH_KEY
   try {
     const { err } = jwt.verify(token, secretKey)
-  }
-  catch (e) {
+  } catch (e) {
     throw createError({
       statusCode: 401,
       statusMessage: 'Unauthorized',
