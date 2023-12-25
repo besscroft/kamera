@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useClipboard } from '@vueuse/core'
+import { appName } from '~/constants/index'
+
 const props = defineProps<{
   showModal?: boolean
   imgId: number
@@ -8,7 +11,10 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['modalUpdate'])
+const source = ref('')
+const { copy, isSupported } = useClipboard({ source })
 const show = ref(false)
+const toast = useToast()
 const obj = ref({})
 const defaultIndex = ref(0)
 const items = [{
@@ -18,6 +24,27 @@ const items = [{
   slot: 'other',
   label: '更多',
 }]
+
+const share = (text, url) => {
+  try {
+    navigator.share({
+      title: appName || '旅行足迹',
+      text: text,
+      url: url,
+    })
+  } catch (e) {
+    toast.add({ title: '当前浏览器暂未支持！', timeout: 2000, color: 'red' })
+  }
+}
+
+const copyHandle = (text) => {
+  if (isSupported) {
+    source.value = text
+    copy(source.value)
+  } else {
+    toast.add({ title: '当前浏览器暂未支持！', timeout: 2000, color: 'red' })
+  }
+}
 
 const xClick = () => {
   props.imgId = 0
@@ -47,10 +74,46 @@ onUnmounted(() => {
   <el-dialog
     v-model="show"
     w-full min-h-full
-    title="点击图片预览"
     align-center
+    :show-close="false"
     @close="() => xClick()"
   >
+    <template #header="{ close }">
+      <div flex flex-row justify-between>
+        <span>点击图片预览</span>
+        <div flex space-x-3>
+          <ClientOnly>
+            <UPopover mode="hover">
+              <div i-carbon-overflow-menu-horizontal cursor-pointer />
+              <template #panel>
+                <div p-2>
+                  <div
+                    flex flex-row items-center rounded-md
+                    block px-5 py-2 focus-blue w-full
+                    transition-colors duration-200 transform cursor-pointer
+                    hover="bg-gray-100 dark:(bg-gray-700 text-white)"
+                    @click="share(obj?.detail, obj?.url)"
+                  >
+                    <span i-carbon-crowd-report text-xl me-4 />分享
+                  </div>
+                  <div
+                    flex flex-row items-center rounded-md
+                    block px-5 py-2 focus-blue w-full
+                    transition-colors duration-200 transform cursor-pointer
+                    hover="bg-gray-100 dark:(bg-gray-700 text-white)"
+                    @click="copyHandle(obj?.url)"
+                  >
+                    <span i-carbon-copy text-xl me-4 />复制链接
+                  </div>
+                </div>
+              </template>
+            </UPopover>
+          </ClientOnly>
+
+          <div i-carbon-close-large cursor-pointer @click="close" />
+        </div>
+      </div>
+    </template>
     <div h-full flex flex-col space-y-2 lg:grid lg:grid-cols-1 lg:gap-2 lg:grid-cols-3 xl:gap-4>
       <div lg:col-span-2 lg:max-h-full lg:flex lg:justify-center class="lg:h-[90vh]">
         <ClientOnly>
