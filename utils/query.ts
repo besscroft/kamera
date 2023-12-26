@@ -1,6 +1,6 @@
 import sql from '~/config/db'
 
-async function fetchAuth() {
+export async function fetchAuth() {
   const data = await sql`
     SELECT config_value
     FROM public.kamera_config
@@ -18,31 +18,11 @@ async function fetchAuth() {
   return { username, password, secretKey }
 }
 
-export const { username, password, secretKey } = await fetchAuth()
-
-async function fetchAListData() {
+export async function fetchStorageInfo() {
   const data = await sql`
     SELECT config_value
     FROM public.kamera_config
-    WHERE config_key IN ('alist_url','alist_token')
-    ORDER BY
-    CASE config_key
-      WHEN 'alist_url' THEN 1
-      WHEN 'alist_token' THEN 2
-    END;
-  `
-  const alistUrl = data[0].config_value
-  const alistToken = data[1].config_value
-  return { alistUrl, alistToken }
-}
-
-export const { alistUrl, alistToken } = await fetchAListData()
-
-async function fetchOSSData() {
-  const data = await sql`
-    SELECT config_value
-    FROM public.kamera_config
-    WHERE config_key IN ('accesskey_id','accesskey_secret','region','endpoint','bucket','storage_folder','cdn_url')
+    WHERE config_key IN ('accesskey_id','accesskey_secret','region','endpoint','bucket','storage_folder','cdn_url', 'alist_url','alist_token')
     ORDER BY
     CASE config_key
       WHEN 'accesskey_id' THEN 1
@@ -52,6 +32,8 @@ async function fetchOSSData() {
       WHEN 'bucket' THEN 5
       WHEN 'storage_folder' THEN 6
       WHEN 'cdn_url' THEN 7
+      WHEN 'alist_url' THEN 8
+      WHEN 'alist_token' THEN 9
     END;
   `
   const accesskeyId = data[0].config_value
@@ -61,7 +43,7 @@ async function fetchOSSData() {
   const bucket = data[4].config_value
   const storageFolder = data[5].config_value
   const cdnUrl = data[6].config_value
-  return { accesskeyId, accesskeySecret, region, endpoint, bucket, storageFolder, cdnUrl }
+  const alistUrl = data[7].config_value
+  const alistToken = data[8].config_value
+  return { accesskeyId, accesskeySecret, region, endpoint, bucket, storageFolder, cdnUrl, alistUrl, alistToken }
 }
-
-export const { accesskeyId, accesskeySecret, region, endpoint, bucket, storageFolder, cdnUrl } = await fetchOSSData()

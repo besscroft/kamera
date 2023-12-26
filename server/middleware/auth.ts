@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { secretKey } from '~/utils/query'
+import { fetchAuth } from '~/utils/query'
 
 export default defineEventHandler(async (event) => {
   const { noLoginPageWhiteList, loginPageWhiteList, apiWhiteList } = useAppConfig()
@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
     return
   }
   const token = event.headers.get('authorization')?.replace('Bearer ', '')
+  const { secretKey } = await fetchAuth()
   try {
     const {err} = jwt.verify(token, secretKey)
   } catch (e) {

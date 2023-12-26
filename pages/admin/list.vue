@@ -204,7 +204,13 @@ definePageMeta({
           </template>
         </el-table-column>
         <el-table-column label="排序" prop="sort" />
-        <el-table-column label="描述" prop="detail" />
+        <el-table-column label="描述" prop="detail">
+          <template #default="scope">
+            <el-text class="w-240px" truncated>
+              {{ scope.row.detail }}
+            </el-text>
+          </template>
+        </el-table-column>
         <el-table-column align="right" fixed="right">
           <template #default="scope">
             <el-button size="small" @click="detail(scope.row)">查看</el-button>

@@ -1,6 +1,7 @@
-import { alistToken, alistUrl } from '~/utils/query'
+import { fetchStorageInfo } from '~/utils/query'
 
 export default defineEventHandler(async (event) => {
+  const { alistToken, alistUrl } = await fetchStorageInfo()
   const { data } = await $fetch(`${alistUrl}/api/admin/storage/list`, {
     timeout: 60000,
     method: 'get',

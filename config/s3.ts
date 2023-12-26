@@ -1,5 +1,7 @@
 import AWS from 'aws-sdk'
-import { accesskeyId, accesskeySecret, endpoint, region } from '~/utils/query'
+import { fetchStorageInfo } from '~/utils/query'
+
+const { accesskeyId, accesskeySecret, endpoint, region } = await fetchStorageInfo()
 
 AWS.config.update({
   accessKeyId: accesskeyId,

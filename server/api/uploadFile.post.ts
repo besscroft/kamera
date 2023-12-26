@@ -1,5 +1,5 @@
 import s3 from '~/config/s3'
-import { alistToken, alistUrl, bucket, cdnUrl, endpoint, storageFolder } from '~/utils/query'
+import { fetchStorageInfo } from '~/utils/query'
 
 export default defineEventHandler(async (event) => {
   const body = await readMultipartFormData(event)
@@ -8,6 +8,8 @@ export default defineEventHandler(async (event) => {
   const storage = body[1].data
   const type = body[2].data
   const mountPath = body[3].data
+
+  const { alistToken, alistUrl, bucket, cdnUrl, endpoint, storageFolder } = await fetchStorageInfo()
 
   if (storage && storage.toString() === 's3') {
     const uploadParams = { Bucket: bucket, Key: '', Body: '' }

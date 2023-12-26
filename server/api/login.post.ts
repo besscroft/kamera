@@ -1,9 +1,11 @@
 import CryptoJS from 'crypto-js'
 import jwt from 'jsonwebtoken'
-import { password, secretKey, username } from '~/utils/query'
+import { fetchAuth } from '~/utils/query'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
+
+  const { password, secretKey, username } = await fetchAuth()
 
   const hashedPassword = CryptoJS.HmacSHA512(body.password, secretKey).toString()
 

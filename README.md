@@ -35,6 +35,10 @@ nitro: {
 当然，只要是兼容 pg 的数据库都是可以选择的，不必局限与某个平台。
 
 > 请确保您的数据库用户配置了正确的 Row Level Security（行级别安全性）权限，否则将无法正常访问。
+>
+> 如果您是第一次部署，仅需要执行 `schema.sql` 即可，如果您是升级到涉及数据库变更的版本，请在执行对应版本编号的 sql 后再升级部署！
+> 
+> 系统默认账号密码为：admin / 666666
 
 #### 图片存储
 
@@ -46,7 +50,7 @@ nitro: {
 
 请在部署前设置您的环境变量，程序会去读这些值，用以更改构建步骤或函数执行期间的行为。
 
-所有值都经过静态加密，并且对有权访问该项目的任何用户都可见。使用非敏感数据和敏感数据（例如令牌）都是安全的。**但请注意您自己不要泄露环境变量的值！**
+所有值都经过静态加密，并且对有权访问该项目的任何用户都可见。使用非敏感数据和敏感数据都是安全的。**但请注意您自己不要泄露环境变量的值！**
 
 如果您更改了环境变量，它不会影响当前的部署，您需要重新构建部署后才会生效！
 
@@ -65,13 +69,6 @@ nitro: {
 | Postgre_DATABASE | Postgre 数据库名称，默认值：postgres                                                                                        |
 | Postgre_USERNAME | Postgre 数据库用户名，默认值：postgres                                                                                       |
 | Postgre_PASSWORD | Postgre 数据库密码，默认值：postgres                                                                                        |
-| AccessKey_ID     | 阿里 OSS / AWS S3 AccessKey_ID                                                                                      |
-| AccessKey_Secret | 阿里 OSS / AWS S3 AccessKey_Secret                                                                                  |
-| Region           | 阿里 OSS / AWS S3 Region 地域，如：oss-cn-hongkong                                                                       |
-| Endpoint         | 阿里 OSS / AWS S3 Endpoint 地域节点，如：oss-cn-hongkong.aliyuncs.com                                                      |
-| Bucket           | 阿里 OSS / AWS S3 Bucket 存储桶名称，如：kamera                                                                             |
-| STORAGE_FOLDER   | 存储文件夹(S3)，严格格式，如：kamera 或 kamera/images ，填 / 或者不填表示根路径                                                            |
-| CDN_URL          | CDN 域名（仅 S3），请严格按照 example.com 格式，不需要添加 https:// 会自动补充，如：`kamera-s3-cdn.heming.dev`，CDN 以兼容阿里云 OSS 为主，理论上适配大多数存储。 |
 
 #### 页面配置
 
@@ -176,13 +173,6 @@ docker run -d --name kamera \
   -e Postgre_DATABASE="postgres" \
   -e Postgre_USERNAME="postgres" \
   -e Postgre_PASSWORD="postgres" \
-  -e AccessKey_ID="postgres" \
-  -e AccessKey_Secret="postgres" \
-  -e Region="postgres" \
-  -e Endpoint="postgres.aliyuncs.com" \
-  -e Bucket="postgres" \
-  -e STORAGE_FOLDER="kamera" \
-  -e CDN_URL="kamera-s3-cdn.heming.dev" \
   besscroft/kamera:latest
 ```
 
@@ -211,13 +201,6 @@ services:
       - Postgre_DATABASE="postgres"
       - Postgre_USERNAME="postgres"
       - Postgre_PASSWORD="postgres"
-      - AccessKey_ID="postgres"
-      - AccessKey_Secret="postgres"
-      - Region="postgres"
-      - Endpoint="postgres.aliyuncs.com"
-      - Bucket="postgres"
-      - STORAGE_FOLDER="kamera"
-      - CDN_URL="kamera-s3-cdn.heming.dev"
 ```
 
 > 一样的，参考上面的环境变量表格，配置你自己的环境变量。
@@ -231,8 +214,7 @@ A：原则上没有，但如果你自己要往文件里面填写机密信息，�
 
 Q：用你这玩意怎么这么麻烦？人家的都能放数据库里面，访问时动态获取。
 
-A：没错，我是懒狗。但是这部分内容我觉得真没太大必要每次还从数据库查（即使做缓存又如何呢？）。
-基于 SSR 的特性大部分配置内容，是在编译期处理的，比如咱们配置的那些自定义页面。
+A：基于 SSR 的特性大部分配置内容，是在编译期处理的，比如咱们配置的那些自定义页面。原则上来说，能放进数据库的配置，我已经尽量塞进去了！
 
 #### 自行编译并部署
 
