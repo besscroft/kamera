@@ -94,6 +94,7 @@ async function onRequestUpload(option: any) {
     }
   } catch (e) {
     toast.add({ title: '图片上传/解析失败！', timeout: 2000, color: 'red' })
+    option.file.abort()
   }
 }
 
