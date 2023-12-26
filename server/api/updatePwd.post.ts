@@ -12,7 +12,6 @@ export default defineEventHandler(async (event) => {
   const hashedPassword = CryptoJS.HmacSHA512(oldPassword, secretKey).toString()
   if (hashedPassword !== '' && password !== '' && password === hashedPassword) {
     const newHashedPassword = CryptoJS.HmacSHA512(newPassword, secretKey).toString()
-      console.log(newHashedPassword)
     const data = await sql`
         UPDATE public.kamera_config
         SET config_value = ${newHashedPassword}
