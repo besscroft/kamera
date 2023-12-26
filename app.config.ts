@@ -12,6 +12,7 @@ export default defineAppConfig({
     '/admin',
     '/admin/list',
     '/admin/system',
+    '/admin/upload',
   ],
   apiWhiteList: [
     '/api/login',
