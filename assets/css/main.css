@@ -42,3 +42,7 @@
 .el-table .cell {
     padding: 0 !important;
 }
+
+.el-overlay-dialog::-webkit-scrollbar{
+    width: 0 !important;
+}
