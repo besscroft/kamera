@@ -24,6 +24,10 @@ definePageMeta({
       <div>
         当然可以，我将在收到您的告知后第一时间移除图片，也可根据您的要求删除手中的底稿！
       </div>
+      <el-divider content-position="left" prose prose-slate mx-auto>我也想部署一个怎么做？</el-divider>
+      <div>
+        <p>您可以查看 <a href="https://github.com/besscroft/kamera" target="_blank" dark:text-white>Kamera</a> 仓库页面的部署指导来部署属于您的⌈相片集⌋</p>
+      </div>
       <el-divider content-position="left" prose prose-slate mx-auto>隐私安全</el-divider>
       <div>
         <p>您使用本程序时，需要自己去维护各个平台的配置信息（毕竟跟咱没关系，需要在对应的平台配置），以及对象存储的读写权限、访问控制、防盗链、跨域设置、缓存策略和 CDN 等配置，以最大程度的避免天价账单。</p>
