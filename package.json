@@ -4,7 +4,6 @@
   "packageManager": "pnpm@8.9.2",
   "scripts": {
     "build": "nuxi build",
-    "dev:pwa": "VITE_PLUGIN_PWA=true nuxi dev",
     "dev": "nuxi dev --port 3000 --host 0.0.0.0 --dotenv .env.local",
     "generate": "nuxi generate",
     "postinstall": "nuxi prepare",
@@ -26,7 +25,6 @@
     "@sentry/vue": "^7.91.0",
     "@unocss/eslint-config": "^0.58.0",
     "@unocss/nuxt": "^0.58.0",
-    "@vite-pwa/nuxt": "^0.3.6",
     "@vueuse/nuxt": "^10.7.0",
     "aplayer": "^1.10.1",
     "consola": "^3.2.3",

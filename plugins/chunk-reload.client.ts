@@ -18,10 +18,6 @@ export default defineNuxtPlugin({
       reloadNuxtApp({ path, persistState: true })
     }
 
-    nuxtApp.hook('app:manifest:update', () => {
-      router.beforeResolve(reloadAppAtPath)
-    })
-
     router.onError((error, to) => {
       if (chunkErrors.has(error)) {
         reloadAppAtPath(to)

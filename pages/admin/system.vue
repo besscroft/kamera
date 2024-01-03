@@ -274,11 +274,13 @@ definePageMeta({
         <el-input
           v-model="s3State.accesskeyId"
           placeholder="请输入 AccessKey_ID"
+          show-password
         />
         <p>阿里 OSS / AWS S3 AccessKey_Secret：</p>
         <el-input
           v-model="s3State.accesskeySecret"
           placeholder="请输入 AccessKey_Secret"
+          show-password
         />
         <p>阿里 OSS / AWS S3 Region 地域，如：oss-cn-hongkong：</p>
         <el-input
@@ -329,9 +331,8 @@ definePageMeta({
         <p>alist 令牌：</p>
         <el-input
           v-model="alistState.alistToken"
-          :rows="2"
-          type="textarea"
-          placeholder="请输入 alist 令牌"
+          placeholder="请输入 AList 令牌"
+          show-password
         />
         <el-popconfirm title="确定更新？" @confirm="updateAlist()">
           <template #reference>

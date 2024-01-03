@@ -1,4 +1,3 @@
-import { pwa } from './config/pwa'
 import { appDescription } from './constants/index'
 import photosList from './constants/photos.json'
 
@@ -7,7 +6,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
-    '@vite-pwa/nuxt',
     '@unocss/nuxt',
     '@nuxtjs/device',
     '@formkit/auto-animate/nuxt',
@@ -50,16 +48,6 @@ export default defineNuxtConfig({
 
   colorMode: {
     classSuffix: '',
-  },
-
-  routeRules: {
-    // CDN cache rules
-    '/manifest.webmanifest': {
-      headers: {
-        'Content-Type': 'application/manifest+json',
-        'Cache-Control': 'public, max-age=0, must-revalidate',
-      },
-    },
   },
 
   nitro: {
@@ -120,8 +108,6 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: 'page', mode: 'out-in' },
   },
-
-  pwa,
 
   devtools: {
     enabled: true,

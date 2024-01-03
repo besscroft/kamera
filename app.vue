@@ -13,7 +13,6 @@ useHead({
 </script>
 
 <template>
-  <VitePwaManifest />
   <NuxtLayout>
     <NuxtLoadingIndicator />
     <UNotifications :ui="{ width: 'w-full md:w-80' }" />
