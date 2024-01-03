@@ -46,3 +46,7 @@
 .el-overlay-dialog::-webkit-scrollbar{
     width: 0 !important;
 }
+
+.el-loading-mask {
+    z-index: 10 !important;
+}
