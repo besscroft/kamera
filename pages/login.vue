@@ -67,14 +67,7 @@ definePageMeta({
     >
       <div h-full flex flex-col items-center>
         <div flex items-center justify-center justify-between w-full px-4 mt-4>
-          <div text-left>
-            <div i-carbon-arrow-left cursor-pointer @click="router.push('/')" />
-          </div>
-          <ClientOnly>
-            <div text-right>
-              <DarkToggle />
-            </div>
-          </ClientOnly>
+          <div i-carbon-aperture cursor-pointer @click="router.push('/')" />
         </div>
 
         <h2 text-center text-3xl mt-4>
