@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     inlineSSRStyles: false,
     renderJsonPayloads: true,
     typedPages: true,
-    emitRouteChunkError: 'manual',
+    emitRouteChunkError: 'automatic',
   },
 
   pinia: {
