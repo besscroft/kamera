@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
   let length
   let data
-  if (body.type === '') {
+  if (body.type === '' || body.type === 'all') {
     length = await sql`
             SELECT
                 COUNT(1)

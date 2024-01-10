@@ -14,6 +14,7 @@ const rowInfo = ref()
 const rating = ref(0)
 const showModal = ref<boolean>(false)
 const showUpdateModal = ref<boolean>(false)
+const type = ref<string>('')
 const pageInfo = reactive({
   total: 0,
   totalPage: 0,
@@ -28,6 +29,16 @@ const objInfo = reactive({
   url: '',
   sort: 0,
 })
+const imgTypeOptions = ref([
+  {
+    label: '全部',
+    value: 'all',
+  },
+  {
+    label: '首页精选',
+    value: 'index',
+  },
+])
 
 const detail = (row: any) => {
   rowInfo.value = row
@@ -68,7 +79,7 @@ const dataHandle = async () => {
       headers: {
         Authorization: `${user.tokenName} ${user.token}`,
       },
-      body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize, type: '' },
+      body: { pageNum: pageInfo.pageNum, pageSize: pageInfo.pageSize, type: type.value },
     })
     dataList.value = data
     pageInfo.total = total
@@ -164,6 +175,17 @@ onBeforeMount(async () => {
   await dataHandle()
 })
 
+onBeforeMount(() => {
+  if (photosList) {
+    photosList?.forEach((photo: any) => {
+      imgTypeOptions.value.push({
+        label: photo.title,
+        value: photo.url.replace('/', ''),
+      })
+    })
+  }
+})
+
 definePageMeta({
   layout: 'admin',
 })
@@ -172,6 +194,17 @@ definePageMeta({
 <template>
   <div>
     <div p2 md:p8 pb-20>
+      <div flex items-center justify-center justify-between w-full mt-4>
+        <el-select v-model="type" m-2 placeholder="请选择类型" @change="dataHandle">
+          <el-option
+            v-for="item in imgTypeOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+        <div i-carbon-rotate-360 cursor-pointer @click="dataHandle" />
+      </div>
       <el-table
         :data="dataList"
         v-loading="loading"
