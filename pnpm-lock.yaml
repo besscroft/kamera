@@ -9,10 +9,10 @@ dependencies:
     specifier: ^0.8.1
     version: 0.8.1
   '@nuxt/ui':
-    specifier: ^2.11.1
+    specifier: ^2.12.0
     version: 2.12.0(nuxt@3.9.1)(vite@5.0.11)(vue@3.4.9)
   aws-sdk:
-    specifier: ^2.1529.0
+    specifier: ^2.1533.0
     version: 2.1533.0
   crypto-js:
     specifier: ^4.2.0
@@ -32,7 +32,7 @@ dependencies:
 
 devDependencies:
   '@antfu/eslint-config':
-    specifier: ^2.6.1
+    specifier: ^2.6.2
     version: 2.6.2(@vue/compiler-sfc@3.4.9)(eslint@8.56.0)(typescript@5.3.3)
   '@element-plus/nuxt':
     specifier: ^1.0.7
@@ -53,13 +53,13 @@ devDependencies:
     specifier: ^0.5.1
     version: 0.5.1(typescript@5.3.3)(vue@3.4.9)
   '@sentry/node':
-    specifier: ^7.91.0
+    specifier: ^7.93.0
     version: 7.93.0
   '@sentry/profiling-node':
-    specifier: ^1.3.2
+    specifier: ^1.3.3
     version: 1.3.3(@sentry/node@7.93.0)
   '@sentry/vue':
-    specifier: ^7.91.0
+    specifier: ^7.93.0
     version: 7.93.0(vue@3.4.9)
   '@unocss/eslint-config':
     specifier: ^0.58.3
@@ -77,7 +77,7 @@ devDependencies:
     specifier: ^3.2.3
     version: 3.2.3
   element-plus:
-    specifier: ^2.4.4
+    specifier: ^2.5.1
     version: 2.5.1(vue@3.4.9)
   eslint:
     specifier: ^8.56.0
@@ -1553,6 +1553,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     bundledDependencies:
       - napi-wasm
 
@@ -6230,6 +6231,9 @@ packages:
     resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
 
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
