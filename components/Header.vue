@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
       <div flex container px-6 py-4 mx-auto md:flex md:justify-between md:items-center>
         <div flex items-center justify-between w-full md:w-36>
           <ClientOnly>
-            <img class="h-8 w-auto" :src="isDark ? '/maskable-icon-dark.png' : '/maskable-icon.png'" cursor-pointer @click="router.push('/')" alt="logo">
+            <img class="h-8 w-auto" src="/maskable-icon.png" cursor-pointer @click="router.push('/')" alt="logo">
           </ClientOnly>
         </div>
 

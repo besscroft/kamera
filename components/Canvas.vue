@@ -126,6 +126,7 @@ onUnmounted(() => {
             :min-scale="0.2"
             :preview-src-list="[obj?.url]"
             :initial-index="1"
+            :crossorigin="null"
             fit="contain"
           />
         </ClientOnly>
