@@ -62,13 +62,14 @@ nitro: {
 > 
 > 项目内默认的 key 都是用作演示用途！
 
-| Key              | 备注                                                                                                                |
-| ---------------- |-------------------------------------------------------------------------------------------------------------------|
-| Postgre_HOST     | Postgre 数据库主机，如：db.kamera.supabase.co                                                                             |
-| Postgre_PORT     | Postgre 数据库端口，默认值：5432                                                                                            |
-| Postgre_DATABASE | Postgre 数据库名称，默认值：postgres                                                                                        |
-| Postgre_USERNAME | Postgre 数据库用户名，默认值：postgres                                                                                       |
-| Postgre_PASSWORD | Postgre 数据库密码，默认值：postgres                                                                                        |
+| Key              | 备注                                    |
+|------------------|---------------------------------------|
+| Postgre_HOST     | Postgre 数据库主机，如：db.kamera.supabase.co |
+| Postgre_PORT     | Postgre 数据库端口，默认值：5432                |
+| Postgre_DATABASE | Postgre 数据库名称，默认值：postgres            |
+| Postgre_USERNAME | Postgre 数据库用户名，默认值：postgres           |
+| Postgre_PASSWORD | Postgre 数据库密码，默认值：postgres            |
+| MOBOLE_ROW       | 移动端瀑布流显示列数，可选值：`1`、`2`，默认 1           |
 
 #### 页面配置
 
@@ -173,6 +174,7 @@ docker run -d --name kamera \
   -e Postgre_DATABASE="postgres" \
   -e Postgre_USERNAME="postgres" \
   -e Postgre_PASSWORD="postgres" \
+  -e MOBOLE_ROW=1 \
   besscroft/kamera:latest
 ```
 
@@ -201,6 +203,7 @@ services:
       - Postgre_DATABASE="postgres"
       - Postgre_USERNAME="postgres"
       - Postgre_PASSWORD="postgres"
+      - Postgre_PASSWORD=1
 ```
 
 > 一样的，参考上面的环境变量表格，配置你自己的环境变量。

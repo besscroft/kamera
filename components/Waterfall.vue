@@ -4,6 +4,9 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('md')
 
+const runtimeConfig = useRuntimeConfig()
+const { mobileRow } = runtimeConfig.public
+
 const props = defineProps({
   loading: Boolean,
   handleButton: Boolean,
@@ -15,6 +18,11 @@ const emit = defineEmits(['dataHandle'])
 const imgId = ref<number>(0)
 const showModal = ref<boolean>(false)
 const mounted = ref<boolean>(false)
+const breakPointsConfig = ref({
+  9999: { rowPerView: 4 },
+  1280: { rowPerView: 3 },
+  1024: { rowPerView: Number(mobileRow) === 2 ? 2 : 1 },
+})
 const modalUpdate = () => {
   showModal.value = false
 }
@@ -51,11 +59,7 @@ onUnmounted(() => {
         :hasAroundGutter="true"
         :crossOrigin="false"
         :backgroundColor="isDark ? '#121212' : '#FFFFFF'"
-        :breakpoints="{
-          9999: { rowPerView: 4 },
-          1280: { rowPerView: 3 },
-          1024: { rowPerView: 2 },
-        }"
+        :breakpoints="breakPointsConfig"
       >
         <template #item="{ item }">
           <div class="card">
