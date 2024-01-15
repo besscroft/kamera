@@ -2,7 +2,7 @@
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
-const smAndLarger = breakpoints.greaterOrEqual('md')
+const mdAndLarger = breakpoints.greaterOrEqual('md')
 
 const runtimeConfig = useRuntimeConfig()
 const { mobileRow } = runtimeConfig.public
@@ -55,7 +55,7 @@ onUnmounted(() => {
       <Waterfall
         v-if="dataList && dataList?.length > 0"
         :list="dataList"
-        :gutter="smAndLarger ? 12 : 4"
+        :gutter="mdAndLarger ? 12 : 4"
         :hasAroundGutter="true"
         :crossOrigin="false"
         :backgroundColor="isDark ? '#121212' : '#FFFFFF'"

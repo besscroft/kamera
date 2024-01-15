@@ -3,7 +3,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import photosList from '~/constants/photos.json'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
-const smAndLarger = breakpoints.greaterOrEqual('md')
+const mdAndLarger = breakpoints.greaterOrEqual('md')
 const router = useRouter()
 const route = useRoute()
 const user = useUserStore()
@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
           </ClientOnly>
         </div>
 
-        <div v-if="smAndLarger" flex items-center justify-center space-x-3>
+        <div v-if="mdAndLarger" flex items-center justify-center space-x-3>
           <ClientOnly>
             <DarkToggle />
           </ClientOnly>

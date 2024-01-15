@@ -5,14 +5,14 @@ const props = defineProps<{
   exif: any
 }>()
 const breakpoints = useBreakpoints(breakpointsTailwind)
-const smAndLarger = breakpoints.greaterOrEqual('md')
+const mdAndLarger = breakpoints.greaterOrEqual('md')
 </script>
 
 <template>
   <el-descriptions
     :title="Object.keys(exif).length === 0 ? 'EXIF 信息为空！' : 'EXIF'"
     direction="vertical"
-    :column="smAndLarger ? 3 : 2"
+    :column="mdAndLarger ? 3 : 2"
     border
   >
     <el-descriptions-item v-if="exif.make" label="相机品牌">

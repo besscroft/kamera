@@ -3,7 +3,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import type { FormError, FormSubmitEvent } from '#ui/types'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
-const smAndLarger = breakpoints.greaterOrEqual('md')
+const mdAndLarger = breakpoints.greaterOrEqual('md')
 const toast = useToast()
 const userLoading = ref<boolean>(false)
 const storageLoading = ref<boolean>(false)
@@ -217,7 +217,7 @@ definePageMeta({
           </template>
           <el-descriptions
             direction="vertical"
-            :column="smAndLarger ? 3 : 2"
+            :column="mdAndLarger ? 3 : 2"
             border
           >
             <el-descriptions-item label="AccessKey_ID">
@@ -265,9 +265,9 @@ definePageMeta({
     <el-drawer
       v-model="showS3Modal"
       title="S3 配置信息维护"
-      :direction="smAndLarger ? 'ltr' : 'btt'"
+      :direction="mdAndLarger ? 'ltr' : 'btt'"
       @close="() => xClick()"
-      :size="smAndLarger ? '50%' : '80%'"
+      :size="mdAndLarger ? '50%' : '80%'"
     >
       <div space-y-2>
         <p>阿里 OSS / AWS S3 AccessKey_ID：</p>
@@ -318,9 +318,9 @@ definePageMeta({
     <el-drawer
       v-model="showAListModal"
       title="AList 配置信息维护"
-      :direction="smAndLarger ? 'ltr' : 'btt'"
+      :direction="mdAndLarger ? 'ltr' : 'btt'"
       @close="() => xClick()"
-      :size="smAndLarger ? '50%' : '80%'"
+      :size="mdAndLarger ? '50%' : '80%'"
     >
       <div space-y-2>
         <p>AList 地址：</p>
