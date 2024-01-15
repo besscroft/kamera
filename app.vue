@@ -15,7 +15,7 @@ useHead({
 <template>
   <NuxtLayout>
     <NuxtLoadingIndicator />
-    <UNotifications :ui="{ width: 'w-full md:w-80' }" />
+    <UNotifications :ui="{ wrapper: 'z-[9999]', width: 'w-full md:w-80' }" />
     <ElConfigProvider :locale="zhCn">
       <NuxtPage />
     </ElConfigProvider>

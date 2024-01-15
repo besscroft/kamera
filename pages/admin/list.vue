@@ -4,7 +4,8 @@ import photosList from '~/constants/photos.json'
 
 const toast = useToast()
 const breakpoints = useBreakpoints(breakpointsTailwind)
-const smAndLarger = breakpoints.greaterOrEqual('md')
+const mdAndLarger = breakpoints.greaterOrEqual('md')
+const lgAndLarger = breakpoints.greaterOrEqual('lg')
 const { isMobile } = useDevice()
 const user = useUserStore()
 const dataList = ref<Array<Object>>([])
@@ -195,7 +196,7 @@ definePageMeta({
   <div>
     <div p2 md:p8 pb-20>
       <div flex items-center justify-center justify-between w-full mt-4>
-        <el-select v-model="type" m-2 placeholder="请选择类型" @change="dataHandle">
+        <el-select v-model="type" m-2 max-w-80 placeholder="请选择类型" @change="dataHandle">
           <el-option
             v-for="item in imgTypeOptions"
             :key="item.value"
@@ -221,7 +222,15 @@ definePageMeta({
             <el-tag v-else type="danger">错误类型</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="评分" prop="rating" />
+        <el-table-column label="评分" prop="rating" :width="!lgAndLarger ? '127' : ''">
+          <template #default="scope">
+            <el-rate
+              v-model="scope.row.rating"
+              disabled
+              text-color="#ff9900"
+            />
+          </template>
+        </el-table-column>
         <el-table-column label="是否显示" prop="type">
           <template #default="scope">
             <el-switch
@@ -275,9 +284,9 @@ definePageMeta({
     <el-drawer
       v-model="showUpdateModal"
       title="维护"
-      :direction="!isMobile || smAndLarger ? 'ltr' : 'btt'"
+      :direction="!isMobile || mdAndLarger ? 'ltr' : 'btt'"
       @close="() => uClick()"
-      :size="!isMobile || smAndLarger ? '50%' : '80%'"
+      :size="!isMobile || mdAndLarger ? '50%' : '80%'"
     >
       <div space-y-2>
         <p>图片地址：</p>
@@ -312,9 +321,9 @@ definePageMeta({
     <el-drawer
       v-model="showModal"
       title="详情"
-      :direction="!isMobile || smAndLarger ? 'ltr' : 'btt'"
+      :direction="!isMobile || mdAndLarger ? 'ltr' : 'btt'"
       @close="() => xClick()"
-      :size="!isMobile || smAndLarger ? '50%' : '80%'"
+      :size="!isMobile || mdAndLarger ? '50%' : '80%'"
     >
       <el-image
         lazy shadow-xl border-4

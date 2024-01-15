@@ -2,7 +2,7 @@
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
-const smAndLarger = breakpoints.greaterOrEqual('md')
+const mdAndLarger = breakpoints.greaterOrEqual('md')
 const isDark = useDark()
 
 // @ts-expect-error: Transition API
@@ -53,7 +53,7 @@ function toggleDark(event?: MouseEvent) {
 
 <template>
   <button
-    v-if="!smAndLarger"
+    v-if="!mdAndLarger"
     flex flex-row items-center block px-5 py-2 focus-blue w-full
     class="!outline-none"
     :title="isDark ? '切换至⌈白夜⌋' : '切换至⌈常夜⌋'"

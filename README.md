@@ -62,13 +62,14 @@ nitro: {
 > 
 > 项目内默认的 key 都是用作演示用途！
 
-| Key              | 备注                                                                                                                |
-| ---------------- |-------------------------------------------------------------------------------------------------------------------|
-| Postgre_HOST     | Postgre 数据库主机，如：db.kamera.supabase.co                                                                             |
-| Postgre_PORT     | Postgre 数据库端口，默认值：5432                                                                                            |
-| Postgre_DATABASE | Postgre 数据库名称，默认值：postgres                                                                                        |
-| Postgre_USERNAME | Postgre 数据库用户名，默认值：postgres                                                                                       |
-| Postgre_PASSWORD | Postgre 数据库密码，默认值：postgres                                                                                        |
+| Key              | 备注                                    |
+|------------------|---------------------------------------|
+| Postgre_HOST     | Postgre 数据库主机，如：db.kamera.supabase.co |
+| Postgre_PORT     | Postgre 数据库端口，默认值：5432                |
+| Postgre_DATABASE | Postgre 数据库名称，默认值：postgres            |
+| Postgre_USERNAME | Postgre 数据库用户名，默认值：postgres           |
+| Postgre_PASSWORD | Postgre 数据库密码，默认值：postgres            |
+| MOBOLE_ROW       | 移动端瀑布流显示列数，可选值：`1`、`2`，默认 1           |
 
 #### 页面配置
 
@@ -151,6 +152,12 @@ export default defineAppConfig({
 | appDescription     | 网站描述                        |
 
 如果你要修改音乐列表，请在 `assets/server/music.json` 下更改，可以换成你自己的。
+
+在 `app.config.ts` 文件中，可以配置：
+
+| Key              | 备注                          |
+| ---------------- |-----------------------------|
+| mobileRow     | 移动端瀑布流显示列数，可选值[1, 2]，默认 1 |
 
 ### 容器部署
 
@@ -270,7 +277,7 @@ pnpm run dev
 
 [提出新想法 & 提交 Bug](https://github.com/besscroft/kamera/issues/new) | [Fork & Pull Request](https://github.com/besscroft/kamera/fork)
 
-Kamera 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。
+Kamera 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。`dev` 分支接受 `PR`！
 
 > 有需求和建议都可以提，有空的话我会处理，但受限于 Nuxt3 / SSR 的⌈局限性⌋，很多功能的设计上可能会有取舍。
 
