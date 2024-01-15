@@ -153,6 +153,12 @@ export default defineAppConfig({
 
 如果你要修改音乐列表，请在 `assets/server/music.json` 下更改，可以换成你自己的。
 
+在 `app.config.ts` 文件中，可以配置：
+
+| Key              | 备注                          |
+| ---------------- |-----------------------------|
+| mobileRow     | 移动端瀑布流显示列数，可选值[1, 2]，默认 1 |
+
 ### 容器部署
 
 我把容器部署往后放，是不希望前面的内容被跳过，这样你在构建/部署时才能得心应手！
@@ -174,7 +180,6 @@ docker run -d --name kamera \
   -e Postgre_DATABASE="postgres" \
   -e Postgre_USERNAME="postgres" \
   -e Postgre_PASSWORD="postgres" \
-  -e MOBOLE_ROW=1 \
   besscroft/kamera:latest
 ```
 
@@ -203,7 +208,6 @@ services:
       - Postgre_DATABASE="postgres"
       - Postgre_USERNAME="postgres"
       - Postgre_PASSWORD="postgres"
-      - Postgre_PASSWORD=1
 ```
 
 > 一样的，参考上面的环境变量表格，配置你自己的环境变量。

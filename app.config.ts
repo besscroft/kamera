@@ -20,6 +20,7 @@ export default defineAppConfig({
     '/api/music',
     '/api/getImageList',
   ],
+  mobileRow: 2,
   ui: {
     notifications: {
       position: 'top-0 bottom-auto',

@@ -4,8 +4,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const mdAndLarger = breakpoints.greaterOrEqual('md')
 
-const runtimeConfig = useRuntimeConfig()
-const { mobileRow } = runtimeConfig.public
+const appConfig = useAppConfig()
 
 const props = defineProps({
   loading: Boolean,
@@ -18,11 +17,6 @@ const emit = defineEmits(['dataHandle'])
 const imgId = ref<number>(0)
 const showModal = ref<boolean>(false)
 const mounted = ref<boolean>(false)
-const breakPointsConfig = ref({
-  9999: { rowPerView: 4 },
-  1280: { rowPerView: 3 },
-  1024: { rowPerView: Number(mobileRow) === 2 ? 2 : 1 },
-})
 const modalUpdate = () => {
   showModal.value = false
 }
@@ -38,6 +32,14 @@ const Waterfall = defineAsyncComponent(() =>
 const LazyImg = defineAsyncComponent(() =>
   import('vue-waterfall-plugin-next').then((module) => module.LazyImg)
 )
+
+const breakPointsConfig = computed(() => {
+  return {
+    9999: { rowPerView: 4 },
+    1280: { rowPerView: 3 },
+    1024: { rowPerView: Number(appConfig.mobileRow) === 2 ? 2 : 1 },
+  }
+})
 
 onMounted(async () => {
   mounted.value = true
