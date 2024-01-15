@@ -273,7 +273,7 @@ pnpm run dev
 
 [提出新想法 & 提交 Bug](https://github.com/besscroft/kamera/issues/new) | [Fork & Pull Request](https://github.com/besscroft/kamera/fork)
 
-Kamera 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。
+Kamera 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。`dev` 分支接受 `PR`！
 
 > 有需求和建议都可以提，有空的话我会处理，但受限于 Nuxt3 / SSR 的⌈局限性⌋，很多功能的设计上可能会有取舍。
 
