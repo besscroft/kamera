@@ -331,7 +331,6 @@ definePageMeta({
         :zoom-rate="1.2"
         :max-scale="7"
         :min-scale="0.2"
-        :crossorigin="null"
         fit="cover"
       >
         <template #placeholder>
