@@ -92,7 +92,6 @@ definePageMeta({
             :src="item.url"
             :alt="item.detail"
             lazy
-            :crossorigin="null"
             style="display: block !important;"
           >
           </el-image>
