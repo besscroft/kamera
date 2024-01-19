@@ -47,11 +47,22 @@ onBeforeMount(async () => {
           <div v-if="photosList && photosList.length > 0" grid grid-cols-2 gap-4 p2>
             <div flex flex-col space-y-4>
               <span font-light>首页精选</span>
-              <span text-xl font-semibold>{{ loading ? '获取中...' : Array.isArray(dataInfo?.typeTotal) && dataInfo?.typeTotal.length > 0 ? dataInfo?.typeTotal?.find(obj => obj.type === 'index').count : 0 }} {{ loading ? '' : '张' }}</span>
+              <span text-xl font-semibold>{{
+                loading
+                  ? '获取中...'
+                  : Array.isArray(dataInfo?.typeTotal) && dataInfo?.typeTotal.length > 0
+                    ? dataInfo?.typeTotal?.find(obj => obj.type === 'index')?.count || 0
+                    : 0 }} {{ loading ? '' : '张' }}</span>
             </div>
             <div flex flex-col space-y-4 v-for="item in photosList" :key="item">
               <span font-light>{{ item.title }}</span>
-              <span text-xl font-semibold>{{ loading ? '获取中...' : Array.isArray(dataInfo?.typeTotal) && dataInfo?.typeTotal.length > 0 ? dataInfo?.typeTotal?.find(obj => obj.type === item.url.replace('/', '')).count : 0 }} {{ loading ? '' : '张' }}</span>
+              <span text-xl font-semibold>{{
+                loading
+                  ? '获取中...'
+                  : Array.isArray(dataInfo?.typeTotal) && dataInfo?.typeTotal.length > 0
+                    ? dataInfo?.typeTotal?.find(obj => obj.type === item.url.replace('/', ''))?.count || 0
+                    : 0
+              }} {{ loading ? '' : '张' }}</span>
             </div>
           </div>
         </el-scrollbar>
