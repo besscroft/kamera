@@ -93,7 +93,11 @@ async function onRequestUpload(option: any) {
       imgData.url = url
     }
   } catch (e) {
-    toast.add({ title: '图片上传/解析失败！', timeout: 2000, color: 'red' })
+    if (e?.status === 413) {
+      toast.add({ title: '上传文件大小超出限制！', timeout: 2000, color: 'red' })
+    } else {
+      toast.add({ title: '图片上传/解析失败！', timeout: 2000, color: 'red' })
+    }
     option.file.abort()
   }
 }
@@ -258,7 +262,7 @@ definePageMeta({
             :value="item.value"
           />
         </el-select>
-        <el-button round v-if="fileUrl" :loading="loading" @click="submit"> 保存 </el-button>
+        <el-button v-if="fileUrl" round :loading="loading" @click="submit"> 保存 </el-button>
       </div>
       <div v-if="mountSelectShow && mountOptions.length > 0" flex items-center justify-center pb-2>
         <el-select v-model="imgData.mountPath" m-2 placeholder="请选择挂载目录">
@@ -282,11 +286,16 @@ definePageMeta({
         accept="image/jpg, image/jpeg, image/png, image/tiff, image/heic, image/heif, image/webp, image/avif"
       >
         <div flex justify-center items-center p2>
-          <svg h-8 w-8 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"><path d="M11 18l1.41 1.41L15 16.83V29h2V16.83l2.59 2.58L21 18l-5-5l-5 5z" fill="currentColor"></path><path d="M23.5 22H23v-2h.5a4.5 4.5 0 0 0 .36-9H23l-.1-.82a7 7 0 0 0-13.88 0L9 11h-.86a4.5 4.5 0 0 0 .36 9H9v2h-.5A6.5 6.5 0 0 1 7.2 9.14a9 9 0 0 1 17.6 0A6.5 6.5 0 0 1 23.5 22z" fill="currentColor"></path></svg>
+          <svg size-8 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"><path d="M11 18l1.41 1.41L15 16.83V29h2V16.83l2.59 2.58L21 18l-5-5l-5 5z" fill="currentColor"></path><path d="M23.5 22H23v-2h.5a4.5 4.5 0 0 0 .36-9H23l-.1-.82a7 7 0 0 0-13.88 0L9 11h-.86a4.5 4.5 0 0 0 .36 9H9v2h-.5A6.5 6.5 0 0 1 7.2 9.14a9 9 0 0 1 17.6 0A6.5 6.5 0 0 1 23.5 22z" fill="currentColor"></path></svg>
         </div>
         <div class="el-upload__text">
-          点击或者拖动图片到该区域来上传，关闭图片可重置
+          点击或者拖动图片到该区域来上传
         </div>
+        <template #tip>
+          <div class="el-upload__tip">
+            点击图片右上角关闭图片重置上传；Vercel 等平台 Free 订阅限制上传大小 6M。
+          </div>
+        </template>
       </el-upload>
       <div v-if="fileUrl" space-y-2>
         <p break-words text-green-400>图片地址：{{ fileUrl }}</p>

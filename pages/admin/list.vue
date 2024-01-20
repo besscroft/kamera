@@ -172,10 +172,6 @@ const tagTitleHandle = (type: string) => {
   return photosList.find(item => type === item.url.replace('/', ''))?.title
 }
 
-onBeforeMount(async () => {
-  await dataHandle()
-})
-
 onBeforeMount(() => {
   if (photosList) {
     photosList?.forEach((photo: any) => {
@@ -185,6 +181,10 @@ onBeforeMount(() => {
       })
     })
   }
+})
+
+onMounted(async () => {
+  await dataHandle()
 })
 
 definePageMeta({
@@ -204,11 +204,11 @@ definePageMeta({
             :value="item.value"
           />
         </el-select>
-        <div i-carbon-rotate-360 cursor-pointer @click="dataHandle" />
+        <el-button round :loading="loading" @click="dataHandle"> 刷新 </el-button>
       </div>
       <el-table
-        :data="dataList"
         v-loading="loading"
+        :data="dataList"
         stripe
         height="calc(100vh - 16rem)"
       >
