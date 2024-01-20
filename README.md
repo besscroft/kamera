@@ -69,7 +69,6 @@ nitro: {
 | Postgre_DATABASE | Postgre 数据库名称，默认值：postgres            |
 | Postgre_USERNAME | Postgre 数据库用户名，默认值：postgres           |
 | Postgre_PASSWORD | Postgre 数据库密码，默认值：postgres            |
-| MOBOLE_ROW       | 移动端瀑布流显示列数，可选值：`1`、`2`，默认 1           |
 
 #### 页面配置
 
