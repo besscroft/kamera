@@ -7,6 +7,7 @@ export default antfu(
       'curly': 'off',
       '@typescript-eslint/brace-style': 'off',
       'no-mixed-operators': 'off',
+      'style/brace-style': 'off',
     },
   },
   unocss.configs.flat,
