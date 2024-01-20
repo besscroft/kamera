@@ -29,10 +29,14 @@ const dataHandle = async () => {
 onBeforeMount(async () => {
   await dataHandle()
 })
+
+definePageMeta({
+  layout: 'admin',
+})
 </script>
 
 <template>
-  <div p2 md:p8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 md:gap-12>
+  <div p2 md:p8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 md:gap-12 pb-20 md:pb-2>
     <el-card>
       <div flex flex-col h-48 p2 space-y-4>
         <span font-light>照片数据</span>
