@@ -93,8 +93,11 @@ async function onRequestUpload(option: any) {
       imgData.url = url
     }
   } catch (e) {
-    toast.add({ title: '图片上传/解析失败！', timeout: 2000, color: 'red' })
-    console.log(e)
+    if (e?.status === 413) {
+      toast.add({ title: '文件过大，请注意 Vercel 等平台 Free 用户限制上传 6M 大小！', timeout: 2000, color: 'red' })
+    } else {
+      toast.add({ title: '图片上传/解析失败！', timeout: 2000, color: 'red' })
+    }
     option.file.abort()
   }
 }
