@@ -11,8 +11,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['modalUpdate'])
+const { share, isSupported } = useShare()
 const source = ref('')
-const { copy, isSupported } = useClipboard({ source })
 const show = ref(false)
 const toast = useToast()
 const obj = ref({})
@@ -25,9 +25,9 @@ const items = [{
   label: '更多',
 }]
 
-const share = (text, url) => {
+const shareHandle = (text, url) => {
   try {
-    navigator.share({
+    share({
       title: appName || '旅行足迹',
       text: text,
       url: url,
@@ -38,6 +38,7 @@ const share = (text, url) => {
 }
 
 const copyHandle = (text) => {
+  const { copy, isSupported } = useClipboard({ source })
   if (isSupported) {
     source.value = text
     copy(source.value)
@@ -88,11 +89,12 @@ onUnmounted(() => {
               <template #panel>
                 <div p-2>
                   <div
+                    v-if="isSupported"
                     flex flex-row items-center rounded-md
                     block px-5 py-2 focus-blue w-full
                     transition-colors duration-200 transform cursor-pointer
                     hover="bg-gray-100 dark:(bg-gray-700 text-white)"
-                    @click="share(obj?.detail, obj?.url)"
+                    @click="shareHandle(obj?.detail, obj?.url)"
                   >
                     <span i-carbon-crowd-report text-xl me-4 />分享
                   </div>
