@@ -140,7 +140,7 @@ onUnmounted(() => {
                 <div i-carbon-camera />
                 <p>相机</p>
               </h3>
-              <p mt-1 text-center>{{ obj?.exif?.Model?.description || 'N&A' }}</p>
+              <p mt-1 text-center>{{ obj?.exif?.model || 'N&A' }}</p>
             </el-card>
             <el-card class="box-card" mx-auto rounded-lg shadow-md w-full>
               <h3 flex justify-center items-center space-x-1 text-base text-center font-medium>
