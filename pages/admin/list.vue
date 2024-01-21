@@ -172,6 +172,10 @@ const tagTitleHandle = (type: string) => {
   return photosList.find(item => type === item.url.replace('/', ''))?.title
 }
 
+const filterShow = (value: number, row: any) => {
+  return row.show === value
+}
+
 onBeforeMount(() => {
   if (photosList) {
     photosList?.forEach((photo: any) => {
@@ -196,7 +200,7 @@ definePageMeta({
   <div>
     <div p2 md:p8 pb-20>
       <div flex items-center justify-center justify-between w-full mt-4>
-        <el-select v-model="type" m-2 max-w-80 placeholder="请选择类型" @change="dataHandle">
+        <el-select v-model="type" m-2 max-w-80 placeholder="类型(查询条件)" @change="dataHandle">
           <el-option
             v-for="item in imgTypeOptions"
             :key="item.value"
@@ -212,7 +216,7 @@ definePageMeta({
         stripe
         height="calc(100vh - 16rem)"
       >
-        <el-table-column label="id" prop="id" />
+        <el-table-column label="id" prop="id" sortable />
         <el-table-column label="类型" prop="type">
           <template #default="scope">
             <el-tag v-if="scope.row.type === 'index'">首页精选</el-tag>
@@ -222,7 +226,12 @@ definePageMeta({
             <el-tag v-else type="danger">错误类型</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="评分" prop="rating" :width="!lgAndLarger ? '127' : ''">
+        <el-table-column
+          label="评分"
+          prop="rating"
+          :width="!lgAndLarger ? '127' : ''"
+          sortable
+        >
           <template #default="scope">
             <el-rate
               v-model="scope.row.rating"
@@ -231,7 +240,16 @@ definePageMeta({
             />
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" prop="type">
+        <el-table-column
+          label="是否显示"
+          prop="show"
+          :filters="[
+            { text: '是', value: 0 },
+            { text: '否', value: 1 },
+          ]"
+          :filter-method="filterShow"
+          filter-placement="bottom-end"
+        >
           <template #default="scope">
             <el-switch
               v-model="scope.row.show"
@@ -245,7 +263,7 @@ definePageMeta({
             />
           </template>
         </el-table-column>
-        <el-table-column label="排序" prop="sort" />
+        <el-table-column label="排序" prop="sort" sortable />
         <el-table-column label="描述" prop="detail">
           <template #default="scope">
             <el-text class="w-240px" truncated>
@@ -253,7 +271,7 @@ definePageMeta({
             </el-text>
           </template>
         </el-table-column>
-        <el-table-column align="right" fixed="right">
+        <el-table-column label="操作" align="right" fixed="right">
           <template #default="scope">
             <el-button size="small" @click="detail(scope.row)">查看</el-button>
             <el-button size="small" @click="() => { objInfo.sort = scope.row.sort ;update(scope.row) }">维护</el-button>

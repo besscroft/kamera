@@ -39,15 +39,16 @@ async function handleSubmitClick(event: FormSubmitEvent<any>) {
     router.push('/admin')
     if (token) {
       toast.add({ title: '登录成功！', timeout: 2000 })
+    } else {
+      toast.add({ title: 'token 获取异常，登录失败！', timeout: 2000, color: 'red' })
     }
-    else {
+  } catch (e) {
+    if (e?.status === 500) {
+      toast.add({ title: '用户名或密码错误！', timeout: 2000, color: 'red' })
+    } else {
       toast.add({ title: '登录失败！', timeout: 2000, color: 'red' })
     }
-  }
-  catch (e) {
-    toast.add({ title: '登录失败！', timeout: 2000, color: 'red' })
-  }
-  finally {
+  } finally {
     loading.value = false
   }
 }
