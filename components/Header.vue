@@ -75,9 +75,7 @@ onBeforeUnmount(() => {
     <nav relative bg-white dark:bg-custom-black>
       <div flex container px-6 py-4 mx-auto md:flex md:justify-between md:items-center>
         <div flex items-center justify-between w-full md:w-36>
-          <ClientOnly>
-            <img class="h-8 w-auto" src="/maskable-icon.png" cursor-pointer @click="router.push('/')" alt="logo">
-          </ClientOnly>
+          <img class="h-8 w-auto" src="/maskable-icon.png" cursor-pointer @click="router.push('/')" alt="logo">
         </div>
 
         <div v-if="mdAndLarger" flex items-center justify-center space-x-3>
