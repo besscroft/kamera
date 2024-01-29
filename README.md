@@ -8,15 +8,14 @@ Kamera
   <img src="https://img.shields.io/github/repo-size/besscroft/kamera?style=flat-square&color=328657" alt="存储库大小">
 </p>
 
-一款专供摄影佬使用的记录网站，瀑布流展示图片，预览图片及 EXIF 信息，支持常见的图片格式。
+一款专供摄影佬使用的记录网站，基于 Nuxt 3 开发，瀑布流展示图片，预览图片及 EXIF 信息，支持常见的图片格式。
 可读取 EXIF 信息并上传、管理维护图片数据，首页精品照片展示，子页分类展示等功能。
-图片存储兼容 S3 API、AList API、支持 CDN 配置。
-基于 Nuxt 3 开发，支持 Docker 一键部署，无需单独后端。更多功能还在开发中~
+图片存储兼容 S3 API、AList API、支持 CDN 配置。同时适配了 PC 和移动端的样式与交互。
 今天又是想当二次元摄影高手的一天呢！
 
 ### 如何部署
 
-你可以 Fork 后点击下面的按钮来一键部署到 Vercel（容器部署请往下看）
+你可以 Fork 后点击下面的按钮来一键部署到 Vercel（自定义配置及容器部署请往下看）
 
 <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbesscroft%2Fkamera&env=Postgre_HOST,Postgre_PORT,Postgre_DATABASE,Postgre_USERNAME,Postgre_PASSWORD"><img src="https://vercel.com/button" alt="Deploy with Vercel"/></a>
 
@@ -42,9 +41,7 @@ nitro: {
 
 #### 图片存储
 
-从 v0.0.6 版本开始，重构了图片的上传逻辑，将同时支持兼容 S3 的存储，以及 AList，便于用户更加灵活的选择！
-
-存储你可以选择 AWS S3、阿里云 OSS 或者自建 MinIO，也可以交由你正在用的 AList 来维护。
+存储你可以选择 AWS S3、阿里云 OSS 或者自建 MinIO（理论上来说兼容 S3 的都行），也可以交由你正在用的 AList 来维护。
 
 #### 环境变量
 
@@ -166,9 +163,8 @@ export default defineAppConfig({
 
 如果你想用我的镜像（由 GitHub Actions 构建），就意味着你的某些配置与我相同，比如网站的几个目录。
 但实际上你肯定得改一下网站标题，配置子页面啊之类的，改一下音乐播放器里面的歌之类的。
-至于为啥我没有做成动态从数据库获取，主要还是觉得没太大必要（懒~
 
-所以我的镜像只适合你快速体验预览之类的，还是建议你自己构建，反正也很方便，或者你直接部署到 Vercel 之类的平台。
+所以我的镜像只适合你快速体验预览之类的，还是建议你自己构建（反正也很方便），或者你直接部署到 Vercel 之类的平台。
 如果你要运行我的镜像，你只需要执行下面的命令即可部署：
 
 ```shell
@@ -242,9 +238,9 @@ node /app/.output/server/index.mjs
 
 > 如果你选择这种部署方式，我相信你是会使用 Node 的。
 
-#### 宝塔面板
+#### 服务器面板
 
-对于使用宝塔面板之类的用户，包括使用 Nginx 来提供访问服务的用户，记得配置反向代理：
+对于使用宝塔面板、1Panel 之类的用户，包括使用 Nginx 来提供访问服务的用户，记得配置反向代理：
 
 ```shell
 location ^~ / {
@@ -254,13 +250,9 @@ location ^~ / {
 
 > 端口和路径之类的，就看你自己部署时，设置的什么了。
 
-### 在线开发
+### 本地开发
 
-你可以使用 Gitpod 进行在线开发：
-
-<p><a href="https://gitpod.io/#https://github.com/besscroft/kamera" rel="nofollow"><img src="https://camo.githubusercontent.com/1eb1ddfea6092593649f0117f7262ffa8fbd3017/68747470733a2f2f676974706f642e696f2f627574746f6e2f6f70656e2d696e2d676974706f642e737667" alt="Open in Gitpod" data-canonical-src="https://gitpod.io/button/open-in-gitpod.svg" style="max-width:100%;"></a></p>
-
-或者克隆到本地开发:
+克隆到本地开发:
 
 ```shell
 git clone https://github.com/besscroft/kamera.git
