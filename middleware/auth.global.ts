@@ -15,8 +15,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
           Authorization: `${user.tokenName} ${user.token}`,
         },
       })
-    }
-    catch (e) {
+    } catch (e) {
       return navigateTo('/login')
     }
   }

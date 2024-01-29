@@ -9,7 +9,7 @@ const route = useRoute()
 const user = useUserStore()
 const isOpen = ref(false)
 
-const routeList = ref([])
+const routeList = ref<Array<Object>>([])
 const systemRouterList = ref([
   {
     title: '控制台',

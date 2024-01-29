@@ -55,10 +55,7 @@ definePageMeta({
   layout: 'default',
   validate: async (route) => {
     try {
-      if (photosList.some(i => i.url === route.path)) {
-        return true
-      }
-      return false
+      return !!photosList.some(i => i.url === route.path)
     } catch (e) {
       console.log(e)
       return false

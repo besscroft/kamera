@@ -45,7 +45,7 @@ const storageOptions = ref([
     value: 'alist',
   },
 ])
-const mountOptions = ref([
+const mountOptions = ref<Array<Object>>([
 ])
 const imgTypeOptions = ref([
   {
