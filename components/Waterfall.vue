@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-const breakpoints = useBreakpoints(breakpointsTailwind)
-const mdAndLarger = breakpoints.greaterOrEqual('md')
-
-const appConfig = useAppConfig()
-
 const props = defineProps({
   loading: Boolean,
   handleButton: Boolean,
@@ -14,6 +9,11 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['dataHandle'])
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const mdAndLarger = breakpoints.greaterOrEqual('md')
+
+const appConfig = useAppConfig()
+
 const imgId = ref<number>(0)
 const showModal = ref<boolean>(false)
 const mounted = ref<boolean>(false)

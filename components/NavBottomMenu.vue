@@ -7,7 +7,7 @@ const drawerEl = ref<HTMLDivElement>()
 const buttonEl = ref<HTMLDivElement>()
 const route = useRoute()
 
-const routeList = ref([])
+const routeList = ref<Array<Object>>([])
 const systemRouterList = ref([
   {
     title: '控制台',
