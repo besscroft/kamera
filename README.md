@@ -33,6 +33,10 @@ nitro: {
 创建数据库后，将 `doc/sql/schema.sql` 导入到数据库执行。在 `Dashboard` 的 `Settings` 找到 `Database` 部分，你就能查看连接信息了。
 当然，只要是兼容 pg 的数据库都是可以选择的，不必局限于某个平台。
 
+> 注：从 2024-01-26 起，将[删除通过 IPv4 和 pgBouncer 的数据库访问方式](https://github.com/orgs/supabase/discussions/17817)。
+> 在这之前部署且数据库使用 SupaBase 的用户，请更新数据库连接信息。
+> 在 `Connection parameters` 里勾选 `Use connection pooling` 选项即可。
+
 > 请确保您的数据库用户配置了正确的 Row Level Security（行级别安全性）权限，否则将无法正常访问。
 >
 > 如果您是第一次部署，仅需要执行 `schema.sql` 即可，如果您是升级到涉及数据库变更的版本，请在执行对应版本编号的 sql 后再升级部署！
