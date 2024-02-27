@@ -59,8 +59,9 @@ definePageMeta({
 </script>
 
 <template>
-  <div flex items-center justify-center w-full h-full style="background-image: url('/fufu.jpg'); background-size: cover;"
-    md:grid md:grid-cols-10 md:gap-4
+  <div
+    flex items-center justify-center w-full h-full md:grid md:grid-cols-10 md:gap-4
+    style="background-image: url('/fufu.jpg'); background-size: cover;"
   >
     <div md:col-span-5></div>
     <div
