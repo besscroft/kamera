@@ -74,3 +74,32 @@ INSERT INTO "public"."kamera_config" VALUES (4, 'alist_token', '', 'alist 令牌
 INSERT INTO "public"."kamera_config" VALUES (3, 'alist_url', '', 'AList 地址，如：https://alist.besscroft.com', '2023-12-25 16:44:55.289006', NULL);
 INSERT INTO "public"."kamera_config" VALUES (1, 'username', 'admin', '系统用户账号，默认值：admin，单次登录有效期 24 小时。', '2023-12-25 16:44:29.653008', NULL);
 INSERT INTO "public"."kamera_config" VALUES (2, 'password', '2a2a3d2b5dcef92937839896bcf07dc62605ebe2ac428f57ea061c734d950d075667654a5e130a9fee5b85512a98eac8138100f32a40953b8678243dbfc97297', '系统用户密码，默认值(666666)在 `.env.local` 文件中可查，如果需要更改密码，可在登录后进入后台自行生成后替换。', '2023-12-25 16:44:43.899401', NULL);
+
+
+-- ----------------------------
+-- Table structure for likes
+-- ----------------------------
+
+CREATE TABLE public.Likes (
+    LikeID SERIAL PRIMARY KEY,
+    PictureID INT NOT NULL,
+    LikeTime TIMESTAMP NOT NULL,
+    IPAddress INET, -- 存储点赞者的IP地址
+    UserAgent TEXT, -- 存储点赞者的用户代理信息
+    FOREIGN KEY (PictureID) REFERENCES public.kamera_image(id) --绑定图片表的ID外键
+);
+
+-- ----------------------------
+-- Table structure for comments
+-- ----------------------------
+
+CREATE TABLE public.Comments (
+    CommentID SERIAL PRIMARY KEY,
+    PictureID INT NOT NULL,
+    CommentText TEXT NOT NULL,
+    CommentTime TIMESTAMP NOT NULL,
+    Email VARCHAR(255) NULL, -- 邮箱字段，设置为可选
+    FOREIGN KEY (PictureID) REFERENCES public.kamera_image(id) --绑定图片表的ID外键
+);
+
+
