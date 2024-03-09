@@ -82,6 +82,7 @@ INSERT INTO "public"."kamera_config" VALUES (2, 'password', '2a2a3d2b5dcef929378
 
 CREATE TABLE public.Likes (
     LikeID SERIAL PRIMARY KEY,
+    LikeCount INT NOT NULL,
     PictureID INT NOT NULL,
     LikeTime TIMESTAMP NOT NULL,
     IPAddress INET, -- 存储点赞者的IP地址
