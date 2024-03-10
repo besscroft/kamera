@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { isMobile } = useDevice()
+
 </script>
 
 <template>
@@ -7,9 +7,6 @@ const { isMobile } = useDevice()
     <div h-full>
       <slot />
     </div>
-    <ClientOnly v-if="!isMobile">
-      <Music />
-    </ClientOnly>
   </div>
 </template>
 
