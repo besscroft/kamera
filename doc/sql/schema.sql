@@ -84,9 +84,6 @@ CREATE TABLE public.Likes (
     LikeID SERIAL PRIMARY KEY,
     LikeCount INT NOT NULL,
     PictureID INT NOT NULL,
-    LikeTime TIMESTAMP NOT NULL,
-    IPAddress INET, -- 存储点赞者的IP地址
-    UserAgent TEXT, -- 存储点赞者的用户代理信息
     FOREIGN KEY (PictureID) REFERENCES public.kamera_image(id) --绑定图片表的ID外键
 );
 
