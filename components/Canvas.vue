@@ -177,12 +177,12 @@ onUnmounted(() => {
                 <!-- <div i-carbon-thumbs-up /> -->
                 <p>评论</p>
               </h3>
-              <el-scrollbar height="400px">
+              <el-scrollbar height="40vh">
 
               </el-scrollbar>
               <div flex justify-center>
                 <el-input v-model="conments" style="width: 240px" placeholder="评论的内容" />
-                <el-button type="primary" plain>提交</el-button>
+                <el-button type="primary" plain >提交</el-button>
               </div>
 
             </el-card>
