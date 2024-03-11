@@ -17,7 +17,6 @@ export default defineAppConfig({
   apiWhiteList: [
     '/api/login',
     '/api/verify',
-    '/api/music',
     '/api/getImageList',
   ],
   mobileRow: 2,

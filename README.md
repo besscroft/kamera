@@ -130,7 +130,6 @@ export default defineAppConfig({
     apiWhiteList: [
         '/api/login',
         '/api/verify',
-        '/api/music',
         '/api/getImageList',
     ]
 })
@@ -150,8 +149,6 @@ export default defineAppConfig({
 | ---------------- |-----------------------------|
 | appName     | 网站标题                        |
 | appDescription     | 网站描述                        |
-
-如果你要修改音乐列表，请在 `assets/server/music.json` 下更改，可以换成你自己的。
 
 在 `app.config.ts` 文件中，可以配置：
 
