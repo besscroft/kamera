@@ -54,30 +54,28 @@ watch(() => score.value, async () => {
 })
 const showScore = ref(0)
 const conmentList = ref([])
-onMounted(async()=>{
-  fetchScore()
-  fetchConmentList()
-})
-const fetchScore = async () => {
+
+
+const fetchScore = async (id) => {
   try{
-    const { data } = await $fetch('/api/like', {
+    
+    const { data } = await $fetch('/api/like?imageId='+id, {
       timeout: 60000,
       method: 'get',
       headers: {
         Authorization: `${user.tokenName} ${user.token}`,
-      },
-      body: {
-        imageId: props.imgId
-      },
+      }
     })
     console.log(data);
     showScore.value =data
   }
   catch(err){
+    console.log(err);
+    
     toast.add({ title: '获取图片信息失败', timeout: 2000, color: 'red' })
   }
 }
-const fetchConmentList = async ()=>{
+const fetchConmentList = async (id)=>{
   try{
     const { data } = await $fetch('/api/comments', {
       timeout: 60000,
@@ -86,7 +84,7 @@ const fetchConmentList = async ()=>{
         Authorization: `${user.tokenName} ${user.token}`,
       },
       body: {
-        imageId: props.imgId
+        imageId: id
       },
     })
     console.log(data);
@@ -152,6 +150,13 @@ watch(() => props.showModal, (val) => {
   defaultIndex.value = 0
   show.value = props.showModal
   obj.value = props.dataList?.find((item: any) => item.id === props.imgId)
+
+  if(show.value==true){
+    console.log(obj.value.id);
+  
+    fetchScore(obj.value.id)
+    fetchConmentList(obj.value.id)
+  }
 })
 
 onMounted(() => {
