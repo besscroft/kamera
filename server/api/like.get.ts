@@ -15,5 +15,6 @@ INNER JOIN public.kamera_image ON Likes.PictureID = kamera_image.id
 WHERE
     kamera_image.id = ${imageId};
     `
+    
   return data
 })

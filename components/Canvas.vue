@@ -52,7 +52,72 @@ watch(() => score.value, async () => {
   }
 
 })
-
+const showScore = ref(0)
+const conmentList = ref([])
+onMounted(async()=>{
+  fetchScore()
+  fetchConmentList()
+})
+const fetchScore = async () => {
+  try{
+    const { data } = await $fetch('/api/like', {
+      timeout: 60000,
+      method: 'get',
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`,
+      },
+      body: {
+        imageId: props.imgId
+      },
+    })
+    console.log(data);
+    showScore.value =data
+  }
+  catch(err){
+    toast.add({ title: '获取图片信息失败', timeout: 2000, color: 'red' })
+  }
+}
+const fetchConmentList = async ()=>{
+  try{
+    const { data } = await $fetch('/api/comments', {
+      timeout: 60000,
+      method: 'get',
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`,
+      },
+      body: {
+        imageId: props.imgId
+      },
+    })
+    console.log(data);
+    conmentList.value = data
+  }
+  catch(err){
+    toast.add({ title: '获取图片评论信息失败！', timeout: 2000, color: 'red' })
+  }
+}
+const submitConments=async ()=> {
+  try {
+    const { data } = await $fetch('/api/comments', {
+      timeout: 60000,
+      method: 'post',
+      headers: {
+        Authorization: `${user.tokenName} ${user.token}`,
+      },
+      body: {
+        imageId: props.imgId,
+        comment: conments.value
+      },
+    })
+    if (data === 0) {
+      toast.add({ title: '保存成功！', timeout: 2000 })
+    } else {
+      toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
+    }
+  } catch (e) {
+    toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
+  }
+}
 const shareHandle = (text, url) => {
   try {
     share({
@@ -91,6 +156,7 @@ watch(() => props.showModal, (val) => {
 
 onMounted(() => {
   obj.value = props.dataList?.find((item: any) => item.id === props.imgId)
+  
 })
 
 onUnmounted(() => {
@@ -159,7 +225,7 @@ onUnmounted(() => {
                 <p>大家的评分</p>
               </h3>
               <div flex justify-center>
-                <el-rate v-model="obj.rating" disabled show-score text-color="#ff9900" score-template="{value} 分" />
+                <el-rate v-model="showScore" disabled show-score text-color="#ff9900" score-template="{value} 分" />
               </div>
             </el-card>
             <!-- add -->
@@ -178,11 +244,11 @@ onUnmounted(() => {
                 <p>评论</p>
               </h3>
               <el-scrollbar height="40vh">
-
+                <!-- <div v-for="item in conmentsList" :key="item.id" mb-2></div> -->
               </el-scrollbar>
               <div flex justify-center>
                 <el-input v-model="conments" style="width: 240px" placeholder="评论的内容" />
-                <el-button type="primary" plain >提交</el-button>
+                <el-button type="primary" @click="submitConments()" plain >提交</el-button>
               </div>
 
             </el-card>

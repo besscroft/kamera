@@ -95,8 +95,6 @@ CREATE TABLE public.Comments (
     CommentID SERIAL PRIMARY KEY,
     PictureID INT NOT NULL,
     CommentText TEXT NOT NULL,
-    CommentTime TIMESTAMP NOT NULL,
-    Email VARCHAR(255) NULL, -- 邮箱字段，设置为可选
     FOREIGN KEY (PictureID) REFERENCES public.kamera_image(id) --绑定图片表的ID外键
 );
 
