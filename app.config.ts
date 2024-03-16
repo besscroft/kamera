@@ -19,7 +19,10 @@ export default defineAppConfig({
     '/api/verify',
     '/api/music',
     '/api/getImageList',
-    '/api/like'
+    '/api/postLike',
+    '/api/getLike',
+    '/api/getComment',
+    '/api/postComments'
   ],
   mobileRow: 2,
   ui: {
