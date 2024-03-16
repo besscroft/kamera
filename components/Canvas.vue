@@ -31,22 +31,19 @@ watch(() => score.value, async () => {
   console.log(score.value);
 
   try {
-    const { data } = await $fetch('/api/like', {
+    const { data } = await $fetch('/api/postLike', {
       timeout: 60000,
       method: 'post',
-      headers: {
-        Authorization: `${user.tokenName} ${user.token}`,
-      },
       body: {
         imageId: props.imgId,
         score: score.value
       },
     })
-    // if (data === 0) {
-    //   toast.add({ title: '保存成功！', timeout: 2000 })
-    // } else {
-    //   toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
-    // }
+    if (data === 0) {
+      toast.add({ title: '评分成功！', timeout: 2000 })
+    } else {
+      toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
+    }
   } catch (e) {
     toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
   }
@@ -57,51 +54,63 @@ const conmentList = ref([])
 
 
 const fetchScore = async (id) => {
-  try{
-    
-    const { data } = await $fetch('/api/like?imageId='+id, {
+  try {
+    const data: Array<object> = await $fetch('/api/getLike', {
       timeout: 60000,
-      method: 'get',
-      headers: {
-        Authorization: `${user.tokenName} ${user.token}`,
-      }
-    })
-    console.log(data);
-    showScore.value =data
-  }
-  catch(err){
-    console.log(err);
-    
-    toast.add({ title: '获取图片信息失败', timeout: 2000, color: 'red' })
-  }
-}
-const fetchConmentList = async (id)=>{
-  try{
-    const { data } = await $fetch('/api/comments', {
-      timeout: 60000,
-      method: 'get',
-      headers: {
-        Authorization: `${user.tokenName} ${user.token}`,
-      },
+      method: 'post',
       body: {
         imageId: id
-      },
+      }
     })
-    console.log(data);
-    conmentList.value = data
+    let likeCountSum = 0
+    console.log(data, 'data');
+
+    if (data.length !== 0) {
+      data.forEach(item => {
+        likeCountSum += item.likecount
+      });
+      likeCountSum = likeCountSum / data.length
+    }
+
+    showScore.value = likeCountSum.toFixed(2)
   }
-  catch(err){
+  catch (err) {
+    console.log(err);
+
+    toast.add({ title: '获取图片点赞信息失败', timeout: 2000, color: 'red' })
+  }
+}
+const fetchConmentList = async (id) => {
+  try {
+    const data = await $fetch('/api/getComment', {
+      timeout: 60000,
+      method: 'post',
+      body: {
+        imageId: id
+      }
+    })
+    console.log(data,'data');
+    let arr= []
+    data.forEach(item=>{
+      arr.push(item.commenttext)
+    })
+    conmentList.value = arr
+  }
+  catch (err) {
+    console.log(err);
+    
     toast.add({ title: '获取图片评论信息失败！', timeout: 2000, color: 'red' })
   }
 }
-const submitConments=async ()=> {
+const submitConments = async () => {
+  if(conments.value.trim() ==''){
+    toast.add({ title: '请先输入内容', timeout: 2000, color: 'red' })
+    return 
+  }
   try {
-    const { data } = await $fetch('/api/comments', {
+    const { data } = await $fetch('/api/postComments', {
       timeout: 60000,
       method: 'post',
-      headers: {
-        Authorization: `${user.tokenName} ${user.token}`,
-      },
       body: {
         imageId: props.imgId,
         comment: conments.value
@@ -109,6 +118,8 @@ const submitConments=async ()=> {
     })
     if (data === 0) {
       toast.add({ title: '保存成功！', timeout: 2000 })
+      conmentList.value.push(conments.value)
+      conments.value = ''
     } else {
       toast.add({ title: '保存失败！', timeout: 2000, color: 'red' })
     }
@@ -151,9 +162,9 @@ watch(() => props.showModal, (val) => {
   show.value = props.showModal
   obj.value = props.dataList?.find((item: any) => item.id === props.imgId)
 
-  if(show.value==true){
+  if (show.value == true) {
     console.log(obj.value.id);
-  
+
     fetchScore(obj.value.id)
     fetchConmentList(obj.value.id)
   }
@@ -161,7 +172,7 @@ watch(() => props.showModal, (val) => {
 
 onMounted(() => {
   obj.value = props.dataList?.find((item: any) => item.id === props.imgId)
-  
+
 })
 
 onUnmounted(() => {
@@ -248,14 +259,19 @@ onUnmounted(() => {
                 <!-- <div i-carbon-thumbs-up /> -->
                 <p>评论</p>
               </h3>
-              <el-scrollbar height="40vh">
-                <!-- <div v-for="item in conmentsList" :key="item.id" mb-2></div> -->
+              <el-scrollbar height="40vh" style="padding-top: 10px;">
+                <el-card shadow="hover" style="" v-for="item,index in conmentList" :key="index" mb-2>
+                  {{ item }}
+                </el-card>
+                <!-- <el-card style="width: 480px" shadow="hover">Hover</el-card> -->
               </el-scrollbar>
-              <div flex justify-center>
-                <el-input v-model="conments" style="width: 240px" placeholder="评论的内容" />
-                <el-button type="primary" @click="submitConments()" plain >提交</el-button>
+           
+              <template #footer>
+                <div flex justify-center>
+                <el-input v-model="conments" style="width: 240px" @keyup.enter="submitConments()" placeholder="评论的内容" />
+                <el-button type="primary" @click="submitConments()" plain>提交</el-button>
               </div>
-
+              </template>
             </el-card>
           </div>
         </template>
