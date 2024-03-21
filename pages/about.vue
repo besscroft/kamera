@@ -31,7 +31,6 @@ definePageMeta({
       <el-divider content-position="left" prose prose-slate mx-auto>隐私安全</el-divider>
       <div>
         <p>您使用本程序时，需要自己去维护各个平台的配置信息（毕竟跟咱没关系，需要在对应的平台配置），以及对象存储的读写权限、访问控制、防盗链、跨域设置、缓存策略和 CDN 等配置，以最大程度的避免天价账单。</p>
-        <p>我们采用了 <a href="https://github.com/getsentry/sentry" target="_blank" dark:text-white>Sentry</a> 来追踪错误信息，以便改进程序。会话重播 SDK 会屏蔽所有 DOM 文本内容、图像和用户输入，让您更加确信敏感数据不会离开浏览器。</p>
         <p>如您有更多疑问，可以提交 <a href="https://github.com/besscroft/kamera/issues/new" target="_blank" dark:text-white>Issue</a>。</p>
       </div>
     </article>
