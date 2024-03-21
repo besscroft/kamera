@@ -1,8 +1,10 @@
 import antfu from '@antfu/eslint-config'
-import unocss from '@unocss/eslint-plugin'
+import nuxt from './.nuxt/eslint.config.mjs'
 
 export default antfu(
   {
+    unocss: true,
+    formatters: true,
     rules: {
       'curly': 'off',
       '@typescript-eslint/brace-style': 'off',
@@ -10,5 +12,5 @@ export default antfu(
       'style/brace-style': 'off',
     },
   },
-  unocss.configs.flat,
+  nuxt(),
 )
