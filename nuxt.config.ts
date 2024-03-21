@@ -58,6 +58,7 @@ export default defineNuxtConfig({
     },
     prerender: {
       crawlLinks: true,
+      autoSubfolderIndex: false,
       routes: [
         '/',
         '/about',
@@ -85,7 +86,6 @@ export default defineNuxtConfig({
         }
       },
     },
-    // preset: 'vercel'
   },
 
   app: {
@@ -111,5 +111,16 @@ export default defineNuxtConfig({
 
   devtools: {
     enabled: true,
+  },
+
+  features: {
+    // For UnoCSS
+    inlineStyles: false,
+  },
+
+  eslint: {
+    config: {
+      standalone: false,
+    },
   },
 })
