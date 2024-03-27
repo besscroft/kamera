@@ -96,6 +96,7 @@ onBeforeUnmount(() => {
                   transition-colors duration-200 transform
                   hover="bg-gray-100 dark:(bg-gray-700 text-white)"
                   :class="route.path === item.to ? 'text-custom-green' : 'text-gray-700 dark:text-gray-200'"
+                  :aria-label="item.title"
                 >
                   <span :class="item.icon" text-xl me-4 />{{ item.title }}
                 </NuxtLink>
@@ -109,6 +110,7 @@ onBeforeUnmount(() => {
                   transition-colors duration-200 transform
                   hover="bg-gray-100 dark:(bg-gray-700 text-white)"
                   :class="route.path === item.to ? 'text-custom-green' : 'text-gray-700 dark:text-gray-200'"
+                  :aria-label="item.title"
                 >
                   <span :class="item.icon" text-xl me-4 />{{ item.title }}
                 </NuxtLink>

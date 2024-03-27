@@ -85,7 +85,7 @@ definePageMeta({
             <UInput v-model="loginForm.password" type="password" />
           </UFormGroup>
 
-          <UButton type="submit" color="white" :loading="loading">
+          <UButton type="submit" color="white" :loading="loading" aria-label="登录">
             登录
           </UButton>
         </UForm>

@@ -3,6 +3,6 @@ node_modules
 dist
 .output
 .nuxt
-.env
+.env.local
 .idea/
 .vercel/

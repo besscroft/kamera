@@ -81,11 +81,11 @@ onUnmounted(() => {
   >
     <template #header="{ close }">
       <div flex flex-row justify-between>
-        <span>点击图片预览</span>
+        <span aria-label="点击下方图片预览">点击图片预览</span>
         <div flex space-x-3>
           <ClientOnly>
             <UPopover mode="hover">
-              <div i-carbon-overflow-menu-horizontal cursor-pointer />
+              <div i-carbon-overflow-menu-horizontal cursor-pointer aria-label="更多操作按钮" />
               <template #panel>
                 <div p-2>
                   <div
@@ -95,6 +95,7 @@ onUnmounted(() => {
                     transition-colors duration-200 transform cursor-pointer
                     hover="bg-gray-100 dark:(bg-gray-700 text-white)"
                     @click="shareHandle(obj?.detail, obj?.url)"
+                    aria-label="分享"
                   >
                     <span i-carbon-crowd-report text-xl me-4 />分享
                   </div>
@@ -104,6 +105,7 @@ onUnmounted(() => {
                     transition-colors duration-200 transform cursor-pointer
                     hover="bg-gray-100 dark:(bg-gray-700 text-white)"
                     @click="copyHandle(obj?.url)"
+                    aria-label="复制链接"
                   >
                     <span i-carbon-copy text-xl me-4 />复制链接
                   </div>
@@ -112,7 +114,7 @@ onUnmounted(() => {
             </UPopover>
           </ClientOnly>
 
-          <div i-carbon-close-large cursor-pointer @click="close" />
+          <div i-carbon-close-large cursor-pointer @click="close" aria-label="关闭当前图片详情" />
         </div>
       </div>
     </template>

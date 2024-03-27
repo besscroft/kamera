@@ -13,6 +13,10 @@ Kamera
 图片存储兼容 S3 API、AList API、支持 CDN 配置。同时适配了 PC 和移动端的样式与交互。
 今天又是想当二次元摄影高手的一天呢！
 
+### 无障碍支持
+
+已经在尽力支持了，主要基于 [WAI-ARIA 规范](https://developer.mozilla.org/zh-CN/docs/Learn/Accessibility/WAI-ARIA_basics)，有爱，无障碍！
+
 ### 如何部署
 
 你可以 Fork 后点击下面的按钮来一键部署到 Vercel（自定义配置及容器部署请往下看）

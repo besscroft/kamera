@@ -13,19 +13,19 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.9.0",
-    "@element-plus/nuxt": "^1.0.7",
+    "@antfu/eslint-config": "^2.11.0",
+    "@element-plus/nuxt": "^1.0.8",
     "@iconify-json/carbon": "^1.1.31",
     "@nuxt/eslint": "^0.3.0-beta.2",
     "@nuxtjs/color-mode": "^3.3.3",
     "@nuxtjs/device": "^3.1.1",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@pinia/nuxt": "^0.5.1",
-    "@unocss/eslint-config": "^0.58.6",
-    "@unocss/nuxt": "^0.58.6",
+    "@unocss/eslint-config": "^0.58.7",
+    "@unocss/nuxt": "^0.58.7",
     "@vueuse/nuxt": "^10.9.0",
     "consola": "^3.2.3",
-    "element-plus": "^2.6.1",
+    "element-plus": "^2.6.2",
     "eslint": "^8.57.0",
     "eslint-plugin-format": "^0.1.0",
     "nuxt": "^3.11.1",
@@ -35,12 +35,12 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
-    "@nuxt/ui": "^2.14.2",
-    "aws-sdk": "^2.1582.0",
+    "@nuxt/ui": "^2.15.0",
+    "aws-sdk": "^2.1586.0",
     "crypto-js": "^4.2.0",
     "exifreader": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
-    "postgres": "^3.4.3",
+    "postgres": "^3.4.4",
     "vue-waterfall-plugin-next": "^2.4.3"
   }
 }

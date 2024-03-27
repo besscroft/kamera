@@ -200,7 +200,7 @@ definePageMeta({
   <div>
     <div p2 md:p8 pb-20>
       <div flex items-center justify-center justify-between w-full mt-4>
-        <el-select v-model="type" m-2 max-w-80 placeholder="类型(查询条件)" @change="dataHandle">
+        <el-select v-model="type" m-2 max-w-80 placeholder="类型(查询条件)" @change="dataHandle" aria-label="类型(查询条件)选择下拉框">
           <el-option
             v-for="item in imgTypeOptions"
             :key="item.value"
