@@ -246,7 +246,7 @@ definePageMeta({
   <div w-full max-h-full flex flex-col items-center justify-center mx-auto p2 md:p8 pb-20 class="md:w-4/5 lg:w-3/5">
     <div my-6 md:my-16 mx-auto w-full rounded-md bg-white dark:bg-gray-800 shadow p-2>
       <div flex items-center justify-center pb-2>
-        <el-select v-model="storage" m-2 placeholder="请选择存储">
+        <el-select v-model="storage" m-2 placeholder="请选择存储" aria-label="存储选择下拉框">
           <el-option
             v-for="item in storageOptions"
             :key="item.value"
@@ -254,7 +254,7 @@ definePageMeta({
             :value="item.value"
           />
         </el-select>
-        <el-select v-model="imgData.type" m-2 placeholder="请选择图片类别">
+        <el-select v-model="imgData.type" m-2 placeholder="请选择图片类别" aria-label="图片类别选择下拉框">
           <el-option
             v-for="item in imgTypeOptions"
             :key="item.value"
